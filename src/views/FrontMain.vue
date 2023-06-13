@@ -1,9 +1,9 @@
 <template>
   <TheHeader/>
   <div>
-    <section class="test">
-      <div v-on:click="kakaoLoginBtn">카카오 연동</div>
-    </section>
+      <div v-on:click="kakaoLoginBtn">
+        <button class="kakao-login"></button>
+      </div>
   </div>
   <TheFooter></TheFooter>
 </template>
@@ -19,11 +19,10 @@ export default {
     }
   },
   beforeCreate() {
+    window.Kakao.init('41ad0cc682fed5cec0c7799409ef78ca') // Kakao Developers에서 요약 정보 -> JavaScript 키
   },
   methods: {
     kakaoLoginBtn:function(){
-
-      window.Kakao.init('41ad0cc682fed5cec0c7799409ef78ca') // Kakao Developers에서 요약 정보 -> JavaScript 키
 
       if (window.Kakao.Auth.getAccessToken()) {
         window.Kakao.API.request({
@@ -63,8 +62,3 @@ export default {
 
 }
 </script>
-
-<style scoped>
-.test{ display:flex; justify-content: center; align-items: center; height:100vh; }
-div{ width: 200px; height:40px; background-color:#fdd101; color:white; display:flex; align-items: center; justify-content: center; cursor:pointer; }
-</style>
