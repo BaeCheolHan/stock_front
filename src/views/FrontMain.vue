@@ -1,9 +1,7 @@
 <template>
   <TheHeader/>
   <div>
-      <div v-on:click="kakaoLoginBtn">
-        <button class="kakao-login"></button>
-      </div>
+      <div class="kakao-login" v-on:click="kakaoLoginBtn"></div>
   </div>
   <TheFooter></TheFooter>
 </template>
