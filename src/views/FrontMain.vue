@@ -1,61 +1,44 @@
-<template>
-  <TheHeader/>
-  <div>
-      <div class="kakao-login" v-on:click="kakaoLoginBtn"></div>
+<template >
+  <div v-if="!isClickLoginBtn">
+<!--      <a :href="kakaoLoginLink" alt="kakao login">-->
+        <div class="kakao-login" v-on:click="kakaoLoginBtn"></div>
+<!--      </a>-->
   </div>
-  <TheFooter></TheFooter>
+  <div v-html="htmlContents">
+
+  </div>
 </template>
 <script>
-import TheHeader from "@/components/TheHeader";
-import TheFooter from "@/components/TheFooter";
+
 
 export default {
-  components: {TheFooter, TheHeader},
-  date: function () {
+  name: 'front-main',
+  components: {
+  },
+  data: function () {
     return {
-
+      isClickLoginBtn: false,
+      htmlContents: null,
     }
+  },
+  computed: {
+
   },
   beforeCreate() {
-    window.Kakao.init('41ad0cc682fed5cec0c7799409ef78ca') // Kakao Developers에서 요약 정보 -> JavaScript 키
   },
   methods: {
-    kakaoLoginBtn:function(){
-
-      if (window.Kakao.Auth.getAccessToken()) {
-        window.Kakao.API.request({
-          url: '/v1/user/unlink',
-          success: function (response) {
-            console.log(response)
-          },
-          fail: function (error) {
-            console.log(error)
-          },
-        })
-        window.Kakao.Auth.setAccessToken(undefined)
-      }
-
-
-      window.Kakao.Auth.login({
-        success: function () {
-          window.Kakao.API.request({
-            url: '/v2/user/me',
-            data: {
-              property_keys: ["kakao_account.email"]
-            },
-            success: async function (response) {
-              console.log(response);
-            },
-            fail: function (error) {
-              console.log(error)
-            },
-          })
-        },
-        fail: function (error) {
-          console.log(error)
-        },
-      })
-    }
+    kakaoLoginBtn: async function(){
+      this.isClickLoginBtn = true;
+      let res = await this.axios.get('/login/kakao')
+      // let iframe = document.createElement('iframe');
+      // console.log(document.getElementsByClassName('iframe-wrap'))
+      console.log(res.data)
+      this.htmlContents = res.data;
+      // document.getElementsByClassName('iframe-wrap')[0].innerHTML = res.data;
+      // iframe.contentWindow.document.open();
+      // iframe.contentWindow.document.write(res.data);
+      // iframe.contentWindow.document.close();
+    },
   }
 
 }

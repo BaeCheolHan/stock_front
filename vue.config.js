@@ -44,8 +44,8 @@ module.exports = defineConfig({
       historyApiFallback: true,
       // inline: true,
       // overlay: true,
-      host: 'test.stock-manage.com',
-      port: 80,
+      host: 'localhost',
+      port: 81,
       https: false,
       // https: {
       //   key:  fs.readFileSync('/home/feed/SSL/oasisfeed/STAR.oasisfeed.com.key'),
@@ -54,7 +54,10 @@ module.exports = defineConfig({
       // },
       proxy: {
         '/api': {
-          target: 'http://localhost:8081'
+          target: 'http://localhost:18080'
+        },
+        '/login': {
+          target: 'http://localhost:18080'
         }
       }
     }
