@@ -1,6 +1,11 @@
 <template>
     <div>
         This is redirect
+        {{userInfo}}
+        <div>
+            <p>nickName : {{userInfo.nickname}}</p>
+            <img :src="userInfo.profile_image_url">
+        </div>
     </div>
 </template>
 
@@ -11,21 +16,20 @@ export default {
     components: {},
     data: function () {
         return {
+            userInfo: null
         }
     },
-    created: function() {
-        console.log(this.$route)
+    created: async function() {
         const code = this.$route.query.code;
-        console.log(code)
-        // let response = await this.axios.get('/oauth2/kakao?code='.concat(code));
-        // console.log(response.data)
-        // if (token) {
-        //     this.store.commit('setToken', token)
-        //     sessionStorage.setItem('accessToken', token)
-        //     alert('로그인하였습니다.')
-        // } else {
-        //     console.log("!!")
-        // }
+        let response = await this.axios.get('/oauth/kakao?code='.concat(code));
+        if (response.data) {
+            // this.store.commit('setUserInfo', response.data)
+            // sessionStorage.setItem('setUserInfo', response.data)
+            alert('로그인하였습니다.')
+            this.userInfo = response.data
+        } else {
+            console.log("!!")
+        }
 
     },
     methods: {

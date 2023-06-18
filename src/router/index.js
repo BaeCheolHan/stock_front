@@ -4,7 +4,7 @@ import SocialRedirect from "@/views/social/SocialRedirect.vue";
 
 const routes = [
     {path: '/', name: 'FrontMain', component: FrontMain},
-    {path: '/oauth2/redirect', name: 'SocialRedirect', component: SocialRedirect},
+    {path: '/redirect', name: 'SocialRedirect', component: SocialRedirect},
 ]
 
 const router = createRouter({
