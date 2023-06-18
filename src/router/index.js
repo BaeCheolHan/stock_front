@@ -1,8 +1,10 @@
 import {createRouter, createWebHistory } from "vue-router";
 import FrontMain from "@/views/FrontMain";
+import SocialRedirect from "@/views/social/SocialRedirect.vue";
 
 const routes = [
-    {path: '/', name: 'FrontMain', component: FrontMain}
+    {path: '/', name: 'FrontMain', component: FrontMain},
+    {path: '/oauth2/redirect', name: 'SocialRedirect', component: SocialRedirect},
 ]
 
 const router = createRouter({

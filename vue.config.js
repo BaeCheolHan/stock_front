@@ -44,8 +44,8 @@ module.exports = defineConfig({
       historyApiFallback: true,
       // inline: true,
       // overlay: true,
-      host: 'localhost',
-      port: 81,
+      host: 'stock.hws.pe.kr',
+      port: 80,
       https: false,
       // https: {
       //   key:  fs.readFileSync('/home/feed/SSL/oasisfeed/STAR.oasisfeed.com.key'),
@@ -57,6 +57,9 @@ module.exports = defineConfig({
           target: 'http://localhost:18080'
         },
         '/login': {
+          target: 'http://localhost:18080'
+        },
+        '/oauth': {
           target: 'http://localhost:18080'
         }
       }
