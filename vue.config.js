@@ -54,13 +54,13 @@ module.exports = defineConfig({
       // },
       proxy: {
         '/api': {
-          target: 'http://localhost:18080'
+          target: 'http://localhost:18081'
         },
         '/login': {
-          target: 'http://localhost:18080'
+          target: 'http://localhost:18081'
         },
         '/oauth': {
-          target: 'http://localhost:18080'
+          target: 'http://localhost:18081'
         }
       }
     }
