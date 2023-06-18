@@ -6,14 +6,15 @@ export default createStore({
             isMobile:  true,
             subDomain: undefined
         },
-        token: null
+        userInfo: null
     },
     getters : {
-        info:   function(state) { return state.info; },
+        info:       function(state) { return state.info; },
+        userInfo:   function(state) { return state.userInfo; },
     },
     mutations: {
-        setToken(state, token) {
-            state.token = token;
+        setUserInfo(state, userInfo) {
+            state.userInfo = userInfo;
         }
     },
     actions: {

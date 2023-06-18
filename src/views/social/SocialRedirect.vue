@@ -1,11 +1,5 @@
 <template>
     <div>
-        This is redirect
-        {{userInfo}}
-        <div>
-            <p>nickName : {{userInfo.nickname}}</p>
-            <img :src="userInfo.profile_image_url">
-        </div>
     </div>
 </template>
 
@@ -23,12 +17,9 @@ export default {
         const code = this.$route.query.code;
         let response = await this.axios.get('/oauth/kakao?code='.concat(code));
         if (response.data) {
-            // this.store.commit('setUserInfo', response.data)
-            // sessionStorage.setItem('setUserInfo', response.data)
-            alert('로그인하였습니다.')
-            this.userInfo = response.data
-        } else {
-            console.log("!!")
+            this.$store.commit('setUserInfo', JSON.stringify(response.data))
+            sessionStorage.setItem('userInfo', JSON.stringify(response.data))
+            location.href = '/'
         }
 
     },
