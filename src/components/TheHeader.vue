@@ -3,9 +3,9 @@
 
   </header>
   <div v-if="userInfo" class="profile-wrap">
-    <img class="profile-thumbnail" :src="userInfo.thumbnail_image_url">
+    <img class="profile-thumbnail" :src="userInfo.profile.thumbnail_image_url">
     <div class="profile-nickname">
-      <span>{{ userInfo.nickname }}</span>
+      <span>{{ userInfo.profile.nickname }}</span>
     </div>
   </div>
 </template>

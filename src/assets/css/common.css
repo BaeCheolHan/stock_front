@@ -44,7 +44,6 @@ input[type=number] {
 .profile-wrap {
     display: flex;
     justify-content: right;
-    margin-right: 10px;
     border-bottom: 2px solid;
     border-bottom-color: #e00000;
 }
@@ -52,10 +51,31 @@ input[type=number] {
 .profile-wrap .profile-thumbnail {
     border-radius: 10px;
     width: 35px;
+    height: 35px;
     padding: 5px;
+    object-fit: cover;
+    -object-fit: cover;
 }
+
 .profile-nickname {
     font-size: 15px;
-    font-weight: bold;
-    padding: 5px;
+    font-weight: 700;
+    padding: 0 5px;
+    line-height: 45px;
+}
+
+.account-wrap {
+    margin-top: 20px;
+}
+
+.empty-account {
+    color: #e6e4eb;
+    border: 1px solid #e6e4eb;
+    border-radius: 20px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+    font-size: 20px;
+    width: 90%;
+    margin: 0 auto;
 }
