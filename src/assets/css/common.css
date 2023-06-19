@@ -3,24 +3,92 @@
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
 /* Reset */
-* {outline:0 !important;}
-html{min-height: 100vh; position: relative;}
-html,body,h1,h2,h3,h4,h5,h6,div,p,blockquote,pre,code,address,ul,ol,li,menu,nav,section,article,aside,
-dl,dt,dd,table,thead,tbody,tfoot,label,caption,th,td,form,fieldset,legend,hr,input,button,textarea,object,figure,figcaption {margin:0;padding:0;}
-html, body{width:100%;}
-body{width:100%; background:#fff; -webkit-text-size-adjust:none;word-wrap:break-word;word-break:break-all; font-family: 'Noto Sans KR', sans-serif;}
-body,input,select,textarea,button {border:none;font-size:12px; font-family:'Pretendard', sans-serif;color:#222;}
-ul,ol,li{list-style:none;}
-table{width:100%;border-spacing:0;border-collapse:collapse;}
-img,fieldset{border:0;}
-address,cite,code,em{font-style:normal;font-weight:normal;}
-label,img,input,select,textarea,button{vertical-align:middle;}
-.hide,caption,legend{line-height:0;font-size:1px;overflow:hidden;}
-hr{display:none;}
-main,header,section,nav,footer,aside,article,figure{display:block;}
-a{color:#000;text-decoration:none; cursor: pointer;}
-button {cursor: pointer; background-color: transparent;}
-.scroll-lock body{overflow: hidden;}
+* {
+    outline: 0 !important;
+}
+
+html {
+    min-height: 100vh;
+    position: relative;
+}
+
+html, body, h1, h2, h3, h4, h5, h6, div, p, blockquote, pre, code, address, ul, ol, li, menu, nav, section, article, aside,
+dl, dt, dd, table, thead, tbody, tfoot, label, caption, th, td, form, fieldset, legend, hr, input, button, textarea, object, figure, figcaption {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+}
+
+body {
+    width: 100%;
+    background: #fff;
+    -webkit-text-size-adjust: none;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body, input, select, textarea, button {
+    border: none;
+    font-size: 12px;
+    font-family: 'Pretendard', sans-serif;
+    color: #222;
+}
+
+ul, ol, li {
+    list-style: none;
+}
+
+table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+img, fieldset {
+    border: 0;
+}
+
+address, cite, code, em {
+    font-style: normal;
+    font-weight: normal;
+}
+
+label, img, input, select, textarea, button {
+    vertical-align: middle;
+}
+
+.hide, caption, legend {
+    line-height: 0;
+    font-size: 1px;
+    overflow: hidden;
+}
+
+hr {
+    display: none;
+}
+
+main, header, section, nav, footer, aside, article, figure {
+    display: block;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button {
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.scroll-lock body {
+    overflow: hidden;
+}
 
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
@@ -68,6 +136,10 @@ input[type=number] {
     margin-top: 20px;
 }
 
+.bank-icon {
+    width: 20px;
+}
+
 .empty-account {
     color: #e6e4eb;
     border: 1px solid #e6e4eb;
@@ -78,5 +150,5 @@ input[type=number] {
     font-size: 20px;
     width: 90%;
     margin: 0 auto;
-    cursor : pointer;
+    cursor: pointer;
 }

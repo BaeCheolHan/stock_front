@@ -1,20 +1,30 @@
 <template>
   <div v-if="!userInfo.bankAccount" class="account-wrap">
-    <div class="empty-account">
+    <div class="empty-account" @click="showRegAccountPop()">
       <p>+ 계좌를 등록해주세요.</p>
     </div>
   </div>
+  <Modal v-if="isShowRegAccountPop" @close-modal="isShowRegAccountPop = false">
+    <SaveBankAccount msg="" />
+  </Modal>
 </template>
+
+
 <script>
+import Modal from "@/views/common/Modal";
+import SaveBankAccount from "@/views/account/SaveBankAccount";
 
 
 export default {
   name: 'Dashboard',
   components: {
+    Modal,
+    SaveBankAccount
   },
   data: function () {
     return {
       userInfo: null,
+      isShowRegAccountPop: false,
     }
   },
   computed: {},
@@ -22,6 +32,9 @@ export default {
     this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
   },
   methods: {
+    showRegAccountPop: function () {
+      this.isShowRegAccountPop = true;
+    }
 
   }
 
