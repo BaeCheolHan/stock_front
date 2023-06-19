@@ -1,11 +1,25 @@
 <template>
   <header>
-    this is header
+
   </header>
+  <div v-if="userInfo" class="profile-wrap">
+    <img class="profile-thumbnail" :src="userInfo.thumbnail_image_url">
+    <div class="profile-nickname">
+      <span>{{ userInfo.nickname }}</span>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
+  data: function () {
+    return {
+      userInfo: null,
+    }
+  },
+  created() {
+    this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
+  },
 
 }
 </script>

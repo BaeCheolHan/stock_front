@@ -1,12 +1,5 @@
 <template>
-
-
-    <div v-if="userInfo">
-        <div>
-            <p>nickName : {{ userInfo.nickname }}</p>
-            <img :src="userInfo.thumbnail_image_url">
-        </div>
-    </div>
+    <TheHeader v-if="userInfo"/>
     <div v-else>
         <div>
             <div class="kakao-login" v-on:click="kakaoLoginBtn"></div>
@@ -16,21 +9,21 @@
 </template>
 <script>
 
+import TheHeader from "@/components/TheHeader";
 
 export default {
     name: 'FrontMain',
-    components: {},
+    components: {
+      TheHeader,
+    },
     data: function () {
         return {
-            isClickLoginBtn: false,
-            htmlContents: null,
             userInfo: null,
         }
     },
     computed: {},
     created() {
         this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
-        console.log(this.userInfo)
     },
     methods: {
         kakaoLoginBtn: async function () {

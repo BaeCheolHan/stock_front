@@ -40,3 +40,22 @@ input[type=number] {
     height: 50px;
     border: white;
 }
+
+.profile-wrap {
+    display: flex;
+    justify-content: right;
+    margin-right: 10px;
+    border-bottom: 2px solid;
+    border-bottom-color: #e00000;
+}
+
+.profile-wrap .profile-thumbnail {
+    border-radius: 10px;
+    width: 35px;
+    padding: 5px;
+}
+.profile-nickname {
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px;
+}

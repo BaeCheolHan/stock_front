@@ -44,7 +44,7 @@ module.exports = defineConfig({
       historyApiFallback: true,
       // inline: true,
       // overlay: true,
-      host: 'stock.hws.pe.kr',
+      host: 'test.hws.pe.kr',
       port: 80,
       https: false,
       // https: {
