@@ -2,7 +2,7 @@
   <div class="content">
     <h2>계좌 등록</h2>
     <div v-for="bank in banks" v-bind:key="bank">
-      <img class="bank-icon" :src="'./bank-icons/'.concat(bank.bankCode).concat('.jpg')" @error="'./bank-icons/default-bank.png'">
+      <img class="bank-icon" :src="'./bank-icons/'.concat(bank.bankCode).concat('.jpg')" @error="replaceBankDefaultImg">
       {{bank.bankCode}}
     </div>
   </div>
@@ -21,11 +21,13 @@ export default {
   },
   created: async function () {
     let res = await this.axios.get("/api/banks");
-    console.log(res)
     this.banks = res.data;
   },
   methods: {
+    replaceBankDefaultImg(e) {
 
+      e.target.src = './bank-icons/default-bank.png';
+    }
   }
 };
 </script>
