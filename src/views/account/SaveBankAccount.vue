@@ -2,7 +2,7 @@
   <div class="content">
     <h2>계좌 등록</h2>
     <div v-for="bank in banks" v-bind:key="bank">
-      <img class="bank-icon" :src="'./bank-icons/'.concat(bank.bankCode).concat('.jpg')">
+      <img class="bank-icon" :src="'./bank-icons/'.concat(bank.bankCode).concat('.jpg')" @error="'./bank-icons/default-bank.png'">
       {{bank.bankCode}}
     </div>
   </div>
