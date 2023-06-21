@@ -3,7 +3,7 @@
     <h2>계좌 등록</h2>
     <div v-for="bank in banks" v-bind:key="bank">
       <img class="bank-icon" :src="'./bank-icons/'.concat(bank.bankCode).concat('.jpg')" @error="replaceBankDefaultImg">
-      {{bank.bankCode}}
+      {{bank.bankName}} - {{bank.bankCode}}
     </div>
   </div>
 </template>
