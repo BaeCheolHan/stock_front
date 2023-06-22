@@ -60,7 +60,7 @@ module.exports = defineConfig({
         '/login': {
           target: 'http://localhost:18081'
         },
-        '/oauth': {
+        '/sns': {
           target: 'http://localhost:18081'
         }
       }
