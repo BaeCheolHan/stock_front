@@ -3,6 +3,7 @@
   <div v-else>
     <div>
       <div class="kakao-login" v-on:click="kakaoLoginBtn"></div>
+      <div class="naver-login mg-t-5" v-on:click="naverLoginBtn"></div>
     </div>
   </div>
 
