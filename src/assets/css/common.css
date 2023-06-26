@@ -182,6 +182,25 @@ input[type=number] {
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+.popup-wrap {
+    padding: 10px;
+    height: calc(100% - 82px);
+}
+
+.popup-wrap .inputBox span {
+    width: 15%;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.popup-wrap .inputBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 13px;
+}
+
 /* searchSelect */
 .searchSelect {
     position: relative;
