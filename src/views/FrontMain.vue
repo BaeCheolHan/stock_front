@@ -7,7 +7,7 @@
     </div>
   </div>
 
-  <Dashboard/>
+  <Dashboard v-if="userInfo"/>
 
 </template>
 <script>

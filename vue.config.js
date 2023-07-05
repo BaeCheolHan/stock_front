@@ -4,6 +4,7 @@ const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
   lintOnSave:false,
+
   configureWebpack: config => {
     if (process.env.NODE_ENV === 'production') {
       // mutate config for production...
@@ -65,5 +66,11 @@ module.exports = defineConfig({
         }
       }
     }
+  },
+
+  pluginOptions: {
+    vuetify: {
+			// https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vuetify-loader
+		}
   }
 })

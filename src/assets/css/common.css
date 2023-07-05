@@ -153,6 +153,15 @@ input[type=number] {
     width: 20px;
 }
 
+.account {
+    border: 1px solid #e6e4eb;
+    border-radius: 10px;
+    font-size: 15px;
+    width: 90%;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
 .empty-account {
     color: #e6e4eb;
     border: 1px solid #e6e4eb;
