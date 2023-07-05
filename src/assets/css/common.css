@@ -122,11 +122,21 @@ input[type=number] {
     border-radius: 8px;
 }
 
-.profile-wrap {
+.flex {
     display: flex;
-    justify-content: right;
+}
+.header {
     border-bottom: 2px solid;
     border-bottom-color: #e00000;
+}
+
+.exchange-rate-wrap {
+    margin-left: auto;
+    padding: 5px;
+}
+.profile-wrap {
+    margin-right: auto;
+    display: flex;
 }
 
 .profile-wrap .profile-thumbnail {
