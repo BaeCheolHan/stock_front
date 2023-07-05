@@ -26,7 +26,10 @@
         </div>
       </div>
       <div class="mg-t-10 flex inputBox">
-        <input class="form-control" type="text" placeholder="계좌 별칭을 입력해주세요.">
+        <input class="form-control" type="text" v-model="alias" placeholder="계좌 별칭을 입력해주세요.">
+      </div>
+      <div class="btnBox t-a-c">
+        <button type="button" @click="saveBank">등록</button>
       </div>
     </div>
   </div>
@@ -44,6 +47,7 @@ export default {
       copiedBanks: null,
       bankName: null,
       selectedBank: null,
+      alias: null,
     }
   },
   created: async function () {
@@ -73,7 +77,27 @@ export default {
     },
     cancelSelectBank: function () {
       this.selectedBank = null;
-    }
+    },
+    saveBank: async function() {
+      if(!this.selectedBank) {
+        alert("증권사를 선택해주세요")
+        return;
+      }
+
+      if(!this.alias) {
+        alert("계좌 별칭을 입력해주세요")
+        return;
+      }
+
+      let param = {
+        memberId: JSON.parse(sessionStorage.getItem('userInfo')).memberId,
+        bank: this.selectedBank,
+        alias: this.alias
+      }
+      let res = await this.axios.post('/api', param);
+      console.log(res)
+    },
+
   }
 };
 </script>

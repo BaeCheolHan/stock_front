@@ -12,7 +12,7 @@
 
 <script>
 import Modal from "@/views/common/Modal";
-import SaveBankAccount from "@/views/account/SaveBankAccount";
+import SaveBankAccount from "@/views/bankAccount/SaveBankAccount";
 
 
 export default {
