@@ -1,13 +1,23 @@
 <template>
   <div v-if="userInfo.bankAccounts" class="account-wrap">
-    <v-tabs v-model="tab" color="red-accent-4" align-tabs="end">
+    <v-tabs v-model="tab" color="#e00000" align-tabs="end">
+      <v-tab :key="all" :value="'all'">
+        <img class="bank-icon" :src="'./bank-icons/default-bank.png'" alt="bank-icon">
+        전체
+      </v-tab>
       <v-tab v-for="account in userInfo.bankAccounts" :key="account.id" :value="account.id">
         <img class="bank-icon" :src="'./bank-icons/'.concat(account.bankInfo.bankCode).concat('.jpg')" @error="replaceBankDefaultImg" alt="bank-icon">
         {{account.alias}}
       </v-tab>
     </v-tabs>
-    <v-card>
+    <div class="pd-5">
+    <v-card p>
       <v-window v-model="tab">
+        <v-window-item :value="'all'">
+          <v-container fluid>
+            전체
+          </v-container>
+        </v-window-item>
         <v-window-item
             v-for="account in userInfo.bankAccounts"
             :key="account.id"
@@ -19,6 +29,7 @@
         </v-window-item>
       </v-window>
     </v-card>
+    </div>
   </div>
   <div class="account-wrap">
     <div class="empty-account" @click="showRegAccountPop()">
