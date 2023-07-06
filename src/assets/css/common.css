@@ -504,6 +504,18 @@ input[type=number] {
 .t-a-r {text-align: right !important;}
 .t-a-c {text-align: center !important;}
 
+.col-1 {width: 100% !important;}
+.col-2 {width: 50% !important;}
+.col-2-49 {width: 49% !important; display: inline-block;}
+.col-3 {width: 33.33333333333333% !important;}
+.col-4 {width: 25% !important;}
+.col-5 {width: 20% !important;}
+.col-6 {width: 16.66666666666667% !important;}
+.col-7 {width: 14.28571428571429% !important;}
+.col-8 {width: 12.5% !important;}
+.col-9 {width: 11.11111111111111% !important;}
+.col-10 {width: 10% !important;}
+
 .w-5 {
     width: 5% !important;
 }
