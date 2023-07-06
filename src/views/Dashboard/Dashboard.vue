@@ -10,6 +10,11 @@
              @error="replaceBankDefaultImg" alt="bank-icon">
         {{ account.alias }}
       </v-tab>
+      <div class="flex mg-r-10" style="align-items: center;">
+        <div style="height: 50%; border: 1px solid #e6e4eb;">
+        <button @click="showRegAccountPop()">+</button>
+        </div>
+      </div>
     </v-tabs>
     <div class="pd-5">
       <v-card p>
