@@ -5,8 +5,7 @@
 
       <div class="mg-t-10" v-if="!this.selectedBank">
         <div class="searchSelect searchBankSelect">
-          <input class="form-control" placeholder="계좌 별칭" @focus="bankSelectFocus"
-                 v-model="alias" @keyup="searchBank">
+          <input class="form-control" placeholder="계좌 별칭" @focus="bankSelectFocus" @keyup="searchBank($event)">
           <i class="ti-angle-down"></i>
         </div>
         <ul class="searchSelectBox searchBankSelectBox" @blur="closeBankDropDown" @focus="bankSelectFocus">
@@ -39,13 +38,12 @@
           </select>
 
           <select required class="form-control" v-model="selectedCode">
-            <option v-for="code in codes" :value="code">{{ code }}</option>
+            <option v-for="code in codes" :key="code" :value="code">{{ code }}</option>
           </select>
         </div>
         <div class="mg-t-10" v-if="!this.selectedStock">
           <div class="searchSelect searchStockSelect">
-            <input class="form-control" placeholder="종목명" @focus="stockSelectFocus"
-                   v-model="searchStockName" @keyup="searchStock">
+            <input class="form-control" placeholder="종목명" @focus="stockSelectFocus" @keyup="searchStock($event)">
             <i class="ti-angle-down"></i>
           </div>
           <ul class="searchSelectBox searchStockSelectBox" @blur="closeStockDropDown" @focus="stockSelectFocus">
@@ -85,8 +83,6 @@ export default {
     return {
       processing: false,
       userInfo: null,
-      alias: null,
-      searchStockName: null,
       bankAccounts: null,
       copiedBankAccounts: null,
       selectedBank: null,
@@ -165,18 +161,15 @@ export default {
       }
 
     },
-    searchBank: function () {
+    searchBank: function (event) {
       this.copiedBankAccounts = this.bankAccounts.filter(item => {
-        return item.alias.replace(' ', '').includes(this.alias)
+        return item.alias.replace(' ', '').includes(event.target.value)
       });
     },
-    searchStock: function () {
-      if (this.searchStockName) {
-        this.copyStocks = this.stocks.filter(item => {
-          return item.name.toString().replace(' ', '').includes(this.searchStockName)
-        });
-      }
-
+    searchStock: function (event) {
+      this.copyStocks = this.stocks.filter(item => {
+        return item.name.toString().replace(' ', '').includes(event.target.value)
+      });
     },
     replaceBankDefaultImg(e) {
       e.target.src = './bank-icons/default-bank.png';

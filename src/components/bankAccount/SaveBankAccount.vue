@@ -5,8 +5,7 @@
 
       <div class="mg-t-10" v-if="!this.selectedBank">
         <div class="searchSelect">
-          <input class="form-control" placeholder="증권사를 검색해주세요" @focus="bankSelectFocus"
-                 v-model="bankName" @keyup="searchBank">
+          <input class="form-control" placeholder="증권사를 검색해주세요" @focus="bankSelectFocus" @keyup="searchBank($event)">
           <i class="ti-angle-down"></i>
         </div>
         <ul class="searchSelectBox" @blur="closeDropDown" @focus="bankSelectFocus">
@@ -46,7 +45,6 @@ export default {
     return {
       banks: null,
       copiedBanks: null,
-      bankName: null,
       selectedBank: null,
       alias: null,
       timeout: null,
@@ -78,9 +76,9 @@ export default {
     bankSelectFocus: function () {
       document.getElementsByClassName('searchSelectBox')[0].style.display = "";
     },
-    searchBank: function () {
+    searchBank: function (event) {
       this.copiedBanks = this.banks.filter(item => {
-        return item.bankName.includes(this.bankName)
+        return item.bankName.includes(event.target.value)
       });
     },
     selectBank: function (bank) {
