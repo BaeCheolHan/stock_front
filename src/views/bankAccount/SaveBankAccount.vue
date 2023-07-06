@@ -10,7 +10,7 @@
           <i class="ti-angle-down"></i>
         </div>
         <ul class="searchSelectBox" @blur="closeDropDown" @focus="bankSelectFocus">
-          <li v-for="bank in copiedBanks" v-bind:key="bank" @click="selectBank(bank)">
+          <li v-for="bank in copiedBanks" :key="bank" @click="selectBank(bank)">
             <img class="bank-icon" :src="'./bank-icons/'.concat(bank.bankCode).concat('.jpg')"
                  @error="replaceBankDefaultImg">
             <span>{{ bank.bankName }}</span>
