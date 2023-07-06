@@ -590,3 +590,12 @@ input[type=number] {
 
 .red {color: red !important;}
 .blue {color: rgb(0, 118, 255) !important;}
+
+select {
+    -moz-appearance: listbox !important;
+    -webkit-appearance: listbox !important;
+}
+
+select::-ms-expand {
+    display: block;
+}
