@@ -68,7 +68,7 @@
           <input type="number" class="form-control" placeholder="수량" v-model="quantity">
         </div>
         <div class="mg-t-10 btnBox t-a-c">
-          <button type="button" :disabled="isProcessing" @click="saveStock">등록</button>
+          <button type="button" :disabled="this.processing" @click="saveStock">등록</button>
         </div>
       </div>
     </div>
@@ -128,11 +128,7 @@ export default {
     endProcessing: function () {
       this.processing = false
     },
-    isProcessing: function () {
-      return this.processing
-    },
     saveStock: async function () {
-
       if (!this.selectedBank) {
         alert("계좌를 선택해주세요")
         return;
