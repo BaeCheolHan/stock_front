@@ -18,4 +18,5 @@ export default {
 </script>
 <style>
 @import url(assets/css/common.css);
+@import url(assets/css/themify-icons.css);
 </style>
