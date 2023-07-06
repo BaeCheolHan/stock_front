@@ -2,11 +2,11 @@
   <div v-if="userInfo.bankAccounts" class="account-wrap">
     <v-tabs v-model="tab" color="#e00000" align-tabs="end">
       <v-tab :key="all" :value="'all'">
-        <img class="bank-icon" :src="'./bank-icons/default-bank.png'" alt="bank-icon">
+        <img class="bank-icon mg-r-5" :src="'./bank-icons/default-bank.png'" alt="bank-icon">
         전체
       </v-tab>
       <v-tab v-for="account in userInfo.bankAccounts" :key="account.id" :value="account.id">
-        <img class="bank-icon" :src="'./bank-icons/'.concat(account.bankInfo.bankCode).concat('.jpg')" @error="replaceBankDefaultImg" alt="bank-icon">
+        <img class="bank-icon mg-r-5" :src="'./bank-icons/'.concat(account.bankInfo.bankCode).concat('.jpg')" @error="replaceBankDefaultImg" alt="bank-icon">
         {{account.alias}}
       </v-tab>
     </v-tabs>
