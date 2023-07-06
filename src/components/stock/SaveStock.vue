@@ -68,7 +68,7 @@
           <input type="number" class="form-control" placeholder="수량" v-model="quantity">
         </div>
         <div class="mg-t-10 btnBox t-a-c">
-          <button type="button" @click="saveStock">등록</button>
+          <button type="button" :disabled="isProcessing" @click="saveStock">등록</button>
         </div>
       </div>
     </div>
@@ -83,6 +83,7 @@ export default {
   },
   data: function () {
     return {
+      processing: false,
       userInfo: null,
       alias: null,
       searchStockName: null,
@@ -121,7 +122,17 @@ export default {
     this.closeStockDropDown();
   },
   methods: {
+    startProcessing: function () {
+      this.processing = true
+    },
+    endProcessing: function () {
+      this.processing = false
+    },
+    isProcessing: function () {
+      return this.processing
+    },
     saveStock: async function () {
+
       if (!this.selectedBank) {
         alert("계좌를 선택해주세요")
         return;
@@ -148,11 +159,12 @@ export default {
         quantity: this.quantity,
         price: this.price
       }
-
+      this.startProcessing();
       let res = await this.axios.post('/api/stock', param);
 
       if (res.data.code === 'SUCCESS') {
         alert("등록되었습니다.");
+        this.endProcessing();
         this.$parent.$parent.isShowRegStockPop = false;
       }
 
