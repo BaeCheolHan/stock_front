@@ -1,5 +1,5 @@
 <template>
-  <div v-if="userInfo.bankAccounts" class="account-wrap">
+  <div v-if="userInfo.bankAccounts.length > 0" class="account-wrap">
     <v-tabs v-model="tab" color="#e00000" align-tabs="end">
       <v-tab :key="'all'" :value="'all'">
         <img class="bank-icon mg-r-5" :src="'./bank-icons/default-bank.png'" alt="bank-icon">
