@@ -11,7 +11,7 @@
         {{ account.alias }}
       </v-tab>
       <div class="flex mg-r-10" style="align-items: center;">
-          <i class="ti-plus" @click="showRegAccountPop()"></i>
+        <i class="ti-plus" @click="showRegAccountPop()"></i>
       </div>
     </v-tabs>
     <div class="pd-5">
