@@ -61,6 +61,15 @@
             </li>
           </div>
         </div>
+        <div class="mg-t-10">
+          <input type="number" class="form-control" placeholder="구입 가격" v-model="price">
+        </div>
+        <div class="mg-t-10">
+          <input type="number" class="form-control" placeholder="수량" v-model="quantity">
+        </div>
+        <div class="mg-t-10 btnBox t-a-c">
+          <button type="button" @click="saveStock">등록</button>
+        </div>
       </div>
     </div>
   </div>
@@ -87,6 +96,8 @@ export default {
       copiedBanks: null,
       codes: [],
       selectedCode: null,
+      quantity: null,
+      price: null,
     }
   },
   watch: {
@@ -110,17 +121,54 @@ export default {
     this.closeStockDropDown();
   },
   methods: {
+    saveStock: async function () {
+      if (!this.selectedBank) {
+        alert("계좌를 선택해주세요")
+        return;
+      }
+
+      if (!this.selectedStock) {
+        alert("종목을 선택해주세요")
+        return;
+      }
+
+      if (!this.price || this.price === 0) {
+        alert("구입 가격을 입력해주세요")
+        return;
+      }
+
+      if (!this.quantity || this.quantity === 0) {
+        alert("수량을 입력해주세요")
+        return;
+      }
+
+      let param = {
+        bankId: this.selectedBank.id,
+        symbol: this.selectedStock.symbol,
+        quantity: this.quantity,
+        price: this.price
+      }
+
+      let res = await this.axios.post('/api/stock', param);
+
+      if (res.data.code === 'SUCCESS') {
+        alert("등록되었습니다.");
+        this.$parent.$parent.isShowRegStockPop = false;
+      }
+
+    },
     searchBank: function () {
       this.copiedBankAccounts = this.bankAccounts.filter(item => {
-        return item.alias.trim().includes(this.alias.trim())
+        return item.alias.replace(' ', '').includes(this.alias)
       });
     },
     searchStock: function () {
-      this.copyStocks = this.stocks.filter(item => {
-        console.log(item.name)
-        console.log(this.searchStockName)
-        return item.name.includes(this.searchStockName)
-      });
+      if (this.searchStockName) {
+        this.copyStocks = this.stocks.filter(item => {
+          return item.name.toString().replace(' ', '').includes(this.searchStockName)
+        });
+      }
+
     },
     replaceBankDefaultImg(e) {
       e.target.src = './bank-icons/default-bank.png';
