@@ -1,5 +1,7 @@
 <template>
   <div v-if="userInfo.bankAccounts.length > 0" class="account-wrap">
+
+    <!-- tab 영역 -->
     <v-tabs v-model="tab" color="#e00000" align-tabs="end">
       <v-tab :key="'all'" :value="'all'">
         <img class="bank-icon mg-r-5" :src="'./bank-icons/default-bank.png'" alt="bank-icon">
@@ -15,29 +17,28 @@
       </div>
     </v-tabs>
 
+    <!-- tab 내용 영역 -->
     <div class="pd-5">
-      <v-card p>
-        <v-window v-model="tab">
+      <v-card>
 
+        <v-window v-model="tab">
+          <!-- 계좌 전체 영역 -->
           <v-window-item :value="'all'">
             <v-container fluid>
+              <!-- 주식 종목 item 영역 -->
               <StockBox :stocks="stocks"/>
             </v-container>
           </v-window-item>
-
-          <v-window-item
-              v-for="account in userInfo.bankAccounts"
-              :key="account.id"
-              :value="account.id"
-          >
+          <!-- 개별 계좌 영역 -->
+          <v-window-item v-for="account in userInfo.bankAccounts" :key="account.id" :value="account.id">
             <v-container fluid>
+              <!-- 주식 종목 item 영역 -->
               <StockBox :stocks="stocks"/>
             </v-container>
           </v-window-item>
         </v-window>
       </v-card>
     </div>
-
   </div>
   <div v-else class="account-wrap">
     <div class="empty-account" @click="showRegAccountPop()">
