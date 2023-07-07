@@ -39,7 +39,7 @@ export default {
     SaveStock,
   },
   props: {
-    stocks: [],
+    stocks: [{}],
   },
   data: function () {
     return {
