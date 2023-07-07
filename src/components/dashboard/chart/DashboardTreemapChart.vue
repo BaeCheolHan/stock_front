@@ -13,7 +13,7 @@ export default {
   },
   props: {
     chartData: {
-      type: [{}],
+      type: [],
       required: true
     },
     chartOptions: {

@@ -21,7 +21,8 @@
             <v-card>
                 <v-window v-model="tab">
                     <!-- chart 영역 -->
-                    <DashboardTreemapChart v-if="renderTreemapChart" :chartData="treemapChartData" :chartOptions="treemapChartDataOptions"/>
+                    <DashboardTreemapChart v-if="renderTreemapChart" :chartData="treemapChartData"
+                                           :chartOptions="treemapChartDataOptions"/>
                     <!-- 계좌 전체 영역 -->
                     <v-window-item :value="'all'">
                         <v-container fluid>
@@ -76,14 +77,18 @@ export default {
             stocks: [],
             renderTreemapChart: true,
             treemapChartDataOptions: {
-                plotOptions: {
-                    treemap: {
-                        distributed: true
-                    }
+                legend: {
+                    show: false
                 },
                 chart: {
                     height: 350,
-                    type: "treemap",
+                    type: 'treemap'
+                },
+                plotOptions: {
+                    treemap: {
+                        distributed: true,
+                        enableShades: false
+                    }
                 },
             },
             treemapChartData: [
