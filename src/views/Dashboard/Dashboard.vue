@@ -1,6 +1,8 @@
 <template>
   <div v-if="userInfo.bankAccounts.length > 0" class="account-wrap">
 
+    <Pie v-if="stocks.length > 0" :data="pieChartData" :options="options" />
+
     <!-- tab 영역 -->
     <v-tabs v-model="tab" color="#e00000" align-tabs="end">
       <v-tab :key="'all'" :value="'all'">
@@ -57,6 +59,10 @@ import Modal from "@/views/common/Modal";
 import SaveBankAccount from "@/components/bankAccount/SaveBankAccount";
 import StockBox from "@/components/dashboard/StockBox";
 
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+import { Pie } from 'vue-chartjs'
+
+ChartJS.register(ArcElement, Tooltip, Legend)
 
 export default {
   name: 'Dashboard',
@@ -64,6 +70,7 @@ export default {
     Modal,
     SaveBankAccount,
     StockBox,
+    Pie
   },
   data: function () {
     return {
@@ -73,6 +80,19 @@ export default {
       bankId: null,
       tab: null,
       stocks: [],
+
+      pieChartData: {
+        labels: [],
+        datasets: [
+          {
+            backgroundColor: [],
+            data: []
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+      }
     }
   },
   watch: {
@@ -85,7 +105,15 @@ export default {
         url = "/api/stock/".concat(memberId);
       }
       let res = await this.axios.get(url);
-      if (res.data.stocks) this.stocks = res.data.stocks;
+      if (res.data.stocks) {
+        this.stocks = res.data.stocks;
+        this.stocks.forEach(item => {
+          this.pieChartData.labels.push(item.name);
+          this.pieChartData.datasets[0].data.push(item.priceImportance);
+          this.pieChartData.datasets[0].backgroundColor.push(this.dynamicColors())
+        })
+
+      }
       else this.stocks = [];
     }
   },
@@ -99,6 +127,12 @@ export default {
   methods: {
     showRegAccountPop: function () {
       this.isShowRegAccountPop = true;
+    },
+    dynamicColors : function() {
+      var r = Math.floor(Math.random() * 255);
+      var g = Math.floor(Math.random() * 255);
+      var b = Math.floor(Math.random() * 255);
+      return "rgba(" + r + "," + g + "," + b + ",0.8)";
     },
     replaceBankDefaultImg(e) {
       e.target.src = './bank-icons/default-bank.png';
