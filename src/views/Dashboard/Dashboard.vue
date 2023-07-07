@@ -1,7 +1,7 @@
 <template>
   <div v-if="userInfo.bankAccounts.length > 0" class="account-wrap">
 
-    <Pie v-if="stocks.length > 0" :data="pieChartData" :options="options" />
+
 
     <!-- tab 영역 -->
     <v-tabs v-model="tab" color="#e00000" align-tabs="end">
@@ -18,7 +18,7 @@
         <i class="ti-plus" @click="showRegAccountPop()"></i>
       </div>
     </v-tabs>
-
+    <Pie v-if="stocks.length > 0" :data="pieChartData" :options="options" />
     <!-- tab 내용 영역 -->
     <div class="pd-5">
       <v-card>
@@ -95,6 +95,10 @@ export default {
       }
     }
   },
+  computed: {
+    getPieChartData() { return this.pieChartData },
+    getPieChartOptions() { return this.options }
+  },
   watch: {
     'tab': async function () {
       let memberId = this.userInfo.memberId
@@ -105,19 +109,18 @@ export default {
         url = "/api/stock/".concat(memberId);
       }
       let res = await this.axios.get(url);
+
       if (res.data.stocks) {
         this.stocks = res.data.stocks;
         this.stocks.forEach(item => {
           this.pieChartData.labels.push(item.name);
           this.pieChartData.datasets[0].data.push(item.priceImportance);
-          this.pieChartData.datasets[0].backgroundColor.push(this.dynamicColors())
+          this.pieChartData.datasets[0].backgroundColor.push(this.dynamicColors());
         })
-
       }
       else this.stocks = [];
     }
   },
-  computed: {},
   mounted() {
     this.emitter.on('reloadStock', this.reloadStock)
   },
