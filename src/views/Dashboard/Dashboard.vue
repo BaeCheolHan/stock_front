@@ -57,7 +57,6 @@ import Modal from "@/views/common/Modal";
 import SaveBankAccount from "@/components/bankAccount/SaveBankAccount";
 import StockBox from "@/components/dashboard/StockBox";
 import DashboardTreemapChart from "@/components/dashboard/chart/DashboardTreemapChart.vue";
-// import DashboardPieChart from "@/components/dashboard/chart/DashboardPieChart.vue";
 
 export default {
     name: 'Dashboard',
