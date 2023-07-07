@@ -76,17 +76,6 @@ export default {
             stocks: [],
             renderTreemapChart: true,
             treemapChartDataOptions: {
-                toolbar: {
-                    show: true,
-                    tools: {
-                        download: true,
-                        selection: true,
-                        zoom: true,
-                        zoomin: true,
-                        zoomout: true,
-                        pan: true,
-                    },
-                },
                 plotOptions: {
                     treemap: {
                         distributed: true
