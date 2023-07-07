@@ -16,7 +16,7 @@
     </v-card>
     <v-card>
       <v-card-actions>
-        <v-btn color="deep-purple-lighten-2" variant="text" @click="showRegStockPop">
+        <v-btn color="deep-purple-lighten-2" variant="text" @click="showRegStockPop" width="100%" style="text-align: center">
           + 보유 주식을 등록해주세요.
         </v-btn>
       </v-card-actions>
