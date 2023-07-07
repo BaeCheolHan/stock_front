@@ -14,30 +14,36 @@
         <i class="ti-plus" @click="showRegAccountPop()"></i>
       </div>
     </v-tabs>
+
     <div class="pd-5">
       <v-card p>
         <v-window v-model="tab">
+
           <v-window-item :value="'all'">
             <v-container fluid>
-              <div v-if="this.stocks.length === 0" class="empty-account" @click="showRegStockPop()">
+              <div v-if="stocks.length === 0" class="empty-account" @click="showRegStockPop()">
                 <p>+ 보유 주식을 등록해주세요.</p>
               </div>
+              <StockBox v-else :stocks="stocks"/>
             </v-container>
           </v-window-item>
+
           <v-window-item
               v-for="account in userInfo.bankAccounts"
               :key="account.id"
               :value="account.id"
           >
             <v-container fluid>
-              <div v-if="this.stocks.length === 0" class="empty-account" @click="showRegStockPop()">
+              <div v-if="stocks.length === 0" class="empty-account" @click="showRegStockPop()">
                 <p>+ 보유 주식을 등록해주세요.</p>
               </div>
+              <StockBox v-else :stocks="stocks"/>
             </v-container>
           </v-window-item>
         </v-window>
       </v-card>
     </div>
+
   </div>
   <div v-else class="account-wrap">
     <div class="empty-account" @click="showRegAccountPop()">
@@ -58,6 +64,7 @@
 import Modal from "@/views/common/Modal";
 import SaveBankAccount from "@/components/bankAccount/SaveBankAccount";
 import SaveStock from "@/components/stock/SaveStock";
+import StockBox from "@/components/dashboard/StockBox";
 
 
 export default {
@@ -66,6 +73,7 @@ export default {
     Modal,
     SaveBankAccount,
     SaveStock,
+    StockBox,
   },
   data: function () {
     return {
