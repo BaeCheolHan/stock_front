@@ -6,16 +6,16 @@ import vuetify from './plugins/vuetify'
 import { loadFonts } from './plugins/webfontloader'
 import axios from "axios";
 import mitt from 'mitt';
-
+import VueApexCharts from "vue3-apexcharts";
 loadFonts()
 
 const emitter = mitt();
 const app = createApp(App)
 app.config.globalProperties.emitter = emitter
 app.config.globalProperties.axios = axios;
-app.config.globalProperties.$emiiter = emitter;
 app.use(router)
 app.use(store)
 app.use(vuetify)
+app.use(VueApexCharts)
 app.use(mitt)
 app.mount('#app')

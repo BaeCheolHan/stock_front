@@ -21,7 +21,7 @@
             <v-card>
                 <v-window v-model="tab">
                     <!-- chart 영역 -->
-                    <DashboardPieChart v-if="renderPieChart" :chartData="pieChartData" :chartOptions="options"/>
+                    <DashboardTreemapChart v-if="renderTreemapChart" :chartData="treemapChartData" :chartOptions="treemapChartDataOptions"/>
                     <!-- 계좌 전체 영역 -->
                     <v-window-item :value="'all'">
                         <v-container fluid>
@@ -56,7 +56,8 @@
 import Modal from "@/views/common/Modal";
 import SaveBankAccount from "@/components/bankAccount/SaveBankAccount";
 import StockBox from "@/components/dashboard/StockBox";
-import DashboardPieChart from "@/components/dashboard/chart/DashboardPieChart.vue";
+import DashboardTreemapChart from "@/components/dashboard/chart/DashboardTreemapChart.vue";
+// import DashboardPieChart from "@/components/dashboard/chart/DashboardPieChart.vue";
 
 export default {
     name: 'Dashboard',
@@ -64,7 +65,7 @@ export default {
         Modal,
         SaveBankAccount,
         StockBox,
-        DashboardPieChart
+        DashboardTreemapChart
     },
     data: function () {
         return {
@@ -74,29 +75,37 @@ export default {
             bankId: null,
             tab: null,
             stocks: [],
-            renderPieChart: true,
-            pieChartData: {
-                labels: [],
-                datasets: [
-                    {
-                        backgroundColor: [],
-                        data: []
+            renderTreemapChart: true,
+            treemapChartDataOptions: {
+                toolbar: {
+                    show: true,
+                    tools: {
+                        download: true,
+                        selection: true,
+                        zoom: true,
+                        zoomin: true,
+                        zoomout: true,
+                        pan: true,
+                    },
+                },
+                plotOptions: {
+                    treemap: {
+                        distributed: true
                     }
-                ]
+                },
+                chart: {
+                    height: 350,
+                    type: "treemap",
+                },
             },
-            options: {
-                responsive: true,
-            }
+            treemapChartData: [
+                {
+                    data: [],
+                },
+            ]
         }
     },
-    computed: {
-        getPieChartData() {
-            return this.pieChartData
-        },
-        getPieChartOptions() {
-            return this.options
-        }
-    },
+    computed: {},
     watch: {
         'tab': async function () {
             let memberId = this.userInfo.memberId
@@ -108,21 +117,17 @@ export default {
             }
             let res = await this.axios.get(url);
 
-            this.pieChartData.labels = [];
-            this.pieChartData.datasets[0].data = [];
-            this.pieChartData.datasets[0].backgroundColor = [];
             if (res.data.stocks) {
-                this.renderPieChart = false;
+                this.renderTreemapChart = false;
                 this.stocks = res.data.stocks;
+                this.treemapChartData[0].data = []
                 await this.stocks.forEach(item => {
-                    this.pieChartData.labels.push(item.name);
-                    this.pieChartData.datasets[0].data.push(item.priceImportance);
-                    this.pieChartData.datasets[0].backgroundColor.push(this.dynamicColors());
+                    this.treemapChartData[0].data.push({x: item.name, y: item.priceImportance})
                 });
-                this.renderPieChart = true;
+                this.renderTreemapChart = true;
             } else {
                 this.stocks = [];
-                this.renderPieChart = false;
+                this.renderTreemapChart = false;
             }
 
         }
@@ -136,12 +141,6 @@ export default {
     methods: {
         showRegAccountPop: function () {
             this.isShowRegAccountPop = true;
-        },
-        dynamicColors: function () {
-            var r = Math.floor(Math.random() * 255);
-            var g = Math.floor(Math.random() * 255);
-            var b = Math.floor(Math.random() * 255);
-            return "rgba(" + r + "," + g + "," + b + ",0.8)";
         },
         replaceBankDefaultImg(e) {
             e.target.src = './bank-icons/default-bank.png';
