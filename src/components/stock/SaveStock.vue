@@ -158,6 +158,7 @@ export default {
         alert("등록되었습니다.");
         this.endProcessing();
         this.$parent.$parent.isShowRegStockPop = false;
+        await this.emitter.emit('reloadStock');
       }
 
     },

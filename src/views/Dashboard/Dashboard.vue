@@ -48,16 +48,12 @@
   <Modal v-if="isShowRegAccountPop" @close-modal="isShowRegAccountPop = false">
     <SaveBankAccount msg=""/>
   </Modal>
-  <Modal v-if="isShowRegStockPop" @close-modal="isShowRegStockPop = false">
-    <SaveStock msg=""/>
-  </Modal>
 </template>
 
 
 <script>
 import Modal from "@/views/common/Modal";
 import SaveBankAccount from "@/components/bankAccount/SaveBankAccount";
-import SaveStock from "@/components/stock/SaveStock";
 import StockBox from "@/components/dashboard/StockBox";
 
 
@@ -66,14 +62,12 @@ export default {
   components: {
     Modal,
     SaveBankAccount,
-    SaveStock,
     StockBox,
   },
   data: function () {
     return {
       userInfo: null,
       isShowRegAccountPop: false,
-      isShowRegStockPop: false,
       isShowAccountPop: false,
       bankId: null,
       tab: null,
@@ -95,6 +89,9 @@ export default {
     }
   },
   computed: {},
+  mounted() {
+    this.emitter.on('reloadStock', this.reloadStock)
+  },
   created() {
     this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
   },
@@ -105,10 +102,18 @@ export default {
     replaceBankDefaultImg(e) {
       e.target.src = './bank-icons/default-bank.png';
     },
-    showRegStockPop: function () {
-      this.isShowRegStockPop = true;
+    reloadStock: async function() {
+      let memberId = this.userInfo.memberId
+      let url;
+      if (this.tab !== 'all') {
+        url = "/api/stock/".concat(memberId).concat("/").concat(this.tab);
+      } else {
+        url = "/api/stock/".concat(memberId);
+      }
+      let res = await this.axios.get(url);
+      if (res.data.stocks) this.stocks = res.data.stocks;
+      else this.stocks = [];
     }
-
 
   }
 
