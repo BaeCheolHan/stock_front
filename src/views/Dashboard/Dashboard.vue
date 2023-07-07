@@ -21,10 +21,7 @@
 
           <v-window-item :value="'all'">
             <v-container fluid>
-              <div v-if="stocks.length === 0" class="empty-account" @click="showRegStockPop()">
-                <p>+ 보유 주식을 등록해주세요.</p>
-              </div>
-              <StockBox v-else :stocks="stocks"/>
+              <StockBox :stocks="stocks"/>
             </v-container>
           </v-window-item>
 
@@ -34,10 +31,7 @@
               :value="account.id"
           >
             <v-container fluid>
-              <div v-if="stocks.length === 0" class="empty-account" @click="showRegStockPop()">
-                <p>+ 보유 주식을 등록해주세요.</p>
-              </div>
-              <StockBox v-else :stocks="stocks"/>
+              <StockBox :stocks="stocks"/>
             </v-container>
           </v-window-item>
         </v-window>
@@ -96,7 +90,8 @@ export default {
         url = "/api/stock/".concat(memberId);
       }
       let res = await this.axios.get(url);
-      this.stocks = res.data.stocks;
+      if (res.data.stocks) this.stocks = res.data.stocks;
+      else this.stocks = [];
     }
   },
   computed: {},
