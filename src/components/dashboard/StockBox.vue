@@ -9,14 +9,20 @@
           </div>
           <div class="flex" style="justify-content: space-between">
             <p>보유 수량 : {{ stock.quantity.toLocaleString('ko-KR') }}</p>
-            <p>평균 가격 : {{ stock.avgPrice.toLocaleString('ko-KR') }}</p>
+            <p :style="setPriceColor(stock)">평균 단가 : {{ stock.avgPrice.toLocaleString('ko-KR') }}
+              ({{ stock.national == 'KR' ? stock.nowPrice.toLocaleString('ko-KR') : stock.nowPrice }})</p>
+          </div>
+          <div class="flex" style="justify-content: space-between">
+            <p>수익률</p>
+            <p :style="setRateOfReturnPerColor(stock)">{{ Number(stock.rateOfReturnPer).toFixed(2).toLocaleString('ko-KR') }}%</p>
           </div>
         </div>
       </v-card-text>
     </v-card>
     <v-card>
       <v-card-actions>
-        <v-btn color="deep-purple-lighten-2" variant="text" @click="showRegStockPop" width="100%" style="text-align: center">
+        <v-btn color="deep-purple-lighten-2" variant="text" @click="showRegStockPop" width="100%"
+               style="text-align: center">
           + 보유 주식을 등록해주세요.
         </v-btn>
       </v-card-actions>
@@ -55,6 +61,12 @@ export default {
     },
     showRegStockPop: function () {
       this.isShowRegStockPop = true;
+    },
+    setPriceColor: function (stock) {
+      return Number(stock.avgPrice) > Number(stock.nowPrice) ? 'color: blue' : 'color: red'
+    },
+    setRateOfReturnPerColor: function (stock) {
+      return Number(stock.rateOfReturnPer) > 0 ? 'color: red' : 'color: blue'
     }
 
   }
