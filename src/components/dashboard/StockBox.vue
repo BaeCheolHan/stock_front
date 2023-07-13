@@ -4,20 +4,26 @@
       <v-card-text>
         <div>
           <div class="flex" style="justify-content: space-between">
-            <p>{{ stock.name }} ({{ stock.symbol }})</p>
-            <p>{{ stock.code }} ({{ stock.national }})</p>
-          </div>
-          <div class="flex" style="justify-content: space-between">
-            <p>보유 수량 : {{ stock.quantity.toLocaleString('ko-KR') }}</p>
-            <p :style="setPriceColor(stock)">평균 단가 : {{ stock.avgPrice.toLocaleString('ko-KR') }}
-              ({{ stock.national == 'KR' ? stock.nowPrice.toLocaleString('ko-KR') : stock.nowPrice }})</p>
-          </div>
-          <div class="flex" style="justify-content: space-between">
-            <p>수익률</p>
-            <p :style="setRateOfReturnPerColor(stock)">
-              {{ (Number(stock.quantity) * Number(stock.nowPrice) - (Number(stock.quantity) * Number(stock.avgPrice)))
-                .toLocaleString('ko-KR')}} ({{ Number(stock.rateOfReturnPer).toFixed(2).toLocaleString('ko-KR') }}%)
-            </p>
+            <div class="w-50">
+              <div class="flex" style="justify-content: left">
+              <p style="overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        max-width: 65%;
+                        word-break: break-all;">{{ stock.name }}</p><p>({{ stock.symbol }})</p>
+              </div>
+              <p>보유 수량 : {{ stock.quantity.toLocaleString('ko-KR') }}</p>
+              <p>수익률</p>
+            </div>
+            <div class="t-a-r">
+              <p>{{ stock.code }} ({{ stock.national }})</p>
+              <p :style="setPriceColor(stock)">평균 단가 : {{ stock.avgPrice.toLocaleString('ko-KR') }}
+                ({{ stock.national == 'KR' ? stock.nowPrice.toLocaleString('ko-KR') : stock.nowPrice }})</p>
+              <p :style="setRateOfReturnPerColor(stock)">
+                {{ (Number(stock.quantity) * Number(stock.nowPrice) - (Number(stock.quantity) * Number(stock.avgPrice)))
+                  .toLocaleString('ko-KR')}} ({{ Number(stock.rateOfReturnPer).toFixed(2).toLocaleString('ko-KR') }}%)
+              </p>
+            </div>
           </div>
         </div>
       </v-card-text>
