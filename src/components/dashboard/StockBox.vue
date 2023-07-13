@@ -9,15 +9,15 @@
               <p style="overflow: hidden;
                         text-overflow: ellipsis;
                         white-space: nowrap;
-                        max-width: 65%;
+                        max-width: 60%;
                         word-break: break-all;">{{ stock.name }}</p><p>({{ stock.symbol }})</p>
               </div>
               <p>보유 수량 : {{ stock.quantity.toLocaleString('ko-KR') }}</p>
               <p>수익률</p>
             </div>
-            <div class="t-a-r">
+            <div class="t-a-r w-50">
               <p>{{ stock.code }} ({{ stock.national }})</p>
-              <p :style="setPriceColor(stock)">평균 단가 : {{ stock.avgPrice.toLocaleString('ko-KR') }}
+              <p :style="setPriceColor(stock)">평단 : {{ stock.avgPrice.toLocaleString('ko-KR') }}
                 ({{ stock.national == 'KR' ? stock.nowPrice.toLocaleString('ko-KR') : stock.nowPrice }})</p>
               <p :style="setRateOfReturnPerColor(stock)">
                 {{ (Number(stock.quantity) * Number(stock.nowPrice) - (Number(stock.quantity) * Number(stock.avgPrice)))
