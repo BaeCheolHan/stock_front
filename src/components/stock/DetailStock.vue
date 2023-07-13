@@ -25,11 +25,12 @@
       <div class="mg-t-10">
         <v-card class="mg-b-5" v-for="stock in detail.stocks" :key="stock.id">
           <v-card-text style="padding: 3px 5px 5px 5px; !important;">
-            <div class="t-a-r">
-              <i class="ti-trash" @click="removeHistory(stock.id)"></i>
-            </div>
             <div>
-              <p>구매일: {{ yyyyMMdd(stock.createdDate) }}</p>
+              <div class="flex" style="justify-content: space-between">
+                <p>구매일: {{ yyyyMMdd(stock.createdDate) }}</p>
+                <i class="ti-trash" @click="removeHistory(stock.id)"></i>
+              </div>
+
               <div class="flex" style="justify-content: space-between">
                 <p>구매가: {{ stock.price.toLocaleString("ko-KR") }} 원</p>
                 <p>수량: {{ stock.quantity }}</p>
