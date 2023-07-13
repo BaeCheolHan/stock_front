@@ -14,7 +14,10 @@
           </div>
           <div class="flex" style="justify-content: space-between">
             <p>수익률</p>
-            <p :style="setRateOfReturnPerColor(stock)">{{ (Number(stock.quantity) * Number(stock.nowPrice) - (Number(stock.quantity) * Number(stock.avgPrice))).toLocaleString('ko-KR')}} ({{ Number(stock.rateOfReturnPer).toFixed(2).toLocaleString('ko-KR') }}%)</p>
+            <p :style="setRateOfReturnPerColor(stock)">
+              {{ (Number(stock.quantity) * Number(stock.nowPrice) - (Number(stock.quantity) * Number(stock.avgPrice)))
+                .toLocaleString('ko-KR')}} ({{ Number(stock.rateOfReturnPer).toFixed(2).toLocaleString('ko-KR') }}%)
+            </p>
           </div>
         </div>
       </v-card-text>
@@ -31,18 +34,23 @@
   <Modal v-if="isShowRegStockPop" @close-modal="isShowRegStockPop = false">
     <SaveStock msg=""/>
   </Modal>
+  <Modal v-if="isShowStockDetailPop" @close-modal="isShowStockDetailPop = false">
+    <DetailStock msg=""/>
+  </Modal>
 </template>
 
 
 <script>
 import Modal from "@/views/common/Modal";
 import SaveStock from "@/components/stock/SaveStock";
+import DetailStock from "@/components/stock/DetailStock";
 
 export default {
   name: "StockBox",
   components: {
     Modal,
     SaveStock,
+    DetailStock
   },
   props: {
     stocks: [],
@@ -50,6 +58,9 @@ export default {
   data: function () {
     return {
       isShowRegStockPop: false,
+      isShowStockDetailPop: false,
+      stockName: '',
+      selectedStock: null,
     }
   },
   watch: {},
@@ -69,7 +80,8 @@ export default {
       return Number(stock.rateOfReturnPer) > 0 ? 'color: red' : 'color: blue'
     },
     showStockDetail: function (stock) {
-      console.log(stock)
+      this.selectedStock = stock
+      this.isShowStockDetailPop = true
     }
 
   }
