@@ -27,14 +27,7 @@
           <v-window-item :value="'all'">
             <v-container fluid>
               <!-- 주식 종목 item 영역 -->
-              <button class="v-btn v-btn--elevated v-theme--light v-btn--density-default v-btn--size-small v-btn--variant-elevated">
-                <span class="v-btn__overlay"></span>
-                <span class="v-btn__underlay"></span>
-                <span class="v-btn__prepend"><i class="/icons/dividend-icon.png mdi v-icon notranslate v-theme--light v-icon--size-default" aria-hidden="true" >
-                  <img style="width: 100%;" src="/icons/dividend-icon.png" alt="dividend-icon"/></i>
-                </span>
-                배당금 추가
-              </button>
+              <DividendIcon class="mg-b-10"/>
               <StockBox :stocks="stocks"/>
             </v-container>
           </v-window-item>
@@ -66,6 +59,7 @@ import Modal from "@/views/common/Modal";
 import SaveBankAccount from "@/components/bankAccount/SaveBankAccount";
 import StockBox from "@/components/dashboard/StockBox";
 import DashboardTreemapChart from "@/components/dashboard/chart/DashboardTreemapChart.vue";
+import DividendIcon from "@/components/button/dividendIcon";
 
 export default {
   name: 'Dashboard',
@@ -73,7 +67,8 @@ export default {
     Modal,
     SaveBankAccount,
     StockBox,
-    DashboardTreemapChart
+    DashboardTreemapChart,
+    DividendIcon
   },
   data: function () {
     return {
