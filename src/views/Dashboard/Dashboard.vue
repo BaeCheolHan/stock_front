@@ -30,7 +30,9 @@
               <button class="v-btn v-btn--elevated v-theme--light v-btn--density-default v-btn--size-small v-btn--variant-elevated">
                 <span class="v-btn__overlay"></span>
                 <span class="v-btn__underlay"></span>
-                <img src="/icons/dividend-icon.png" class="w-30" alt="dividend-icon"/>
+                <span class="v-btn__prepend"><i class="/icons/dividend-icon.png mdi v-icon notranslate v-theme--light v-icon--size-default" aria-hidden="true" >
+                  <img style="width: 100%;" src="/icons/dividend-icon.png" alt="dividend-icon"/></i>
+                </span>
                 배당금 추가
               </button>
               <StockBox :stocks="stocks"/>
