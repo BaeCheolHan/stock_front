@@ -27,10 +27,12 @@
           <v-window-item :value="'all'">
             <v-container fluid>
               <!-- 주식 종목 item 영역 -->
-              <div class="mg-10">
-                <img src="/icons/dividend-icon.png" class="w-7" alt="dividend-icon"/>
-                <span class="mg-l-5 pd-5" style="border: 1px solid #ced4da !important; border-radius: 0 10px 10px 0;">배당금 입력</span>
-              </div>
+              <button class="v-btn v-btn--elevated v-theme--light v-btn--density-default v-btn--size-small v-btn--variant-elevated">
+                <span class="v-btn__overlay"></span>
+                <span class="v-btn__underlay"></span>
+                <img src="/icons/dividend-icon.png" class="w-30" alt="dividend-icon"/>
+                배당금 추가
+              </button>
               <StockBox :stocks="stocks"/>
             </v-container>
           </v-window-item>
@@ -38,7 +40,6 @@
           <v-window-item v-for="account in userInfo.bankAccounts" :key="account.id" :value="account.id">
             <v-container fluid>
               <!-- 주식 종목 item 영역 -->
-              <button>배당금 추가</button>
               <StockBox :stocks="stocks"/>
             </v-container>
           </v-window-item>
