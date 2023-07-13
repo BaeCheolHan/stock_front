@@ -1,7 +1,7 @@
 <template>
   <div class="content" v-if="detail">
     <h2>{{ $parent.$parent.selectedStock.name }}({{ $parent.$parent.selectedStock.symbol }})</h2>
-    <div class="popup-wrap">
+    <div class="popup-wrap" style="padding: 10px 0 0;!important;">
       <div class="flex pd-10"
            style="justify-content: space-between; border: 1px solid #ced4da !important; border-radius: 10px;">
         <div>
@@ -21,7 +21,7 @@
           <p>BPS : {{ detail.bps }}</p>
         </div>
       </div>
-
+      <v-divider class="mg-t-10 mg-b-10"></v-divider>
       <div class="mg-t-10">
         <v-card class="mg-b-5" v-for="stock in detail.stocks" :key="stock.id">
           <v-card-text style="padding: 3px 5px 5px 5px; !important;">
