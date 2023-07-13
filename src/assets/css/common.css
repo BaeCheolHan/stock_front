@@ -519,6 +519,9 @@ input[type=number] {
 .w-5 {
     width: 5% !important;
 }
+.w-7 {
+    width: 7% !important;
+}
 .w-10 {
     width: 10% !important;
 }

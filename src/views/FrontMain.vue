@@ -8,17 +8,19 @@
   </div>
 
   <Dashboard v-if="userInfo"/>
-
+  <TheFooter/>
 </template>
 <script>
 
 import TheHeader from "@/components/TheHeader";
 import Dashboard from "@/views/Dashboard/Dashboard";
+import TheFooter from "@/components/TheFooter";
 
 export default {
   name: 'FrontMain',
   components: {
     TheHeader,
+    TheFooter,
     Dashboard,
   },
   data: function () {
