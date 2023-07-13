@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <v-card class="mg-b-5" v-for="stock in stocks" :key="stock.id">
+    <v-card class="mg-b-5" v-for="stock in stocks" :key="stock.id" @click="showStockDetail(stock)">
       <v-card-text>
         <div>
           <div class="flex" style="justify-content: space-between">
@@ -14,7 +14,7 @@
           </div>
           <div class="flex" style="justify-content: space-between">
             <p>수익률</p>
-            <p :style="setRateOfReturnPerColor(stock)">{{ Number(stock.rateOfReturnPer).toFixed(2).toLocaleString('ko-KR') }}%</p>
+            <p :style="setRateOfReturnPerColor(stock)">{{ (Number(stock.quantity) * Number(stock.nowPrice) - (Number(stock.quantity) * Number(stock.avgPrice))).toLocaleString('ko-KR')}} ({{ Number(stock.rateOfReturnPer).toFixed(2).toLocaleString('ko-KR') }}%)</p>
           </div>
         </div>
       </v-card-text>
@@ -67,6 +67,9 @@ export default {
     },
     setRateOfReturnPerColor: function (stock) {
       return Number(stock.rateOfReturnPer) > 0 ? 'color: red' : 'color: blue'
+    },
+    showStockDetail: function (stock) {
+      console.log(stock)
     }
 
   }
