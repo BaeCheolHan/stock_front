@@ -12,7 +12,7 @@
         {{ account.alias }}
       </v-tab>
       <div class="flex mg-r-10" style="align-items: center;">
-        <i class="ti-plus" @click="showRegAccountPop()"></i>
+        <i class="ti-plus" @click="openRegAccountPop()"></i>
       </div>
     </v-tabs>
 
@@ -26,8 +26,9 @@
           <!-- 계좌 전체 영역 -->
           <v-window-item :value="'all'">
             <v-container fluid>
+              <!-- 배당금 추가 버튼 -->
+              <DividendIcon class="mg-b-10" @click="openDividendPop"/>
               <!-- 주식 종목 item 영역 -->
-              <DividendIcon class="mg-b-10"/>
               <StockBox :stocks="stocks"/>
             </v-container>
           </v-window-item>
@@ -43,7 +44,7 @@
     </div>
   </div>
   <div v-else class="account-wrap">
-    <div class="empty-account" @click="showRegAccountPop()">
+    <div class="empty-account" @click="openRegAccountPop()">
       <p>+ 계좌를 등록해주세요.</p>
     </div>
   </div>
@@ -51,7 +52,11 @@
   <Modal v-if="isShowRegAccountPop" @close-modal="isShowRegAccountPop = false">
     <SaveBankAccount msg=""/>
   </Modal>
+  <Modal v-if="isSnowDividendRegPop" @close-modal="isSnowDividendRegPop = false">
+    <DividendRegPop msg=""/>
+  </Modal>
 </template>
+
 
 
 <script>
@@ -60,6 +65,7 @@ import SaveBankAccount from "@/components/bankAccount/SaveBankAccount";
 import StockBox from "@/components/dashboard/StockBox";
 import DashboardTreemapChart from "@/components/dashboard/chart/DashboardTreemapChart.vue";
 import DividendIcon from "@/components/button/dividendIcon";
+import DividendRegPop from "@/components/dividend/DividendRegPop";
 
 export default {
   name: 'Dashboard',
@@ -68,13 +74,15 @@ export default {
     SaveBankAccount,
     StockBox,
     DashboardTreemapChart,
-    DividendIcon
+    DividendIcon,
+    DividendRegPop,
   },
   data: function () {
     return {
       userInfo: null,
       isShowRegAccountPop: false,
       isShowAccountPop: false,
+      isSnowDividendRegPop: false,
       bankId: null,
       tab: null,
       stocks: [],
@@ -135,8 +143,11 @@ export default {
     this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
   },
   methods: {
-    showRegAccountPop: function () {
+    openRegAccountPop: function () {
       this.isShowRegAccountPop = true;
+    },
+    openDividendPop: function () {
+      this.isSnowDividendRegPop = true;
     },
     replaceBankDefaultImg(e) {
       e.target.src = './bank-icons/default-bank.png';

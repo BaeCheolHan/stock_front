@@ -5,7 +5,7 @@
     <span class="v-btn__prepend"><i class="/icons/dividend-icon.png mdi v-icon notranslate v-theme--light v-icon--size-default" aria-hidden="true" >
                   <img style="width: 100%;" src="/icons/dividend-icon.png" alt="dividend-icon"/></i>
                 </span>
-    배당금 추가
+    배당금 입력
   </button>
 </template>
 
