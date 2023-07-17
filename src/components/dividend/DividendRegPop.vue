@@ -4,7 +4,7 @@
     <div class="popup-wrap">
       <div class="mg-t-10" v-if="!this.selectedStock">
         <div class="searchSelect searchStockSelect">
-          <input class="form-control" placeholder="종목명" @focus="stockSelectFocus" @keyup="searchStock($event)">
+          <input class="form-control" placeholder="종목이 나오지 않을 경우 티커를 입력" @focus="stockSelectFocus" @keyup="searchStock($event)">
           <i class="ti-angle-down"></i>
         </div>
         <ul class="searchSelectBox searchStockSelectBox" @blur="closeStockDropDown" @focus="stockSelectFocus">
@@ -22,9 +22,8 @@
       </div>
       <div class="datepicker mg-t-10">
         <div class="calendar">
-          <Datepicker v-model="date" autoApply :locale="locale"
-                      :enableTimePicker="false" format="yyyy-MM-dd"
-                      :clearable="false" placeholder="배당 지급일" hideInputIcon />
+          <Datepicker v-model="date" autoApply :locale="locale" :enableTimePicker="false" format="yyyy-MM-dd"
+                      :clearable="false" placeholder="배당 지급일" hideInputIcon/>
         </div>
       </div>
       <div class="mg-t-10">
@@ -33,8 +32,6 @@
       <div class="mg-t-10 btnBox t-a-c">
         <button type="button" :disabled="this.processing" @click="saveDividend">등록</button>
       </div>
-
-
     </div>
   </div>
 </template>
@@ -68,15 +65,17 @@ export default {
       copyStocks: null,
       dividend: null,
       date: null,
+      symbol: null,
     }
   },
-  watch: {
-  },
+  watch: {},
   created: async function () {
+
     this.userInfo = await JSON.parse(sessionStorage.getItem('userInfo'));
     let res = await this.axios.get('/api/stock/'.concat(this.userInfo.memberId));
     this.stocks = res.data.stocks;
     this.copyStocks = this.stocks.slice();
+    this.closeStockDropDown();
   },
   methods: {
     startProcessing: function () {
@@ -91,6 +90,7 @@ export default {
     selectStock: function (stock) {
       document.getElementsByClassName('searchStockSelectBox')[0].style.display = "none";
       this.selectedStock = stock;
+      console.log(this.selectedStock)
     },
     cancelSelectStock: function () {
       this.selectedStock = null;
@@ -99,47 +99,57 @@ export default {
       this.copyStocks = this.stocks.filter(item => {
         return item.name.toString().replace(' ', '').includes(event.target.value)
       });
+      this.symbol = event.target.value;
     },
     closeStockDropDown: function () {
       document.getElementsByClassName('searchStockSelectBox')[0].style.display = "none";
     },
     saveDividend: async function () {
-      if (!this.selectedBank) {
-        alert("계좌를 선택해주세요")
-        return;
-      }
 
       if (!this.selectedStock) {
-        alert("종목을 선택해주세요")
+        if(!this.symbol) {
+          alert("종목을 선택해주세요.")
+          return;
+        }
+      } else {
+        this.symbol = this.selectedStock.symbol
+      }
+
+      if (!this.date) {
+        alert("날짜를 선택해주세요.")
+      }
+
+      if (!this.dividend) {
+        alert("배당금을 입력해주세요.")
         return;
       }
 
-      if (!this.price || this.price === 0) {
-        alert("구입 가격을 입력해주세요")
-        return;
-      }
-
-      if (!this.quantity || this.quantity === 0) {
-        alert("수량을 입력해주세요")
-        return;
-      }
+      this.startProcessing();
 
       let param = {
-        bankId: this.selectedBank.id,
-        symbol: this.selectedStock.symbol,
-        quantity: this.quantity,
-        price: this.price
-      }
-      this.startProcessing();
-      let res = await this.axios.post('/api/stock', param);
-
-      if (res.data.code === 'SUCCESS') {
-        alert("등록되었습니다.");
-        this.endProcessing();
-        this.$parent.$parent.isShowRegStockPop = false;
-        await this.emitter.emit('reloadStock');
+        memberId: JSON.parse(sessionStorage.getItem('userInfo')).memberId,
+        symbol: this.symbol,
+        date: this.date,
+        dividend: this.dividend
       }
 
+      try {
+        let res = await this.axios.post("/api/dividend", param);
+        console.log(res)
+
+        if(res.data.code === 'SUCCESS') {
+          alert("등록 되었습니다.");
+          this.endProcessing();
+          this.$parent.$parent.isSnowDividendRegPop = false;
+        } else {
+          alert(res.data.message);
+          this.endProcessing();
+        }
+
+      } catch (e) {
+        console.log(e)
+
+      }
     },
   }
 };
