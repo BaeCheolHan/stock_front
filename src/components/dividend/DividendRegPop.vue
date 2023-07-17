@@ -20,6 +20,13 @@
           </li>
         </div>
       </div>
+      <div class="datepicker mg-t-10">
+        <div class="calendar">
+          <Datepicker v-model="date" autoApply :locale="locale"
+                      :enableTimePicker="false" format="yyyy-MM-dd"
+                      :clearable="false" placeholder="배당 지급일" hideInputIcon />
+        </div>
+      </div>
       <div class="mg-t-10">
         <input type="number" class="form-control" placeholder="배당금" v-model="dividend">
       </div>
@@ -27,15 +34,30 @@
         <button type="button" :disabled="this.processing" @click="saveDividend">등록</button>
       </div>
 
+
     </div>
   </div>
 </template>
 
 <script>
+
+import {reactive} from 'vue';
+
+import '@vuepic/vue-datepicker/dist/main.css'
+import Datepicker from '@vuepic/vue-datepicker';
+import {ko} from 'date-fns/locale'
+
 export default {
   name: "SaveStock",
   props: {
     msg: String,
+  },
+  components: {
+    Datepicker
+  },
+  setup() {
+    const locale = reactive(ko);
+    return {locale}
   },
   data: function () {
     return {
@@ -45,6 +67,7 @@ export default {
       selectedStock: null,
       copyStocks: null,
       dividend: null,
+      date: null,
     }
   },
   watch: {

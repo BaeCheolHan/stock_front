@@ -19,11 +19,12 @@
     "vue-axios": "^3.4.1",
     "vue-router": "^4.2.1",
     "vue3-apexcharts": "^1.4.1",
-    "vuetify": "^3.0.0-beta.0",
+    "vuetify": "^3.3.8",
     "vuex": "^4.1.0",
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {
+    "@vuepic/vue-datepicker": "^3.5.2",
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
     "@vue/cli-plugin-babel": "~5.0.0",

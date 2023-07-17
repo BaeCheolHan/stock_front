@@ -1,4 +1,6 @@
 <template>
+
+
   <div v-if="userInfo.bankAccounts.length > 0" class="account-wrap">
     <!-- tab 영역 -->
     <v-tabs v-model="tab" color="#e00000" align-tabs="end">
@@ -15,16 +17,12 @@
         <i class="ti-plus" @click="openRegAccountPop()"></i>
       </div>
     </v-tabs>
-
+    <div v-show="checkSpin" class="t-a-c mg-t-30">
+      <v-progress-circular color="primary" indeterminate :size="128"></v-progress-circular>
+    </div>
     <!-- tab 내용 영역 -->
-    <div class="pd-5">
-      <div class="loader" style="top: auto;" v-if="checkSpin">
-        <div class="stage">
-          <div class="dot-spin"></div>
-        </div>
-      </div>
-
-      <v-card v-else>
+    <div class="pd-5" v-show="!checkSpin">
+      <v-card>
         <v-window v-model="tab">
           <!-- chart 영역 -->
           <DashboardTreemapChart v-if="renderTreemapChart" :chartData="treemapChartData"
@@ -62,7 +60,6 @@
     <DividendRegPop msg=""/>
   </Modal>
 </template>
-
 
 
 <script>
