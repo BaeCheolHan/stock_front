@@ -18,7 +18,13 @@
 
     <!-- tab 내용 영역 -->
     <div class="pd-5">
-      <v-card>
+      <div class="loader" style="top: auto;" v-if="checkSpin">
+        <div class="stage">
+          <div class="dot-spin"></div>
+        </div>
+      </div>
+
+      <v-card v-else>
         <v-window v-model="tab">
           <!-- chart 영역 -->
           <DashboardTreemapChart v-if="renderTreemapChart" :chartData="treemapChartData"
@@ -79,6 +85,7 @@ export default {
   },
   data: function () {
     return {
+      checkSpin: false,
       userInfo: null,
       isShowRegAccountPop: false,
       isShowAccountPop: false,
@@ -112,6 +119,7 @@ export default {
   computed: {},
   watch: {
     'tab': async function () {
+      this.checkSpin = true;
       let memberId = this.userInfo.memberId
       let url;
       if (this.tab !== 'all') {
@@ -133,6 +141,7 @@ export default {
         this.stocks = [];
         this.renderTreemapChart = false;
       }
+      this.checkSpin = false;
 
     }
   },

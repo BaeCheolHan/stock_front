@@ -9,7 +9,7 @@
               <p style="overflow: hidden;
                         text-overflow: ellipsis;
                         white-space: nowrap;
-                        max-width: 60%;
+                        max-width: 55%;
                         word-break: break-all;">{{ stock.name }}</p><p>({{ stock.symbol }})</p>
               </div>
               <p>보유 수량 : {{ stock.quantity.toLocaleString('ko-KR') }}</p>
