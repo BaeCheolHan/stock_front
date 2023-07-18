@@ -22,11 +22,12 @@
     <div class="pd-5" v-show="!checkSpin">
       <v-card>
         <v-window v-model="tab">
-          <!-- chart 영역 -->
-          <DashboardTreemapChart v-if="renderTreemapChart" :chartData="treemapChartData"
-                                 :chartOptions="treemapChartDataOptions"/>
-
+          <!--  chart 영역 -->
+          <!-- 투자비중 chart -->
+          <DashboardTreemapChart v-if="renderTreemapChart" :chartData="treemapChartData" :chartOptions="treemapChartDataOptions"/>
+          <!-- 월별 배당현황 chart -->
           <DividendMonthlyChart v-if="dividendChartSeries" :chartData="dividendChartSeries" :chartOptions="dividendChartOption"/>
+
           <!-- 계좌 전체 영역 -->
           <v-window-item :value="'all'">
             <v-container fluid>
