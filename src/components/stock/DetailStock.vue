@@ -65,7 +65,7 @@ export default {
           .concat(JSON.parse(sessionStorage.getItem('userInfo')).memberId)
           .concat("/").concat(this.$parent.$parent.selectedStock.national)
           .concat("/").concat(this.$parent.$parent.selectedStock.code)
-          .concat("/").concat(this.$parent.$parent.selectedStock.symbol))
+          .concat("?symbol=").concat(this.$parent.$parent.selectedStock.symbol))
       this.detail = res.data.detail;
     },
     setColor: function () {
