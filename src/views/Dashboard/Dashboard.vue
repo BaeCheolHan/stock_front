@@ -1,6 +1,4 @@
 <template>
-
-
   <div v-if="userInfo.bankAccounts.length > 0" class="account-wrap">
     <!-- tab 영역 -->
     <v-tabs v-model="tab" color="#e00000" align-tabs="end">
@@ -27,6 +25,8 @@
           <!-- chart 영역 -->
           <DashboardTreemapChart v-if="renderTreemapChart" :chartData="treemapChartData"
                                  :chartOptions="treemapChartDataOptions"/>
+
+          <DividendMonthlyChart v-if="dividendChartSeries" :chartData="dividendChartSeries" :chartOptions="dividendChartOption"/>
           <!-- 계좌 전체 영역 -->
           <v-window-item :value="'all'">
             <v-container fluid>
@@ -67,6 +67,7 @@ import Modal from "@/views/common/Modal";
 import SaveBankAccount from "@/components/bankAccount/SaveBankAccount";
 import StockBox from "@/components/dashboard/StockBox";
 import DashboardTreemapChart from "@/components/dashboard/chart/DashboardTreemapChart.vue";
+import DividendMonthlyChart from "@/components/dividend/chart/DividendMonthlyChart";
 import DividendIcon from "@/components/button/dividendIcon";
 import DividendRegPop from "@/components/dividend/DividendRegPop";
 
@@ -77,6 +78,7 @@ export default {
     SaveBankAccount,
     StockBox,
     DashboardTreemapChart,
+    DividendMonthlyChart,
     DividendIcon,
     DividendRegPop,
   },
@@ -110,7 +112,43 @@ export default {
         {
           data: [],
         },
-      ]
+      ],
+      dividendChartSeries: null,
+      dividendChartOption: {
+        chart: {
+          type: 'bar',
+          height: 350
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '100%',
+            endingShape: 'rounded'
+          },
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ['transparent']
+        },
+        xaxis: {
+          categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+        },
+        fill: {
+          opacity: 1
+        },
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return "" + val + " 원"
+            }
+          }
+        }
+      },
+
     }
   },
   computed: {},
@@ -145,8 +183,10 @@ export default {
   mounted() {
     this.emitter.on('reloadStock', this.reloadStock)
   },
-  created() {
+  created: async function() {
     this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
+    let res = await this.axios.get("/api/dividend/".concat(this.userInfo.memberId).concat("/chart"))
+    this.dividendChartSeries = res.data.series;
   },
   methods: {
     openRegAccountPop: function () {

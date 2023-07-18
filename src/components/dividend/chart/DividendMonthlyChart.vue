@@ -1,9 +1,9 @@
 <template>
   <div>
-    <span>투자 비중</span>
+    <span>월별 배당 현황</span>
   </div>
   <div>
-      <apexchart type="treemap" :options="chartOptions" :series="chartData"></apexchart>
+      <apexchart type="bar" height="350" :options="chartOptions" :series="chartData"></apexchart>
   </div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
   },
   props: {
     chartData: {
-      type: [],
+      type: Object,
       required: true
     },
     chartOptions: {
