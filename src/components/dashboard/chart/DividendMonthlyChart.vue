@@ -1,8 +1,5 @@
 <template>
   <div>
-    <span>월별 배당 현황</span>
-  </div>
-  <div>
       <apexchart type="bar" height="350" :options="chartOptions" :series="chartData"></apexchart>
   </div>
 </template>

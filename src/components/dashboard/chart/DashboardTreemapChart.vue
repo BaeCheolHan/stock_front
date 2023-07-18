@@ -1,8 +1,5 @@
 <template>
   <div>
-    <span>투자 비중</span>
-  </div>
-  <div>
       <apexchart type="treemap" :options="chartOptions" :series="chartData"></apexchart>
   </div>
 </template>
