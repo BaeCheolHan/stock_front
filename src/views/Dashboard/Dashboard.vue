@@ -69,8 +69,23 @@
     </div>
 
     <div v-if="dividendChart">
-      <!-- 배당금 추가 버튼 -->
-      <DividendIcon class="mg-b-10" @click="openDividendPop"/>
+      <v-card>
+        <v-window>
+          <v-window-item>
+            <v-container fluid>
+              <!-- 배당금 추가 버튼 -->
+              <DividendIcon class="mg-l-10" @click="openDividendPop"/>
+              <v-data-table-virtual
+                  :headers="headers"
+                  :items="desserts"
+                  class="elevation-1 mg-t-10 mg-l-10"
+                  item-value="name"
+              ></v-data-table-virtual>
+            </v-container>
+          </v-window-item>
+
+        </v-window>
+      </v-card>
     </div>
 
   </div>
@@ -84,6 +99,9 @@
   </Modal>
 </template>
 
+<script setup>
+import {VDataTableVirtual} from 'vuetify/labs/components'
+</script>
 
 <script>
 import Modal from "@/views/common/Modal";
@@ -161,7 +179,7 @@ export default {
           colors: ['transparent']
         },
         xaxis: {
-          categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+          categories: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
         },
         fill: {
           opacity: 1
@@ -169,11 +187,35 @@ export default {
         tooltip: {
           y: {
             formatter: function (val) {
-              return "" + val + " 원"
+              return "" + val.toLocaleString('ko-KR') + " 원"
             }
           }
         }
       },
+
+
+      page: 1,
+      itemsPerPage: 10,
+      pageCount: 1,
+      headers: [
+        {title: '년도', align: 'start', key: 'name', sortable: false, width: "65px"},
+        {title: '합계', align: 'end', key: 'total', width: "150px"},
+        {title: '월평균', align: 'end', key: 'avg', width: "100px"},
+        {title: '증감률', align: 'end', key: 'changeRate', width: "90px"},
+        {title: '1월', align: 'end', key: 'Jan', width: "120px"},
+        {title: '2월', align: 'end', key: 'Feb', width: "120px"},
+        {title: '3월', align: 'end', key: 'Mar', width: "120px"},
+        {title: '4월', align: 'end', key: 'Apr', width: "120px"},
+        {title: '5월', align: 'end', key: 'May', width: "120px"},
+        {title: '6월', align: 'end', key: 'Jun', width: "120px"},
+        {title: '7월', align: 'end', key: 'Jul', width: "120px"},
+        {title: '8월', align: 'end', key: 'Aug', width: "120px"},
+        {title: '9월', align: 'end', key: 'Sept', width: "120px"},
+        {title: '10월', align: 'end', key: 'Oct', width: "120px"},
+        {title: '11월', align: 'end', key: 'Nov', width: "120px"},
+        {title: '12월', align: 'end', key: 'Dec', width: "120px"},
+      ],
+      desserts: [],
 
     }
   },
@@ -220,8 +262,7 @@ export default {
   },
   created: async function () {
     this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
-    let res = await this.axios.get("/api/dividend/".concat(this.userInfo.memberId).concat("/chart"))
-    this.dividendChartSeries = res.data.series;
+    await this.getDividendChartData();
   },
   methods: {
     openRegAccountPop: function () {
@@ -232,6 +273,33 @@ export default {
     },
     replaceBankDefaultImg(e) {
       e.target.src = './bank-icons/default-bank.png';
+    },
+    getDividendChartData: async function () {
+      let res = await this.axios.get("/api/dividend/".concat(this.userInfo.memberId).concat("/chart"))
+      this.dividendChartSeries = res.data.series;
+
+      for (let i = 0; i < res.data.series.length; i++) {
+        let data = {
+          name: res.data.series[i].name,
+          total: res.data.series[i].total.toLocaleString('ko-KR').concat('원'),
+          avg: res.data.series[i].avg.toLocaleString('ko-KR').concat('원'),
+          changeRate: res.data.series[i].changeRate == null ? '-' : res.data.series[i].changeRate.toString().concat('%'),
+          Jan: Math.ceil(res.data.series[i].data[0]).toLocaleString('ko-KR').concat('원'),
+          Feb: Math.ceil(res.data.series[i].data[1]).toLocaleString('ko-KR').concat('원'),
+          Mar: Math.ceil(res.data.series[i].data[2]).toLocaleString('ko-KR').concat('원'),
+          Apr: Math.ceil(res.data.series[i].data[3]).toLocaleString('ko-KR').concat('원'),
+          May: Math.ceil(res.data.series[i].data[4]).toLocaleString('ko-KR').concat('원'),
+          Jun: Math.ceil(res.data.series[i].data[5]).toLocaleString('ko-KR').concat('원'),
+          Jul: Math.ceil(res.data.series[i].data[6]).toLocaleString('ko-KR').concat('원'),
+          Aug: Math.ceil(res.data.series[i].data[7]).toLocaleString('ko-KR').concat('원'),
+          Sept: Math.ceil(res.data.series[i].data[8]).toLocaleString('ko-KR').concat('원'),
+          Oct: Math.ceil(res.data.series[i].data[9]).toLocaleString('ko-KR').concat('원'),
+          Nov: Math.ceil(res.data.series[i].data[10]).toLocaleString('ko-KR').concat('원'),
+          Dec: Math.ceil(res.data.series[i].data[11]).toLocaleString('ko-KR').concat('원'),
+        };
+        this.desserts.push(data);
+      }
+
     },
     reloadStock: async function () {
       let memberId = this.userInfo.memberId

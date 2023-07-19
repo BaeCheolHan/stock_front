@@ -169,7 +169,7 @@ export default {
     },
     searchStock: function (event) {
       this.copyStocks = this.stocks.filter(item => {
-        return item.name.toString().replace(' ', '').includes(event.target.value)
+        return item.name.toString().toLowerCase().replace(' ', '').includes(event.target.value)
       });
     },
     replaceBankDefaultImg(e) {
