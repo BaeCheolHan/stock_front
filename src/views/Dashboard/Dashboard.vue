@@ -249,6 +249,7 @@ export default {
     },
     'chartTab': async function () {
       if (this.chartTab === 'dividend') {
+        await this.getDividendChartData();
         this.dividendChart = true;
         this.investmentProportionChart = false;
       } else {
@@ -262,7 +263,6 @@ export default {
   },
   created: async function () {
     this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
-    await this.getDividendChartData();
   },
   methods: {
     openRegAccountPop: function () {
