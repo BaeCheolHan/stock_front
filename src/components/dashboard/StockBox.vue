@@ -3,7 +3,7 @@
     <v-card class="mg-b-5" v-for="stock in stocks" :key="stock.id" @click="showStockDetail(stock)">
       <v-card-text>
         <div>
-          <div class="flex" style="justify-content: space-between">
+          <div class="flex" style="justify-content: space-between; font-size: 12px;">
             <div class="w-50">
               <div class="flex" style="justify-content: left">
               <p style="overflow: hidden;
@@ -15,7 +15,7 @@
               <p>보유 수량 : {{ stock.quantity.toLocaleString('ko-KR') }}</p>
               <p>수익률</p>
             </div>
-            <div class="t-a-r w-50">
+            <div class="t-a-r w-55">
               <p>{{ stock.code }} ({{ stock.national }})</p>
               <p :style="setPriceColor(stock)">평단 : {{ stock.avgPrice.toLocaleString('ko-KR') }}
                 ({{ stock.national == 'KR' ? stock.nowPrice.toLocaleString('ko-KR') : stock.nowPrice }})</p>

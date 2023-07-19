@@ -10,7 +10,7 @@
         </v-tab>
         <v-tab :value="'dividend'">
           <img class="bank-icon mg-r-5" :src="'/icons/dividend-icon.png'" alt="bank-icon">
-          월별 배당 현황
+          배당 현황
         </v-tab>
       </v-tabs>
       <!--  chart 영역 -->
