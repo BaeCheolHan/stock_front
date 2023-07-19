@@ -80,6 +80,7 @@
                   :items="desserts"
                   class="elevation-1 mg-t-10 mg-l-10"
                   item-value="name"
+                  v-if="desserts"
               ></v-data-table-virtual>
             </v-container>
           </v-window-item>
@@ -250,6 +251,7 @@ export default {
     'chartTab': async function () {
       if (this.chartTab === 'dividend') {
         await this.getDividendChartData();
+        await this.getDividends();
         this.dividendChart = true;
         this.investmentProportionChart = false;
       } else {
@@ -300,6 +302,10 @@ export default {
         this.desserts.push(data);
       }
 
+    },
+    getDividends: async function() {
+      let res = await this.axios.get("/api/dividend/member/".concat(this.userInfo.memberId));
+      console.log(res)
     },
     reloadStock: async function () {
       let memberId = this.userInfo.memberId
