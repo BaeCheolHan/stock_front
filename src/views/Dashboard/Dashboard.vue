@@ -82,7 +82,8 @@
                   item-value="name"
                   v-if="desserts"
               ></v-data-table-virtual>
-
+              <v-divider class="mg-t-30 mg-b-30"></v-divider>
+              <h2 class="mg-t-20  mg-l-10">배당 현황</h2>
               <DividendBox :dividends="dividends" class="mg-t-10 mg-l-10"/>
             </v-container>
           </v-window-item>
