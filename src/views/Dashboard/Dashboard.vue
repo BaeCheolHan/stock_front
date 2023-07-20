@@ -82,6 +82,8 @@
                   item-value="name"
                   v-if="desserts"
               ></v-data-table-virtual>
+
+              <DividendBox :dividends="dividends" class="mg-t-10 mg-l-10"/>
             </v-container>
           </v-window-item>
 
@@ -108,6 +110,7 @@ import {VDataTableVirtual} from 'vuetify/labs/components'
 import Modal from "@/views/common/Modal";
 import SaveBankAccount from "@/components/bankAccount/SaveBankAccount";
 import StockBox from "@/components/dashboard/StockBox";
+import DividendBox from "@/components/dashboard/DividendBox";
 import DashboardTreemapChart from "@/components/dashboard/chart/DashboardTreemapChart.vue";
 import DividendMonthlyChart from "@/components/dashboard/chart/DividendMonthlyChart";
 import DividendIcon from "@/components/button/dividendIcon";
@@ -119,6 +122,7 @@ export default {
     Modal,
     SaveBankAccount,
     StockBox,
+    DividendBox,
     DashboardTreemapChart,
     DividendMonthlyChart,
     DividendIcon,
@@ -217,6 +221,7 @@ export default {
         {title: '12월', align: 'end', key: 'Dec', width: "120px"},
       ],
       desserts: [],
+      dividends: null,
 
     }
   },
@@ -277,6 +282,7 @@ export default {
       e.target.src = './bank-icons/default-bank.png';
     },
     getDividendChartData: async function () {
+      this.desserts = [];
       let res = await this.axios.get("/api/dividend/".concat(this.userInfo.memberId).concat("/chart"))
       this.dividendChartSeries = res.data.series;
 
@@ -305,7 +311,7 @@ export default {
     },
     getDividends: async function() {
       let res = await this.axios.get("/api/dividend/member/".concat(this.userInfo.memberId));
-      console.log(res)
+      this.dividends = res.data.data;
     },
     reloadStock: async function () {
       let memberId = this.userInfo.memberId
