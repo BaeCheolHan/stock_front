@@ -49,18 +49,16 @@
                     <span>&nbsp;icon by&nbsp;</span>
                     <a target="_blank" class="pd-0" style="font-size: 12px" href="https://icons8.com">Icons8</a>
                 </div>
-                <div class="flex" style="">
+                <div class="flex">
                     <a target="_blank" style="font-size: 12px" class="pd-0" href="https://icons8.com/icon/68906/collectibles">Collectibles</a>
                     <span>&nbsp;icon by&nbsp;</span>
                     <a target="_blank" style="font-size: 12px" class="pd-0" href="https://icons8.com">Icons8</a>
                 </div>
-<!--                <div>-->
-<!--                    <a target="_blank" style="font-size: 12px" class="pd-0" href="https://kr.freepik.com/free-vector/buy-and-sell-concept-design-showing-bull-and-bear_2393303.htm#page=5&query=%EC%A3%BC%EC%8B%9D%20%EC%B0%A8%ED%8A%B8&position=44&from_view=keyword&track=ais">작가 starline</a> 출처 Freepik-->
-<!--                </div>-->
-                <div>
-                    <a target="_blank" style="font-size: 12px" href="https://kr.freepik.com/free-vector/bull-and-bear-concept-design-made-with-particles_1209465.htm#page=15&query=%EC%A3%BC%EC%8B%9D%20%EC%B0%A8%ED%8A%B8&position=8&from_view=keyword&track=ais">작가 starline</a> 출처 Freepik
+                <div class="flex">
+                    <a target="_blank" style="font-size: 12px" class="pd-0" href="https://kr.freepik.com/free-vector/bull-and-bear-concept-design-made-with-particles_1209465.htm#page=15&query=%EC%A3%BC%EC%8B%9D%20%EC%B0%A8%ED%8A%B8&position=8&from_view=keyword&track=ais">작가 starline</a>
+                    <sapn>&nbsp;출처 Freepik</sapn>
                 </div>
-            </div>d
+            </div>
         </div>
     </div>
 </template>
