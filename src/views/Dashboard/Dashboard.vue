@@ -89,15 +89,12 @@
         </v-window>
       </v-card>
     </div>
-
-    <div v-else class="account-wrap">
-      <div class="empty-account" @click="openRegAccountPop()">
-        <p>+ 계좌를 등록해주세요.</p>
-      </div>
-    </div>
-
   </div>
-
+  <div v-else class="account-wrap">
+    <div class="empty-account" @click="openRegAccountPop()">
+      <p>+ 계좌를 등록해주세요.</p>
+    </div>
+  </div>
 
   <Modal v-if="isShowRegAccountPop" @close-modal="isShowRegAccountPop = false">
     <SaveBankAccount msg=""/>
