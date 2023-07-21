@@ -29,7 +29,7 @@
       <div class="col-1 mg-t-10">
         <div class="flex">
           <select required class="form-control mg-r-5" v-model="national">
-            <option value="KR">국내</option>
+            <option value="KR" selected>국내</option>
             <option value="US">미국</option>
             <option value="JP">일본</option>
             <option value="CN">중국</option>
@@ -92,7 +92,7 @@ export default {
       selectedStock: null,
       copiedBanks: null,
       codes: [],
-      selectedCode: null,
+      selectedCode: "KOSPI",
       quantity: null,
       price: null,
     }

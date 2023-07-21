@@ -3,8 +3,8 @@
 
     </header>
     <div v-if="userInfo" class="flex header">
-        <div class="profile-wrap">
-            <li class="ti-angle-double-right mg-l-10 mg-r-15" @click="openNav" style="cursor:pointer"></li>
+        <div class="profile-wrap" style="font-size: 15px;">
+            <li class="ti-menu-alt mg-l-10 mg-r-15" @click="openNav" style="cursor:pointer"></li>
         </div>
         <div class="exchange-rate-wrap">
             <p class="red font-weight-bold"> {{ userInfo.exchangeRate.basePrice }}원 ({{ userInfo.exchangeRate.date }} :
