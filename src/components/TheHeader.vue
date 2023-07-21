@@ -5,10 +5,6 @@
     <div v-if="userInfo" class="flex header">
         <div class="profile-wrap">
             <li class="ti-angle-double-right mg-l-10 mg-r-15" @click="openNav" style="cursor:pointer"></li>
-            <img class="profile-thumbnail" :src="userInfo.profile.thumbnail_image_url">
-            <div class="profile-nickname">
-                <span>{{ userInfo.profile.nickname }}</span>
-            </div>
         </div>
         <div class="exchange-rate-wrap">
             <p class="red font-weight-bold"> {{ userInfo.exchangeRate.basePrice }}원 ({{ userInfo.exchangeRate.date }} :
@@ -20,11 +16,28 @@
 
     <div id="mySidenav" class="sidenav">
         <div>
-            <a href="#" class="closer" @click="closeNav()">&times;</a>
+            <div class="flex">
+                <div class="profile-wrap">
+                    <img class="profile-thumbnail" :src="userInfo.profile.thumbnail_image_url">
+                    <div class="profile-nickname">
+                        <span>{{ userInfo.profile.nickname }}</span>
+                    </div>
+                </div>
+                <div>
+                    <a href="#" class="closer" @click="closeNav()">&times;</a>
+                </div>
+            </div>
+            <div>
+                <v-divider class="mg-b-10"></v-divider>
+            </div>
+        </div>
+
+        <div>
             <a href="#"></a>
             <a href="#"></a>
         </div>
         <div class="mg-l-10 mg-b-20">
+            <v-divider class="mg-t-10 mg-b-10"></v-divider>
             <div>
                 <p>Made by 배철한</p>
                 <p>Email: joker10421@gmail.com</p>
@@ -79,7 +92,6 @@ export default {
     background-color: white;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
     justify-content: space-between;
     flex-direction: column;
     display: flex;
@@ -99,11 +111,10 @@ export default {
 }
 
 .sidenav .closer {
-    position: absolute;
-    top: 0;
-    right: 25px;
+    //position: absolute;
+    //top: 0;
+    //right: 25px;
     font-size: 36px;
-    margin-left: 50px;
 }
 
 @media screen and (max-height: 450px) {
