@@ -121,14 +121,6 @@ input[type=number] {
     border: 1px solid #edeef2;
     border-radius: 8px;
 }
-.naver-login {
-    background: url(/public/naver-icons/btnG_official.png) no-repeat center;
-    background-size: cover;
-    width: 100%;
-    height: 45px;
-    border: 1px solid white;
-    border-radius: 8px;
-}
 
 .flex {
     display: flex;
