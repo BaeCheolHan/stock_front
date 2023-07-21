@@ -25,9 +25,23 @@
             <a href="#"></a>
         </div>
         <div class="mg-l-10 mg-b-20">
-            <p>Made by 배철한</p>
-            <p>Email: joker10421@gmail.com</p>
-            <div class="flex"><span>github:&nbsp;</span><a href="https://github.com/BaeCheolHan" target="_blank" style="font-size: 12px; color: blue" class="pd-0">https://github.com/BaeCheolHan</a></div>
+            <div>
+                <p>Made by 배철한</p>
+                <p>Email: joker10421@gmail.com</p>
+                <div class="flex"><span>github:&nbsp;</span><a href="https://github.com/BaeCheolHan" target="_blank" style="font-size: 12px; color: blue" class="pd-0">https://github.com/BaeCheolHan</a></div>
+            </div>
+            <div class="mg-t-15">
+                <div class="flex">
+                    <a target="_blank" style="font-size: 12px" class="pd-0" href="https://icons8.com/icon/3c34EQ6PKOT1/%EB%B0%B0%EB%8B%B9%EA%B8%88">배당금</a>
+                    <span>&nbsp;icon by&nbsp;</span>
+                    <a target="_blank" class="pd-0" style="font-size: 12px" href="https://icons8.com">Icons8</a>
+                </div>
+                <div class="flex" style="">
+                    <a target="_blank" style="font-size: 12px" class="pd-0" href="https://icons8.com/icon/68906/collectibles">Collectibles</a>
+                    <span>&nbsp;icon by&nbsp;</span>
+                    <a target="_blank" style="font-size: 12px" class="pd-0" href="https://icons8.com">Icons8</a>
+                </div>
+            </div>
         </div>
     </div>
 </template>
