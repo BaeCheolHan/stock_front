@@ -137,6 +137,7 @@ input[type=number] {
 .profile-wrap {
     margin-right: auto;
     display: flex;
+    align-items: center;
 }
 
 .profile-wrap .profile-thumbnail {
