@@ -40,14 +40,8 @@
       </div>
       <!-- tab 내용 영역 -->
       <div class="pd-5" v-show="!checkSpin">
-          <v-window v-model="bankAccountTab">
-            <!-- 계좌 전체 영역 -->
-              <v-container fluid :value="'all'">
-                <!-- 주식 종목 item 영역 -->
-                <StockBox :stocks="stocks"/>
-              </v-container>
-            <!-- 개별 계좌 영역 -->
-              <v-container fluid v-for="account in userInfo.bankAccounts" :key="account.id" :value="account.id">
+          <v-window>
+              <v-container>
                 <!-- 주식 종목 item 영역 -->
                 <StockBox :stocks="stocks"/>
               </v-container>
