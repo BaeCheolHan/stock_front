@@ -1,6 +1,4 @@
 <template>
-
-
   <div v-if="userInfo.bankAccounts.length > 0" class="account-wrap">
     <div>
       <v-tabs v-model="chartTab" color="#e00000" align-tabs="end">
@@ -90,6 +88,12 @@
 
         </v-window>
       </v-card>
+    </div>
+
+    <div v-else class="account-wrap">
+      <div class="empty-account" @click="openRegAccountPop()">
+        <p>+ 계좌를 등록해주세요.</p>
+      </div>
     </div>
 
   </div>
