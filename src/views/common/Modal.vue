@@ -13,6 +13,14 @@ export default {};
 
 <style>
 /* Modal */
+
+.modal {
+  height: auto;
+  overflow: hidden;
+  overflow-y: scroll;
+  max-height: 95%;
+}
+
 .modal,
 .overlay {
   width: 100%;
