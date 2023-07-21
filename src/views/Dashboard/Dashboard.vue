@@ -31,7 +31,7 @@
                @error="replaceBankDefaultImg" alt="bank-icon">
           {{ account.alias }}
         </v-tab>
-        <div class="flex mg-r-10" style="align-items: center;">
+        <div class="flex mg-r-20" style="align-items: center;">
           <i class="ti-plus" @click="openRegAccountPop()"></i>
         </div>
       </v-tabs>

@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <h2>계좌</h2>
+    <h2>주식 등록</h2>
     <div class="popup-wrap">
 
       <div class="mg-t-10" v-if="!this.selectedBank">
@@ -114,6 +114,7 @@ export default {
     this.userInfo = await JSON.parse(sessionStorage.getItem('userInfo'));
     this.bankAccounts = this.userInfo.bankAccounts;
     this.copiedBankAccounts = this.bankAccounts.slice();
+    this.selectedBank = this.copiedBankAccounts[0]
     this.closeBankDropDown();
     this.closeStockDropDown();
   },
