@@ -14,14 +14,27 @@
               </div>
               <p>보유 수량 : {{ stock.quantity.toLocaleString('ko-KR') }}</p>
               <p>수익률</p>
+              <p>총 수령 배당금</p>
+              <p>단순 수익 계산</p>
             </div>
             <div class="t-a-r w-55">
               <p>{{ stock.code }} ({{ stock.national }})</p>
               <p :style="setPriceColor(stock)">평단 : {{ stock.avgPrice.toLocaleString('ko-KR') }}
                 ({{ stock.national == 'KR' ? stock.nowPrice.toLocaleString('ko-KR') : stock.nowPrice }})</p>
+
               <p :style="setRateOfReturnPerColor(stock)">
                 {{ (Number(stock.quantity) * Number(stock.nowPrice) - (Number(stock.quantity) * Number(stock.avgPrice)))
                   .toLocaleString('ko-KR')}} ({{ Number(stock.rateOfReturnPer).toFixed(2).toLocaleString('ko-KR') }}%)
+              </p>
+
+              <p class="red" v-if="stock.national === 'KR'">{{ stock.totalDividend.toLocaleString('ko-KR') }}원</p>
+              <p v-else class="red">${{ stock.totalDividend.toLocaleString('ko-KR') }}</p>
+
+              <p v-if="stock.national === 'KR'">
+                {{(Number(stock.totalDividend) + (Number(stock.quantity) * Number(stock.nowPrice) - (Number(stock.quantity) * Number(stock.avgPrice)))).toLocaleString('ko-KR')}}원
+              </p>
+              <p v-else>
+                ${{(Number(stock.totalDividend) + (Number(stock.quantity) * Number(stock.nowPrice) - (Number(stock.quantity) * Number(stock.avgPrice)))).toLocaleString('ko-KR')}}
               </p>
             </div>
           </div>
