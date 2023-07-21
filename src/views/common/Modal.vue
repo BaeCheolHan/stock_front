@@ -16,9 +16,6 @@ export default {};
 
 .modal {
   height: auto;
-  overflow: hidden;
-  overflow-y: scroll;
-  max-height: 95%;
 }
 
 .modal,
@@ -43,5 +40,8 @@ export default {};
   /*min-height: 500px;*/
   z-index: 10;
   opacity: 1;
+  overflow: hidden;
+  overflow-y: scroll;
+  max-height: 95%;
 }
 </style>
