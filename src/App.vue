@@ -1,19 +1,25 @@
 <template>
-  <v-app>
-    <v-main>
-      <router-view/>
-    </v-main>
-  </v-app>
+    <v-app :class="{'login-background': !userInfo}">
+        <v-main >
+            <router-view/>
+        </v-main>
+    </v-app>
 </template>
 
 <script>
 
 export default {
-  name: 'App',
+    name: 'App',
 
-  data: () => ({
-    //
-  }),
+    data: function () {
+        return {
+            userInfo: null,
+        }
+    },
+    computed: {},
+    created() {
+        this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
+    },
 }
 </script>
 <style>
