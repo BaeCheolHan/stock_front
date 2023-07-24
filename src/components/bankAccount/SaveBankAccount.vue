@@ -2,7 +2,6 @@
   <div class="content">
     <h2>계좌 등록</h2>
     <div class="popup-wrap">
-      {{this.$parent.$parent.userInfo}}
       <div class="mg-t-10" v-if="!this.selectedBank">
         <div class="searchSelect">
           <input class="form-control" placeholder="증권사를 검색해주세요" @focus="bankSelectFocus" @keyup="searchBank($event)">
