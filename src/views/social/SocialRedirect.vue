@@ -14,7 +14,6 @@ export default {
   created: async function () {
     try {
       const code = this.$route.query.code;
-
       let response = await this.axios.get('/sns/login/kakao?code='.concat(code));
       if (response.data) {
         this.$store.commit('setUserInfo', JSON.stringify(response.data))

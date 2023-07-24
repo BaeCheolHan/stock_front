@@ -1,5 +1,5 @@
 <template>
-  <div v-if="userInfo.bankAccounts.length > 0" class="account-wrap">
+  <div v-if="userInfo && userInfo.bankAccounts.length > 0" class="account-wrap">
     <div>
       <v-tabs v-model="chartTab" color="#e00000" align-tabs="end">
         <v-tab :value="'investmentProportion'">
@@ -182,7 +182,7 @@ export default {
         tooltip: {
           y: {
             formatter: function (val) {
-              return "" + val.toLocaleString('ko-KR') + " 원"
+              return "" + Number(val).toLocaleString('ko-KR') + " 원"
             }
           }
         }

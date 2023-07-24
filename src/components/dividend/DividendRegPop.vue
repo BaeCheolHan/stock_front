@@ -90,7 +90,6 @@ export default {
     selectStock: function (stock) {
       document.getElementsByClassName('searchStockSelectBox')[0].style.display = "none";
       this.selectedStock = stock;
-      console.log(this.selectedStock)
     },
     cancelSelectStock: function () {
       this.selectedStock = null;
@@ -135,7 +134,6 @@ export default {
 
       try {
         let res = await this.axios.post("/api/dividend", param);
-        console.log(res)
 
         if(res.data.code === 'SUCCESS') {
           alert("등록 되었습니다.");

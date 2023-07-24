@@ -1,9 +1,10 @@
 import {createRouter, createWebHistory } from "vue-router";
-import FrontMain from "@/views/FrontMain";
+// import FrontMain from "@/views/FrontMain";
+import Dashboard from "@/views/Dashboard/Dashboard";
 import SocialRedirect from "@/views/social/SocialRedirect.vue";
 
 const routes = [
-    {path: '/', name: 'FrontMain', component: FrontMain},
+    {path: '/', name: 'Dashboard', component: Dashboard},
     {path: '/redirect', name: 'SocialRedirect', component: SocialRedirect},
 ]
 

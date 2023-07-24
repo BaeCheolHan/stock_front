@@ -1,25 +1,42 @@
 <template>
-    <v-app :class="{'login-background': !userInfo}">
-        <v-main >
-            <router-view/>
-        </v-main>
-    </v-app>
+  <TheHeader v-if="userInfo"/>
+  <v-app :class="{'login-background': !userInfo}">
+    <v-main>
+      <div class="sns-btn-wrap" v-if="!userInfo">
+        <div class="kakao-login" v-on:click="kakaoLoginBtn"></div>
+      </div>
+      <router-view/>
+    </v-main>
+  </v-app>
+  <TheFooter/>
 </template>
 
 <script>
 
-export default {
-    name: 'App',
+import TheHeader from "@/components/TheHeader";
+import TheFooter from "@/components/TheFooter";
 
-    data: function () {
-        return {
-            userInfo: null,
-        }
+export default {
+  name: 'App',
+  components: {
+    TheHeader,
+    TheFooter,
+  },
+  data: function () {
+    return {
+      userInfo: null,
+    }
+  },
+  computed: {},
+  created() {
+    this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
+  },
+  methods: {
+    kakaoLoginBtn: async function () {
+      let res = await this.axios.get('/login/kakao')
+      location.replace(res.data.loginUri);
     },
-    computed: {},
-    created() {
-        this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
-    },
+  }
 }
 </script>
 <style>
