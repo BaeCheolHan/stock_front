@@ -1,10 +1,11 @@
 import {createRouter, createWebHistory } from "vue-router";
-// import FrontMain from "@/views/FrontMain";
 import Dashboard from "@/views/Dashboard/Dashboard";
 import SocialRedirect from "@/views/social/SocialRedirect.vue";
+import PersonalSetting from "@/views/PersonalSetting/PersonalSetting";
 
 const routes = [
     {path: '/', name: 'Dashboard', component: Dashboard},
+    {path: '/settings', name: 'PersonalSetting', component: PersonalSetting},
     {path: '/redirect', name: 'SocialRedirect', component: SocialRedirect},
 ]
 

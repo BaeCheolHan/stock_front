@@ -120,7 +120,8 @@ export default {
         this.userInfo = await JSON.parse(sessionStorage.getItem('userInfo'));
         this.bankAccounts = this.userInfo.bankAccounts;
         this.copiedBankAccounts = this.bankAccounts.slice();
-        this.selectedBank = this.copiedBankAccounts[0]
+        this.selectedBank = this.copiedBankAccounts
+            .filter(item => item.id == this.userInfo.defaultBankAccountId)[0];
         this.closeBankDropDown();
         this.closeStockDropDown();
         let res = await this.axios.get("/api/stocks/".concat(this.selectedCode))
