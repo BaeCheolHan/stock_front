@@ -37,8 +37,5 @@ export default {
         },
     }
 
-
-// {{userInfo}}
-
 }
 </script>

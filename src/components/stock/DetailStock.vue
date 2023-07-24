@@ -5,18 +5,18 @@
       <div class="flex pd-10"
            style="justify-content: space-between; border: 1px solid #ced4da !important; border-radius: 10px;">
         <div>
-          <p>시가 : {{ detail.startPrice.toLocaleString("ko-KR") }}</p>
-          <p>최고가 : {{ detail.highPrice.toLocaleString("ko-KR") }}</p>
+          <p class="bold">시가 : {{ detail.startPrice.toLocaleString("ko-KR") }}</p>
+          <p class="bold">최고가 : {{ detail.highPrice.toLocaleString("ko-KR") }}</p>
           <p>PER : {{ detail.per }}</p>
           <p>EPS : {{ detail.eps }}</p>
         </div>
         <div>
-          <p :style="setColor()">
+          <p  class="bold" :style="setColor()">
             현재가 : {{ detail.nowPrice.toLocaleString("ko-KR") }} ({{
               detail.compareToYesterdaySign === 'plus' ? '+' : ''
             }}{{ detail.compareToYesterday }})
           </p>
-          <p>최저가 : {{ detail.lowPrice.toLocaleString("ko-KR") }}</p>
+          <p class="bold">최저가 : {{ detail.lowPrice.toLocaleString("ko-KR") }}</p>
           <p>PBR : {{ detail.pbr }}</p>
           <p>BPS : {{ detail.bps }}</p>
         </div>
@@ -70,11 +70,11 @@ export default {
     },
     setColor: function () {
       if (this.detail.compareToYesterdaySign == 'minus') {
-        return 'color: blue'
+        return 'color: blue;'
       } else if (this.detail.compareToYesterdaySign == 'plus') {
-        return 'color: red'
+        return 'color: red;'
       } else {
-        return 'color: black'
+        return 'color: black;'
       }
     },
     yyyyMMdd: function (value) {
@@ -92,7 +92,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-
-</style>

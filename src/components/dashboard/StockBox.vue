@@ -26,14 +26,13 @@
                 {{ (Number(stock.quantity) * Number(stock.nowPrice) - (Number(stock.quantity) * Number(stock.avgPrice)))
                   .toLocaleString('ko-KR')}} ({{ Number(stock.rateOfReturnPer).toFixed(2).toLocaleString('ko-KR') }}%)
               </p>
-
               <p class="red" v-if="stock.national === 'KR'">{{ stock.totalDividend.toLocaleString('ko-KR') }}원</p>
               <p v-else class="red">${{ stock.totalDividend.toLocaleString('ko-KR') }}</p>
 
-              <p v-if="stock.national === 'KR'">
+              <p v-if="stock.national === 'KR'" :style="setTotalPriceColor(stock)">
                 {{(Number(stock.totalDividend) + (Number(stock.quantity) * Number(stock.nowPrice) - (Number(stock.quantity) * Number(stock.avgPrice)))).toLocaleString('ko-KR')}}원
               </p>
-              <p v-else>
+              <p v-else :style="setTotalPriceColor(stock)">
                 ${{(Number(stock.totalDividend) + (Number(stock.quantity) * Number(stock.nowPrice) - (Number(stock.quantity) * Number(stock.avgPrice)))).toLocaleString('ko-KR')}}
               </p>
             </div>
@@ -95,6 +94,9 @@ export default {
     setPriceColor: function (stock) {
       return Number(stock.avgPrice) > Number(stock.nowPrice) ? 'color: blue' : 'color: red'
     },
+    setTotalPriceColor: function(stock) {
+      return (Number(stock.totalDividend) + (Number(stock.quantity) * Number(stock.nowPrice) - (Number(stock.quantity) * Number(stock.avgPrice)))) > 0 ? 'color: red' : 'color: blue'
+    },
     setRateOfReturnPerColor: function (stock) {
       return Number(stock.rateOfReturnPer) > 0 ? 'color: red' : 'color: blue'
     },
@@ -106,7 +108,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-
-</style>
