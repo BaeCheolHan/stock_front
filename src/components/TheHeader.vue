@@ -35,6 +35,7 @@
 
     <div style="height: 100%">
       <ul>
+        <li @click="goDashboard">메인</li>
         <li @click="goSettings">설정</li>
       </ul>
     </div>
