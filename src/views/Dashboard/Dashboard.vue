@@ -1,5 +1,5 @@
 <template>
-  <div v-if="userInfo && userInfo.bankAccounts.length > 0" class="account-wrap">
+  <div v-if="userInfo && userInfo.bankAccounts && userInfo.bankAccounts.length > 0" class="account-wrap">
     <div>
       <v-tabs v-model="chartTab" color="#e00000" align-tabs="end">
         <v-tab :value="'investmentProportion'">
@@ -26,7 +26,7 @@
           <img class="bank-icon mg-r-5" :src="'./bank-icons/default-bank.png'" alt="bank-icon">
           전체
         </v-tab>
-        <v-tab v-for="account in userInfo.bankAccounts" :key="account.id" :value="account.id">
+        <v-tab v-for="account in accounts" :key="account.id" :value="account.id">
           <img class="bank-icon mg-r-5" :src="'./bank-icons/'.concat(account.bankInfo.bankCode).concat('.jpg')"
                @error="replaceBankDefaultImg" alt="bank-icon">
           {{ account.alias }}
@@ -47,7 +47,7 @@
               </v-container>
           </v-window>
       </div>
-      <div v-if="!userInfo.bankAccounts || userInfo.bankAccounts.length === 0" class="account-wrap">
+      <div v-if="!accounts || accounts.length === 0" class="account-wrap">
         <div class="empty-account" @click="openRegAccountPop()">
           <p>+ 계좌를 등록해주세요.</p>
         </div>
@@ -124,6 +124,7 @@ export default {
       dividendChart: false,
       checkSpin: false,
       userInfo: null,
+      accounts: null,
       isShowRegAccountPop: false,
       isShowAccountPop: false,
       isSnowDividendRegPop: false,
@@ -257,9 +258,12 @@ export default {
   },
   mounted() {
     this.emitter.on('reloadStock', this.reloadStock)
+    this.emitter.on('reloadUserInfo', this.reloadUserInfo)
   },
   created: async function () {
-    this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
+    this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+    this.$store.commit('setUserInfo', this.userInfo)
+    this.accounts = this.userInfo.bankAccounts;
   },
   methods: {
     openRegAccountPop: function () {
@@ -314,6 +318,11 @@ export default {
       let res = await this.axios.get(url);
       if (res.data.stocks) this.stocks = res.data.stocks;
       else this.stocks = [];
+    },
+    reloadUserInfo: async function() {
+      this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+      this.accounts = this.userInfo.bankAccounts;
+      this.isShowRegAccountPop = false;
     }
 
   }

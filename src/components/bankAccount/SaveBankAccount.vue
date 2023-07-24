@@ -2,7 +2,7 @@
   <div class="content">
     <h2>계좌 등록</h2>
     <div class="popup-wrap">
-
+      {{this.$parent.$parent.userInfo}}
       <div class="mg-t-10" v-if="!this.selectedBank">
         <div class="searchSelect">
           <input class="form-control" placeholder="증권사를 검색해주세요" @focus="bankSelectFocus" @keyup="searchBank($event)">
@@ -52,6 +52,7 @@ export default {
     }
   },
   beforeMount: async function () {
+    console.log(this.$store)
     let res = await this.axios.get("/api/banks");
     this.banks = JSON.parse(JSON.stringify(res.data));
     this.copiedBanks = this.banks.slice();
@@ -113,9 +114,11 @@ export default {
     },
     getBankAccount: async function () {
       let res = await this.axios.get("/api/bank/member/".concat(JSON.parse(sessionStorage.getItem('userInfo')).memberId));
-      this.$parent.$parent.userInfo.bankAccounts = res.data.accounts;
-      this.$store.commit('setUserInfo', this.$parent.userInfo);
-      sessionStorage.setItem('userInfo', JSON.stringify(this.$parent.$parent.userInfo));
+      let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+      userInfo.bankAccounts = res.data.accounts;
+      this.$store.commit('setUserInfo', userInfo);
+      sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+      await this.emitter.emit('reloadUserInfo');
     },
 
   }
