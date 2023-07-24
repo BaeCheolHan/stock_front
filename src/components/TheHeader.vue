@@ -4,7 +4,7 @@
     </header>
     <div v-if="userInfo" class="flex header">
         <div class="profile-wrap" style="font-size: 15px;">
-            <li class="ti-menu-alt mg-l-10 mg-r-15" @click="openNav" style="cursor:pointer"></li>
+            <li class="ti-angle-double-right mg-l-10 mg-r-15" @click="openNav" style="cursor:pointer"></li>
         </div>
         <div class="exchange-rate-wrap">
             <p class="red font-weight-bold"> {{ userInfo.exchangeRate.basePrice }}원 ({{ userInfo.exchangeRate.date }} :
@@ -14,7 +14,8 @@
         </div>
     </div>
 
-    <div id="mySidenav" class="sidenav">
+  <div class="overlay-lnb" @click="closeNav" style="display:none;"></div>
+  <div id="sidenav-lnb" class="sidenav">
         <div>
             <div class="flex">
                 <div class="profile-wrap">
@@ -24,7 +25,7 @@
                     </div>
                 </div>
                 <div>
-                    <a href="#" class="closer" @click="closeNav()">&times;</a>
+                    <a href="#" class="closer" @click="closeNav">&times;</a>
                 </div>
             </div>
             <div>
@@ -75,10 +76,12 @@ export default {
     },
     methods: {
         openNav: function () {
-            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("sidenav-lnb").style.width = "250px";
+            document.getElementsByClassName('overlay-lnb')[0].style.display="";
         },
         closeNav: function () {
-            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("sidenav-lnb").style.width = "0";
+          document.getElementsByClassName('overlay-lnb')[0].style.display="none";
         }
 
     }
@@ -87,10 +90,11 @@ export default {
 </script>
 <style>
 .sidenav {
+    opacity: 1;
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 1;
+    z-index: 10;
     top: 0;
     left: 0;
     background-color: white;
@@ -129,5 +133,18 @@ export default {
     .sidenav a {
         font-size: 18px;
     }
+}
+
+.overlay-lnb {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9;
+}
+.overlay-lnb {
+  opacity: 0.5;
+  background-color: black;
 }
 </style>
