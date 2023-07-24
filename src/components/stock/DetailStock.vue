@@ -2,8 +2,8 @@
   <div class="content" v-if="detail">
     <h2>{{ $parent.$parent.selectedStock.name }}({{ $parent.$parent.selectedStock.symbol }})</h2>
     <div class="popup-wrap" style="padding: 10px 0 0;!important;">
-      <div class="flex pd-10"
-           style="justify-content: space-between; border: 1px solid #ced4da !important; border-radius: 10px;">
+      <div class="flex pd-10 border"
+           style="justify-content: space-between;">
         <div>
           <p class="bold">시가 : {{ detail.startPrice.toLocaleString("ko-KR") }}</p>
           <p class="bold">최고가 : {{ detail.highPrice.toLocaleString("ko-KR") }}</p>

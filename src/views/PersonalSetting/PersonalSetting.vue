@@ -1,6 +1,6 @@
 <template>
   <div class="pd-10">
-    <div class="pd-15" style="border: 1px solid #ced4da !important; border-radius: 10px;">
+    <div class="pd-15 border">
       <span style="font-weight: bold">등록 계좌 목록</span>
       <v-divider class="mg-t-10 mg-b-10"></v-divider>
 
@@ -10,7 +10,8 @@
           <div @click="selectBank(bank)">
             <img class="bank-icon" :src="'./bank-icons/'.concat(bank.bankInfo.bankCode).concat('.jpg')"
                  @error="replaceBankDefaultImg">
-            <span class="mg-l-5 blue">{{ bank.alias }}</span><span v-if="bank.id == defaultBankAccountId">(대표 계좌)</span>
+            <span class="mg-l-5 blue">{{ bank.alias }}</span><span
+              v-if="bank.id == defaultBankAccountId">&nbsp;(대표 계좌)</span>
           </div>
           <div class="flex">
             <div class="mg-r-10" v-if="defaultBankAccountId != bank.id">
@@ -28,10 +29,51 @@
       </div>
     </div>
 
-    <div v-if="this.selectedBank" class="mg-t-20 pd-15"
-         style="border: 1px solid #ced4da !important; border-radius: 10px;">
-      <span style="font-weight: bold">계좌별 설정</span>
+    <div v-if="this.selectedBank" class="mg-t-20 pd-15 border">
+      <div class="flex" style="justify-content: space-between; align-items: center;">
+        <div class="w-50 flex">
+          <span style="font-weight: bold">계좌별 설정</span>
+          <div class="mg-l-20">
+            <img class="bank-icon" :src="'./bank-icons/'.concat(this.selectedBank.bankInfo.bankCode).concat('.jpg')"
+                 @error="replaceBankDefaultImg">
+            <span class="mg-l-5 blue">{{ this.selectedBank.alias }}</span>
+          </div>
+        </div>
+        <div class="tooltip mg-r-5">
+          <i class="ti-help-alt"></i>
+          <span class="tooltipText Left">
+            해당 계좌로 주식 등록시 기본 설정된 값이 선택됩니다.
+          </span>
+        </div>
+      </div>
       <v-divider class="mg-t-10 mg-b-10"></v-divider>
+      <div class="flex" style="align-items: center;">
+        <div class="w-30">
+          <span>시장 국가 설정</span>
+        </div>
+        <div class="w-40">
+          <select required class="form-control mg-l-20" v-model="defaultNational">
+            <option value="null">선택</option>
+            <option value="KR">국내</option>
+            <option value="US">미국</option>
+            <option value="JP">일본</option>
+            <option value="CN">중국</option>
+            <option value="HK">홍콩</option>
+            <option value="VN">베트남</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex mg-t-20" style="align-items: center;">
+        <div class="w-30">
+          <span>상세 시장 설정</span>
+        </div>
+        <div class="w-40">
+          <select required class="form-control mg-l-20" v-model="defaultMarket" :disabled="defaultNational == null">
+            <option value="null">선택</option>
+            <option v-for="code in codes" :key="code" :value="code">{{ code }}</option>
+          </select>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -40,20 +82,27 @@
 
 export default {
   name: 'PersonalSetting',
-  components: {
-    // Modal,
-  },
+  components: {},
   data: function () {
     return {
       userInfo: null,
       selectedBank: null,
       defaultBankAccountId: null,
+      defaultNational: null,
+      defaultMarket: null,
+      codes: [],
     }
   },
   computed: {},
+  watch: {
+    'defaultNational': async function () {
+      let res = await this.axios.get("/api/stocks/code/".concat(this.defaultNational))
+      this.codes = res.data.codes;
+    },
+  },
   created() {
     this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
-    if(this.userInfo) {
+    if (this.userInfo) {
       this.defaultBankAccountId = this.userInfo.defaultBankAccountId;
     }
   },
@@ -64,30 +113,22 @@ export default {
     selectBank(bank) {
       this.selectedBank = bank;
     },
-    bankSelectFocus: function () {
-      document.getElementsByClassName('searchBankSelectBox')[0].style.display = "";
-    },
-    closeBankDropDown: function () {
-      document.getElementsByClassName('searchBankSelectBox')[0].style.display = "none";
-    },
-    saveDefaultBankAccount: async function(id) {
-      if(confirm("대표 계좌로 등록 하시겠습니까?")) {
+    saveDefaultBankAccount: async function (id) {
+      if (confirm("대표 계좌로 등록 하시겠습니까?")) {
         let res = await this.axios.put('/api/default-bank/'.concat(this.userInfo.memberId).concat('/').concat(id));
-        if(res.data.code === 'SUCCESS') {
+        if (res.data.code === 'SUCCESS') {
           this.userInfo.defaultBankAccountId = id;
           sessionStorage.setItem('userInfo', JSON.stringify(this.userInfo));
           this.defaultBankAccountId = id;
         }
-
       }
 
     },
-    removeBankAccount: async function(id) {
-      if(confirm("정말 삭제 하시겠습니까? 해당 계좌에 등록된 주식 정보도 함께 삭제됩니다.")) {
+    removeBankAccount: async function (id) {
+      if (confirm("정말 삭제 하시겠습니까? 해당 계좌에 등록된 주식 정보도 함께 삭제됩니다.")) {
         let res = await this.axios.delete('/api/bank/'.concat(id));
-        console.log(res)
         this.userInfo.bankAccounts = res.data.accounts;
-        if(this.userInfo.defaultBankAccountId == id) {
+        if (this.userInfo.defaultBankAccountId == id) {
           this.userInfo.defaultBankAccountId = null;
           this.defaultBankAccountId = null;
         }
@@ -96,8 +137,6 @@ export default {
         sessionStorage.setItem('userInfo', JSON.stringify(this.userInfo));
         await this.emitter.emit('reloadUserInfo');
       }
-
-
 
     }
 

@@ -59,9 +59,9 @@
         <div v-else class="mg-t-10">
           <div class="selected-bank-wrap" @click="cancelSelectStock">
             <li>
-                            <span style="vertical-align: middle;">{{ selectedStock.name }} ({{
-                                selectedStock.code
-                              }})</span>
+                <span style="vertical-align: middle;">
+                  {{ selectedStock.name }} ({{ selectedStock.code }})
+                </span>
             </li>
           </div>
         </div>

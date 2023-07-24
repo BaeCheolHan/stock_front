@@ -766,3 +766,60 @@ select::-ms-expand {
     overflow-y: scroll;
     max-height: 95%;
 }
+
+.border {
+    border: 1px solid #ced4da !important;
+    border-radius: 10px;
+}
+
+/* tooltip */
+.tooltip {
+    position: relative;
+    display: block;
+}
+
+.tooltip i {
+    font-size: 15px;
+}
+
+.tooltip .tooltipText {
+    visibility: hidden;
+    min-width: 60px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 6px;
+    position: absolute;
+    transition: all 0.1s ease;
+    -webkit-transition: all 0.1s ease;
+    -o-transition: all 0.1s ease;
+    white-space: nowrap;
+    font-weight: 400;
+    font-size: 10px;
+}
+
+.tooltip:hover .tooltipText {
+    visibility: visible;
+}
+
+.tooltipText.Top {
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tooltipText.Bottom {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tooltipText.Left {
+    right: 30px;
+    top: -5px;
+}
+
+.tooltipText.Right {
+    left: 30px;
+    top: -5px;
+}
