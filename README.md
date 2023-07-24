@@ -1,5 +1,10 @@
 # stock_front
 
+## home-page url
+```
+stock.hws.pe.kr
+```
+
 ## Project setup
 ```
 npm install
