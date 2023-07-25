@@ -74,6 +74,9 @@
           </select>
         </div>
       </div>
+      <div class="mg-t-10 btnBox t-a-c">
+        <button type="button" :disabled="this.processing" @click="savePersonalBankAccountSetting">등록</button>
+      </div>
     </div>
   </div>
 
@@ -85,6 +88,7 @@ export default {
   components: {},
   data: function () {
     return {
+      processing: false,
       userInfo: null,
       selectedBank: null,
       defaultBankAccountId: null,
@@ -138,7 +142,31 @@ export default {
         await this.emitter.emit('reloadUserInfo');
       }
 
-    }
+    },
+    savePersonalBankAccountSetting: async function() {
+      this.startProcessing();
+
+      if(!this.defaultNational) {
+        alert("시장 국가를 선택 해주세요.");
+        return;
+      }
+      let param = {
+        defaultNational : this.defaultNational,
+        defaultMarket: this.defaultMarket
+      }
+
+      let res = await this.axios.post('', param);
+      if(res.data.code === 'SUCCESS') {
+        alert("등록 되었습니다.")
+      }
+      this.endProcessing();
+    },
+    startProcessing: function () {
+      this.processing = true
+    },
+    endProcessing: function () {
+      this.processing = false
+    },
 
 
   }

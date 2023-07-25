@@ -35,7 +35,7 @@
 
     <div style="height: 100%">
       <ul>
-        <li @click="goDashboard">메인</li>
+        <li @click="goDashboard">홈</li>
         <li @click="goSettings">설정</li>
       </ul>
     </div>
@@ -44,8 +44,9 @@
       <div>
         <p>Made by 배철한</p>
         <p>Email: joker10421@gmail.com</p>
-        <div class="flex"><span>github:&nbsp;</span><a href="https://github.com/BaeCheolHan" target="_blank"
-                                                       style="font-size: 12px; color: blue" class="pd-0">https://github.com/BaeCheolHan</a>
+        <div class="flex">
+          <span>github:&nbsp;</span>
+          <a href="https://github.com/BaeCheolHan" target="_blank" style="font-size: 12px; color: blue" class="pd-0">https://github.com/BaeCheolHan</a>
         </div>
       </div>
       <div class="mg-t-15">

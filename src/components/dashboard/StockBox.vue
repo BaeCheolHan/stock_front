@@ -19,9 +19,10 @@
             </div>
             <div class="t-a-r w-55">
               <p>{{ stock.code }} ({{ stock.national }})</p>
-              <p :style="setPriceColor(stock)">평단 : {{ stock.avgPrice.toLocaleString('ko-KR') }}
+              <p v-if="stock.national === 'KR'" :style="setPriceColor(stock)">평단 : {{ Math.floor(Number(stock.avgPrice)).toLocaleString('ko-KR') }}
                 ({{ stock.national == 'KR' ? stock.nowPrice.toLocaleString('ko-KR') : stock.nowPrice }})</p>
-
+              <p v-else :style="setPriceColor(stock)">평단 : {{ stock.avgPrice.toLocaleString('ko-KR') }}
+                ({{ stock.national == 'KR' ? stock.nowPrice.toLocaleString('ko-KR') : stock.nowPrice }})</p>
               <p :style="setRateOfReturnPerColor(stock)">
                 {{ (Number(stock.quantity) * Number(stock.nowPrice) - (Number(stock.quantity) * Number(stock.avgPrice)))
                   .toLocaleString('ko-KR')}} ({{ Number(stock.rateOfReturnPer).toFixed(2).toLocaleString('ko-KR') }}%)

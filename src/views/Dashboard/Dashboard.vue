@@ -78,7 +78,7 @@
       </v-card>
     </div>
   </div>
-  <div v-else class="account-wrap">
+  <div v-else-if="userInfo && userInfo.bankAccounts && userInfo.bankAccounts.length == 0" class="account-wrap">
     <div class="empty-account" @click="openRegAccountPop()">
       <p>+ 계좌를 등록해주세요.</p>
     </div>
