@@ -17,7 +17,7 @@
           </div>
           <div>
             <p class="bold" :style="setColor()">
-              현재가 : {{ detail.nowPrice.toLocaleString("ko-KR") }} ({{  detail.compareToYesterdaySign === 'plus' ? '+' : '' }}{{ detail.compareToYesterday }})
+              현재가 : {{ detail.nowPrice.toLocaleString("ko-KR") }} ({{  detail.compareToYesterdaySign === 'plus' ? '+' : '' }}{{ detail.compareToYesterday.toLocaleString("ko-KR") }})
             </p>
             <p class="bold">최저가 : {{ detail.lowPrice.toLocaleString("ko-KR") }}</p>
             <p>PBR : {{ detail.pbr }}</p>
