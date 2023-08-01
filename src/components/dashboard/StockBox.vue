@@ -14,7 +14,7 @@
                         max-width: 55%;
                         word-break: break-all;">{{ stock.name }}</p><p>({{ stock.symbol }})</p>
               </div>
-              <p>보유 수량 : {{ stock.quantity.toLocaleString('ko-KR') }}</p>
+              <p>보유 수량 : {{ stock.quantity.toLocaleString('ko-KR') }} 주</p>
               <p class="bold">수익률</p>
               <p>총 수령 배당금</p>
               <p class="bold">단순 수익 계산</p>

@@ -10,6 +10,8 @@
             <p class="bold">최고가 : {{ detail.highPrice.toLocaleString("ko-KR") }}</p>
             <p>PER : {{ detail.per }}</p>
             <p>EPS : {{ detail.eps }}</p>
+            <p class="bold" :style="setPlusMinusColor(detail.nowPrice - Math.floor(totalPrice / totalQuantity))" v-if="$parent.$parent.selectedStock.national == 'KR'">평균가 : {{Math.floor(totalPrice / totalQuantity).toLocaleString("ko-KR")}}원</p>
+            <p class="bold" v-else>평균가 : ${{Math.floor(totalPrice / totalQuantity).toLocaleString("ko-KR")}}</p>
           </div>
           <div>
             <p  class="bold" :style="setColor()">
@@ -20,12 +22,23 @@
             <p class="bold">최저가 : {{ detail.lowPrice.toLocaleString("ko-KR") }}</p>
             <p>PBR : {{ detail.pbr }}</p>
             <p>BPS : {{ detail.bps }}</p>
+            <p class="bold">총 수량 : {{totalQuantity}} 주</p>
           </div>
         </div>
-        <div>
-          <p class="bold" v-if="$parent.$parent.selectedStock.national == 'KR'">총 구매 가격 : {{ totalPrice.toLocaleString("ko-KR") }}원</p>
-          <p class="bold" v-else>$ {{ Math.floor(totalPrice) }}</p>
-        </div>
+        <v-divider class="mg-t-10 mg-b-10"></v-divider>
+        <div class="flex" style="justify-content: space-between">
+          <div>
+            <p class="bold">총 구매 가격 : </p>
+            <p class="bold" :style="setPlusMinusColor(rateOfReturn)">현재 자산 가치 : </p>
+          </div>
+          <div class="t-a-r">
+            <p class="bold" v-if="$parent.$parent.selectedStock.national == 'KR'">{{ totalPrice.toLocaleString("ko-KR") }}원</p>
+            <p class="bold" v-else>$ {{ Math.floor(totalPrice) }}</p>
+            <p class="bold" v-if="$parent.$parent.selectedStock.national == 'KR'" :style="setPlusMinusColor(rateOfReturn)">{{Math.floor( (this.detail.nowPrice * this.totalQuantity)).toLocaleString('ko-KR')}}원 ({{rateOfReturn.toLocaleString("ko-KR")}}원)</p>
+            <p class="bold" v-else :style="setPlusMinusColor(rateOfReturn)">${{Math.floor( (this.detail.nowPrice * this.totalQuantity)).toLocaleString('ko-KR')}} (${{rateOfReturn.toLocaleString("ko-KR")}})</p>
+          </div>
+
+         </div>
       </div>
 
       <v-divider class="mg-t-10 mg-b-10"></v-divider>
@@ -61,6 +74,8 @@ export default {
     return {
       detail: null,
       totalPrice: 0,
+      totalQuantity: 0,
+      rateOfReturn: 0,
     }
   },
   watch: {},
@@ -76,6 +91,8 @@ export default {
           .concat("?symbol=").concat(this.$parent.$parent.selectedStock.symbol))
       this.detail = res.data.detail;
       this.detail.stocks.forEach(item => this.totalPrice += (item.quantity * item.price))
+      this.detail.stocks.forEach(item => this.totalQuantity += item.quantity)
+      this.rateOfReturn = Math.floor( (this.detail.nowPrice * this.totalQuantity) - this.totalPrice);
     },
     setColor: function () {
       if (this.detail.compareToYesterdaySign == 'minus') {
@@ -97,6 +114,9 @@ export default {
         await this.axios.delete("/api/stock/".concat(id));
         await this.init();
       }
+    },
+    setPlusMinusColor: function (amount) {
+      return Number(amount) > 0 ? 'color: red' : 'color: blue'
     },
   }
 };
