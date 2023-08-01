@@ -3,9 +3,9 @@
     <span class="v-btn__overlay"></span>
     <span class="v-btn__underlay"></span>
     <span class="v-btn__prepend"><i class="mdi v-icon notranslate v-theme--light v-icon--size-default" aria-hidden="true" >
-                  <img style="width: 100%;" src="/icons/dividend-icon.png" alt="dividend-icon"/></i>
+                  <img style="width: 100%;" src="/icons/icons8-tips-64.png" alt="dividend-icon"/></i>
                 </span>
-    배당금 입력
+    주식 입력
   </button>
 </template>
 

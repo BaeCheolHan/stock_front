@@ -52,7 +52,13 @@
       <div class="mg-t-15">
         <div class="flex">
           <a target="_blank" style="font-size: 12px" class="pd-0"
-             href="https://icons8.com/icon/3c34EQ6PKOT1/%EB%B0%B0%EB%8B%B9%EA%B8%88">배당금</a>
+             href="https://icons8.com/icon/DczWEdxMlPBl/logbook">Logbook</a>
+          <span>&nbsp;icon by&nbsp;</span>
+          <a target="_blank" class="pd-0" style="font-size: 12px" href="https://icons8.com">Icons8</a>
+        </div>
+        <div class="flex">
+          <a target="_blank" style="font-size: 12px" class="pd-0"
+             href="https://icons8.com/icon/qNCea0FAtw6n/tips">Tips</a>
           <span>&nbsp;icon by&nbsp;</span>
           <a target="_blank" class="pd-0" style="font-size: 12px" href="https://icons8.com">Icons8</a>
         </div>

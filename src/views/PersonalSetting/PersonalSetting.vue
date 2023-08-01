@@ -174,6 +174,13 @@ export default {
 
       let res = await this.axios.put('/api/personal-setting/'.concat(this.selectedBank.id), param);
       if (res.data.code === 'SUCCESS') {
+        let res = await this.axios.get("/api/bank/member/".concat(JSON.parse(sessionStorage.getItem('userInfo')).memberId));
+        let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+        userInfo.bankAccounts = res.data.accounts;
+        this.$store.commit('setUserInfo', userInfo);
+        sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+        await this.emitter.emit('reloadUserInfo');
+
         alert("등록 되었습니다.")
       }
       this.endProcessing();
