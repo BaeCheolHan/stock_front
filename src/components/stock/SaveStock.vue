@@ -116,12 +116,17 @@ export default {
     }
   },
   created: async function () {
-    this.national = 'KR'
     this.userInfo = await JSON.parse(sessionStorage.getItem('userInfo'));
     this.bankAccounts = this.userInfo.bankAccounts;
     this.copiedBankAccounts = this.bankAccounts.slice();
-    this.selectedBank = this.copiedBankAccounts
-        .filter(item => item.id == this.userInfo.defaultBankAccountId)[0];
+
+    if (this.userInfo.defaultBankAccountId) {
+      this.selectedBank = this.copiedBankAccounts
+          .filter(item => item.id == this.userInfo.defaultBankAccountId)[0];
+      this.national = this.selectedBank.personalBankAccountSetting.defaultNational;
+      this.selectedCode = this.selectedBank.personalBankAccountSetting.defaultCode;
+    }
+
     this.closeBankDropDown();
     this.closeStockDropDown();
     let res = await this.axios.get("/api/stocks/".concat(this.selectedCode))
@@ -201,6 +206,8 @@ export default {
     selectBank: function (bank) {
       document.getElementsByClassName('searchBankSelectBox')[0].style.display = "none";
       this.selectedBank = bank;
+      this.national = this.selectedBank.personalBankAccountSetting.defaultNational;
+      this.selectedCode = this.selectedBank.personalBankAccountSetting.defaultCode;
     },
     selectStock: function (stock) {
       document.getElementsByClassName('searchStockSelectBox')[0].style.display = "none";

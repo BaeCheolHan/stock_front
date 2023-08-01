@@ -1,7 +1,15 @@
 <template>
   <div class="pd-10">
     <div class="pd-15 border">
-      <span style="font-weight: bold">등록 계좌 목록</span>
+      <div class="flex" style="justify-content: space-between; align-items: center">
+        <span style="font-weight: bold">등록 계좌 목록</span>
+        <div class="tooltip mg-r-5">
+          <i class="ti-help-alt"></i>
+          <span class="tooltipText Left">
+            계좌를 선택시 계좌별 상세 설정이 가능합니다.
+          </span>
+        </div>
+      </div>
       <v-divider class="mg-t-10 mg-b-10"></v-divider>
 
       <div v-if="userInfo && userInfo.bankAccounts && userInfo.bankAccounts.length > 0">
@@ -29,7 +37,7 @@
       </div>
     </div>
 
-    <div v-if="this.selectedBank" class="mg-t-20 pd-15 border">
+    <div v-if="this.selectedBank" class="mg-t-15 pd-15 border">
       <div class="flex" style="justify-content: space-between; align-items: center;">
         <div class="w-50 flex">
           <span style="font-weight: bold">계좌별 설정</span>
@@ -63,18 +71,18 @@
           </select>
         </div>
       </div>
-      <div class="flex mg-t-20" style="align-items: center;">
+      <div class="flex mg-t-15" style="align-items: center;">
         <div class="w-30">
           <span>상세 시장 설정</span>
         </div>
         <div class="w-40">
-          <select required class="form-control mg-l-20" v-model="defaultMarket" :disabled="defaultNational == null">
+          <select required class="form-control mg-l-20" v-model="defaultCode" :disabled="defaultNational == null">
             <option value="null">선택</option>
             <option v-for="code in codes" :key="code" :value="code">{{ code }}</option>
           </select>
         </div>
       </div>
-      <div class="mg-t-10 btnBox t-a-c">
+      <div class="mg-t-20 btnBox t-a-c">
         <button type="button" :disabled="this.processing" @click="savePersonalBankAccountSetting">등록</button>
       </div>
     </div>
@@ -93,7 +101,7 @@ export default {
       selectedBank: null,
       defaultBankAccountId: null,
       defaultNational: null,
-      defaultMarket: null,
+      defaultCode: null,
       codes: [],
     }
   },
@@ -114,8 +122,17 @@ export default {
     replaceBankDefaultImg(e) {
       e.target.src = './bank-icons/default-bank.png';
     },
-    selectBank(bank) {
+    selectBank: async function (bank) {
       this.selectedBank = bank;
+      let res = await this.axios.get('/api/personal-setting/'.concat(this.selectedBank.id));
+      if(res.data.setting) {
+        this.defaultNational = res.data.setting.defaultNational;
+        this.defaultCode = res.data.setting.defaultCode;
+      } else {
+        this.defaultNational = null;
+        this.defaultCode = null;
+      }
+
     },
     saveDefaultBankAccount: async function (id) {
       if (confirm("대표 계좌로 등록 하시겠습니까?")) {
@@ -143,20 +160,20 @@ export default {
       }
 
     },
-    savePersonalBankAccountSetting: async function() {
+    savePersonalBankAccountSetting: async function () {
       this.startProcessing();
 
-      if(!this.defaultNational) {
+      if (!this.defaultNational) {
         alert("시장 국가를 선택 해주세요.");
         return;
       }
       let param = {
-        defaultNational : this.defaultNational,
-        defaultMarket: this.defaultMarket
+        defaultNational: this.defaultNational,
+        defaultCode: this.defaultCode
       }
 
-      let res = await this.axios.post('', param);
-      if(res.data.code === 'SUCCESS') {
+      let res = await this.axios.put('/api/personal-setting/'.concat(this.selectedBank.id), param);
+      if (res.data.code === 'SUCCESS') {
         alert("등록 되었습니다.")
       }
       this.endProcessing();
