@@ -138,7 +138,7 @@ export default {
         if(res.data.code === 'SUCCESS') {
           alert("등록 되었습니다.");
           this.endProcessing();
-          this.$parent.$parent.isSnowDividendRegPop = false;
+          await this.emitter.emit('reloadDividend');
         } else {
           alert(res.data.message);
           this.endProcessing();

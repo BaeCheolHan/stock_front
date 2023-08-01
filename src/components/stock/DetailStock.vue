@@ -2,25 +2,32 @@
   <div class="content" v-if="detail">
     <h2>{{ $parent.$parent.selectedStock.name }}({{ $parent.$parent.selectedStock.symbol }})</h2>
     <div class="popup-wrap" style="padding: 10px 0 0;!important;">
-      <div class="flex pd-10 border"
-           style="justify-content: space-between;">
-        <div>
-          <p class="bold">시가 : {{ detail.startPrice.toLocaleString("ko-KR") }}</p>
-          <p class="bold">최고가 : {{ detail.highPrice.toLocaleString("ko-KR") }}</p>
-          <p>PER : {{ detail.per }}</p>
-          <p>EPS : {{ detail.eps }}</p>
+
+      <div class="pd-10 border">
+        <div class="flex" style="justify-content: space-between;">
+          <div>
+            <p class="bold">시가 : {{ detail.startPrice.toLocaleString("ko-KR") }}</p>
+            <p class="bold">최고가 : {{ detail.highPrice.toLocaleString("ko-KR") }}</p>
+            <p>PER : {{ detail.per }}</p>
+            <p>EPS : {{ detail.eps }}</p>
+          </div>
+          <div>
+            <p  class="bold" :style="setColor()">
+              현재가 : {{ detail.nowPrice.toLocaleString("ko-KR") }} ({{
+                detail.compareToYesterdaySign === 'plus' ? '+' : ''
+              }}{{ detail.compareToYesterday }})
+            </p>
+            <p class="bold">최저가 : {{ detail.lowPrice.toLocaleString("ko-KR") }}</p>
+            <p>PBR : {{ detail.pbr }}</p>
+            <p>BPS : {{ detail.bps }}</p>
+          </div>
         </div>
         <div>
-          <p  class="bold" :style="setColor()">
-            현재가 : {{ detail.nowPrice.toLocaleString("ko-KR") }} ({{
-              detail.compareToYesterdaySign === 'plus' ? '+' : ''
-            }}{{ detail.compareToYesterday }})
-          </p>
-          <p class="bold">최저가 : {{ detail.lowPrice.toLocaleString("ko-KR") }}</p>
-          <p>PBR : {{ detail.pbr }}</p>
-          <p>BPS : {{ detail.bps }}</p>
+          <p class="bold" v-if="$parent.$parent.selectedStock.national == 'KR'">총 구매 가격 : {{ totalPrice.toLocaleString("ko-KR") }}원</p>
+          <p class="bold" v-else>$ {{ Math.floor(totalPrice) }}</p>
         </div>
       </div>
+
       <v-divider class="mg-t-10 mg-b-10"></v-divider>
       <div class="mg-t-10">
         <v-card class="mg-b-5" v-for="stock in detail.stocks" :key="stock.id">
@@ -30,9 +37,9 @@
                 <p>구매일: {{ yyyyMMdd(stock.createdDate) }}</p>
                 <i class="ti-trash" @click="removeHistory(stock.id)"></i>
               </div>
-
               <div class="flex" style="justify-content: space-between">
-                <p>구매가: {{ stock.price.toLocaleString("ko-KR") }} 원</p>
+                <p v-if="$parent.$parent.selectedStock.national == 'KR'">구매가: {{ stock.price.toLocaleString("ko-KR") }} 원</p>
+                <p v-else>구매가: $ {{ stock.price.toLocaleString("ko-KR") }}</p>
                 <p>수량: {{ stock.quantity }}</p>
               </div>
             </div>
@@ -53,6 +60,7 @@ export default {
   data: function () {
     return {
       detail: null,
+      totalPrice: 0,
     }
   },
   watch: {},
@@ -67,6 +75,7 @@ export default {
           .concat("/").concat(this.$parent.$parent.selectedStock.code)
           .concat("?symbol=").concat(this.$parent.$parent.selectedStock.symbol))
       this.detail = res.data.detail;
+      this.detail.stocks.forEach(item => this.totalPrice += (item.quantity * item.price))
     },
     setColor: function () {
       if (this.detail.compareToYesterdaySign == 'minus') {

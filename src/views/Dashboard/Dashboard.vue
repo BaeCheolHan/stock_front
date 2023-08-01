@@ -258,6 +258,7 @@ export default {
   },
   mounted() {
     this.emitter.on('reloadStock', this.reloadStock)
+    this.emitter.on('reloadDividend', this.reloadDividend)
     this.emitter.on('reloadUserInfo', this.reloadUserInfo)
   },
   created: async function () {
@@ -318,6 +319,13 @@ export default {
       let res = await this.axios.get(url);
       if (res.data.stocks) this.stocks = res.data.stocks;
       else this.stocks = [];
+    },
+    reloadDividend: async function() {
+      this.isSnowDividendRegPop = false;
+      this.dividendChart = false;
+      await this.getDividendChartData();
+      await this.getDividends();
+      this.dividendChart = true;
     },
     reloadUserInfo: async function() {
       this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
