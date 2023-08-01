@@ -33,7 +33,7 @@
           </div>
           <div class="t-a-r">
             <p class="bold" v-if="$parent.$parent.selectedStock.national == 'KR'">{{ totalPrice.toLocaleString("ko-KR") }}원</p>
-            <p class="bold" v-else>$ {{ Math.floor(totalPrice) }}</p>
+            <p class="bold" v-else>$ {{ Math.floor(totalPrice).toLocaleString("ko-KR") }}</p>
             <p class="bold" v-if="$parent.$parent.selectedStock.national == 'KR'" :style="setPlusMinusColor(rateOfReturn)">{{Math.floor( (this.detail.nowPrice * this.totalQuantity)).toLocaleString('ko-KR')}}원 ({{rateOfReturn.toLocaleString("ko-KR")}}원)</p>
             <p class="bold" v-else :style="setPlusMinusColor(rateOfReturn)">${{Math.floor( (this.detail.nowPrice * this.totalQuantity)).toLocaleString('ko-KR')}} (${{rateOfReturn.toLocaleString("ko-KR")}})</p>
           </div>
