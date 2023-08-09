@@ -10,6 +10,10 @@
           <img class="bank-icon mg-r-5" :src="'/icons/dividend-icon.png'" alt="bank-icon">
           배당 현황
         </v-tab>
+        <v-tab :value="'asset'">
+          <img class="bank-icon mg-r-5" :src="'/icons/icons8-line-chart-64.png'" alt="bank-icon">
+          자산 현황
+        </v-tab>
       </v-tabs>
       <!--  chart 영역 -->
       <!-- 투자비중 chart -->
@@ -17,6 +21,8 @@
                              :chartOptions="treemapChartDataOptions"/>
       <!-- 월별 배당현황 chart -->
       <DividendMonthlyChart v-if="dividendChart" :chartData="dividendChartSeries" :chartOptions="dividendChartOption"/>
+      <!-- 자산 현황 chart -->
+      <AssetChart v-if="assetChart" :chartData="assetChartSeries" :chartOptions="assetChartOptions"/>
     </div>
 
     <div v-if="investmentProportionChart">
@@ -40,12 +46,12 @@
       </div>
       <!-- tab 내용 영역 -->
       <div class="pd-5" v-show="!checkSpin">
-          <v-window>
-              <v-container>
-                <!-- 주식 종목 item 영역 -->
-                <StockBox :stocks="stocks"/>
-              </v-container>
-          </v-window>
+        <v-window>
+          <v-container>
+            <!-- 주식 종목 item 영역 -->
+            <StockBox :stocks="stocks"/>
+          </v-container>
+        </v-window>
       </div>
       <div v-if="!accounts || accounts.length === 0" class="account-wrap">
         <div class="empty-account" @click="openRegAccountPop()">
@@ -93,8 +99,7 @@
 </template>
 
 <script setup>
-import {VDataTableVirtual} from 'vuetify/labs/components'
-</script>
+import {VDataTableVirtual} from 'vuetify/labs/components'</script>
 
 <script>
 import Modal from "@/views/common/Modal";
@@ -105,6 +110,7 @@ import DashboardTreemapChart from "@/components/dashboard/chart/DashboardTreemap
 import DividendMonthlyChart from "@/components/dashboard/chart/DividendMonthlyChart";
 import DividendIcon from "@/components/button/dividendIcon";
 import DividendRegPop from "@/components/dividend/DividendRegPop";
+import AssetChart from "@/components/dashboard/chart/AssetChart";
 
 export default {
   name: 'Dashboard',
@@ -115,6 +121,7 @@ export default {
     DividendBox,
     DashboardTreemapChart,
     DividendMonthlyChart,
+    AssetChart,
     DividendIcon,
     DividendRegPop,
   },
@@ -122,6 +129,7 @@ export default {
     return {
       investmentProportionChart: true,
       dividendChart: false,
+      assetChart: false,
       checkSpin: false,
       userInfo: null,
       accounts: null,
@@ -188,7 +196,8 @@ export default {
           }
         }
       },
-
+      assetChartSeries: [],
+      assetChartOptions: {},
 
       page: 1,
       itemsPerPage: 10,
@@ -248,9 +257,16 @@ export default {
       if (this.chartTab === 'dividend') {
         await this.getDividendChartData();
         await this.getDividends();
-        this.dividendChart = true;
         this.investmentProportionChart = false;
+        this.assetChart = false;
+        this.dividendChart = true;
+      } else if (this.chartTab === 'asset') {
+        await this.getAssetChartData();
+        this.dividendChart = false;
+        this.investmentProportionChart = false;
+        this.assetChart = true;
       } else {
+        this.assetChart = false;
         this.dividendChart = false;
         this.investmentProportionChart = true;
       }
@@ -304,7 +320,42 @@ export default {
       }
 
     },
-    getDividends: async function() {
+    getAssetChartData: async function () {
+      let res = await this.axios.get("/api/asset/member/".concat(this.userInfo.memberId).concat("/chart"));
+      this.assetChartSeries = [
+        {
+          name: "투자 금액",
+          data: res.data.assetCharts.investmentAmountList
+        },
+        {
+          name: "평가 금액",
+          data: res.data.assetCharts.evaluationAmountList
+        }
+      ];
+
+      this.assetChartOptions = {
+        chart: {
+          height: 350,
+          type: 'area'
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'smooth'
+        },
+        xaxis: {
+          type: 'date',
+          categories: res.data.assetCharts.xaxisCategories
+        },
+        tooltip: {
+          x: {
+            format: 'yy-MM-dd '
+          },
+        },
+      }
+    },
+    getDividends: async function () {
       let res = await this.axios.get("/api/dividend/member/".concat(this.userInfo.memberId));
       this.dividends = res.data.data;
     },
@@ -320,14 +371,14 @@ export default {
       if (res.data.stocks) this.stocks = res.data.stocks;
       else this.stocks = [];
     },
-    reloadDividend: async function() {
+    reloadDividend: async function () {
       this.isSnowDividendRegPop = false;
       this.dividendChart = false;
       await this.getDividendChartData();
       await this.getDividends();
       this.dividendChart = true;
     },
-    reloadUserInfo: async function() {
+    reloadUserInfo: async function () {
       this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
       this.accounts = this.userInfo.bankAccounts;
       this.isShowRegAccountPop = false;

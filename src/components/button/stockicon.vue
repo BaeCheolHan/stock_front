@@ -5,7 +5,7 @@
     <span class="v-btn__prepend"><i class="mdi v-icon notranslate v-theme--light v-icon--size-default" aria-hidden="true" >
                   <img style="width: 100%;" src="/icons/icons8-tips-64.png" alt="dividend-icon"/></i>
                 </span>
-    주식 입력
+    주식 등록
   </button>
 </template>
 
