@@ -1,5 +1,8 @@
 # stock_front
 
+management your stocks and dividends
+
+
 ## home-page url
 ```
 stock.hws.pe.kr
@@ -14,19 +17,3 @@ npm install
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-
-### ServiceWorker 공부할것
