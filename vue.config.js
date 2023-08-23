@@ -49,11 +49,6 @@ module.exports = defineConfig({
       host: 'test.hws.pe.kr',
       port: 80,
       https: false,
-      // https: {
-      //   key:  fs.readFileSync('/home/feed/SSL/oasisfeed/STAR.oasisfeed.com.key'),
-      //   cert: fs.readFileSync('/home/feed/SSL/oasisfeed/STAR.oasisfeed.com.crt'),
-      //   ca:   fs.readFileSync('/home/feed/SSL/oasisfeed/ca-bundle.crt'),
-      // },
       proxy: {
         '/api': {
           target: 'http://localhost:18081'

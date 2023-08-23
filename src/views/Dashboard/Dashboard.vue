@@ -279,8 +279,10 @@ export default {
   },
   created: async function () {
     this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
-    this.$store.commit('setUserInfo', this.userInfo)
-    this.accounts = this.userInfo.bankAccounts;
+    if(this.userInfo) {
+      this.$store.commit('setUserInfo', this.userInfo)
+      this.accounts = this.userInfo.bankAccounts;
+    }
   },
   methods: {
     openRegAccountPop: function () {
