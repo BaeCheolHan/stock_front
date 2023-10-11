@@ -17,7 +17,8 @@
       </v-tabs>
       <!--  chart 영역 -->
       <!-- 투자비중 chart -->
-      <DashboardTreemapChart v-if="investmentProportionChart" :chartData="treemapChartData" :chartOptions="treemapChartDataOptions" style="padding: 21px"/>
+      <DashboardTreemapChart v-if="investmentProportionChart" :chartData="treemapChartData"
+                             :chartOptions="treemapChartDataOptions" style="padding: 21px"/>
       <!-- 월별 배당현황 chart -->
       <DividendMonthlyChart v-if="dividendChart" :chartData="dividendChartSeries" :chartOptions="dividendChartOption"/>
       <!-- 자산 현황 chart -->
@@ -148,6 +149,44 @@ export default {
           height: 350,
           type: 'treemap'
         },
+        title: {
+          text: '종목별 투자 비중',
+          align: 'center',
+        },
+        dataLabels: {
+          enable: true,
+          style: {
+            fontSize: '12px',
+          },
+          formatter: function (text, op) {
+            return [text, op.value + '%']
+          },
+          offsetY: -4
+        },
+        colors: [
+          '#FF0000',
+          '#1E5D8C',
+          '#D43F97',
+          '#00FF00',
+          '#EC3C65',
+          '#334CFF',
+          '#FF5733',
+          '#33AFFF',
+          '#F7B844',
+          '#EF6537',
+          '#3B93A5',
+          '#ADD8C7',
+          '#CDD7B6',
+          '#C1F666',
+          '#421243',
+          '#7F94B0',
+          '#C0ADDB',
+          '#FF00FF',
+          '#800080',
+          '#808000',
+          '#800000',
+          '#008000'
+        ],
         plotOptions: {
           treemap: {
             distributed: true,
@@ -278,7 +317,7 @@ export default {
   },
   created: async function () {
     this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
-    if(this.userInfo) {
+    if (this.userInfo) {
       this.$store.commit('setUserInfo', this.userInfo)
       this.accounts = this.userInfo.bankAccounts;
     }
