@@ -758,7 +758,7 @@ select::-ms-expand {
 }
 .modal-card {
     position: relative;
-    max-width: 300px;
+    max-width: 90%;
     margin: auto;
     margin-top: 30px;
     padding: 20px;

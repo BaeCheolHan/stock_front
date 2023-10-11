@@ -17,8 +17,7 @@
       </v-tabs>
       <!--  chart 영역 -->
       <!-- 투자비중 chart -->
-      <DashboardTreemapChart v-if="investmentProportionChart" :chartData="treemapChartData"
-                             :chartOptions="treemapChartDataOptions"/>
+      <DashboardTreemapChart v-if="investmentProportionChart" :chartData="treemapChartData" :chartOptions="treemapChartDataOptions" style="padding: 21px"/>
       <!-- 월별 배당현황 chart -->
       <DividendMonthlyChart v-if="dividendChart" :chartData="dividendChartSeries" :chartOptions="dividendChartOption"/>
       <!-- 자산 현황 chart -->
