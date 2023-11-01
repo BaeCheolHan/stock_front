@@ -1,5 +1,5 @@
 <template>
-  <TheHeader v-if="userInfo"/>
+  <TheHeader/>
   <v-app :class="{'login-background': !userInfo}">
     <v-main>
       <div class="sns-btn-wrap" v-if="!userInfo">

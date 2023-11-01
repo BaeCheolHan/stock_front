@@ -126,103 +126,113 @@ input[type=number] {
     border-radius: 8px;
 }
 
+.kakao-login-small {
+    background: url(/public/kakao-icons/ico_login_kakao.png) no-repeat center;
+    background-size: contain;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    font-size: 0;
+    background-color: transparent;
+}
+
 .flex {
-    display: flex;
+display: flex;
 }
 .header {
-    border-bottom: 2px solid;
-    border-bottom-color: #e00000;
+border-bottom: 2px solid;
+border-bottom-color: #e00000;
 }
 
 .exchange-rate-wrap {
-    margin-left: auto;
-    padding: 5px;
+margin-left: auto;
+padding: 5px;
 }
 .profile-wrap {
-    margin-right: auto;
-    display: flex;
-    align-items: center;
+margin-right: auto;
+display: flex;
+align-items: center;
 }
 
 .profile-wrap .profile-thumbnail {
-    border-radius: 10px;
-    width: 35px;
-    height: 35px;
-    padding: 5px;
-    object-fit: cover;
-    -object-fit: cover;
+border-radius: 10px;
+width: 35px;
+height: 35px;
+padding: 5px;
+object-fit: cover;
+-object-fit: cover;
 }
 
 .profile-nickname {
-    font-size: 15px;
-    font-weight: 700;
-    padding: 0 5px;
-    line-height: 45px;
+font-size: 15px;
+font-weight: 700;
+padding: 0 5px;
+line-height: 45px;
 }
 
 .account-wrap {
-    margin-top: 20px;
+margin-top: 20px;
 }
 
 .bank-icon {
-    width: 20px;
+width: 20px;
 }
 
 .account {
-    border: 1px solid #e6e4eb;
-    border-radius: 10px;
-    font-size: 15px;
-    width: 90%;
-    margin: 0 auto;
-    cursor: pointer;
+border: 1px solid #e6e4eb;
+border-radius: 10px;
+font-size: 15px;
+width: 90%;
+margin: 0 auto;
+cursor: pointer;
 }
 
 .empty-account {
-    color: #e6e4eb;
-    border: 1px solid #e6e4eb;
-    border-radius: 20px;
-    height: 100px;
-    line-height: 100px;
-    text-align: center;
-    font-size: 20px;
-    width: 90%;
-    margin: 0 auto;
-    cursor: pointer;
+color: #e6e4eb;
+border: 1px solid #e6e4eb;
+border-radius: 20px;
+height: 100px;
+line-height: 100px;
+text-align: center;
+font-size: 20px;
+width: 90%;
+margin: 0 auto;
+cursor: pointer;
 }
 
 .selected-bank-wrap {
-    background-color: #fff;
-    border: 1px solid #ced4da;
-    display: block;
-    width: 100%;
-    height: 40px;
-    border-radius: 5px;
-    padding: 7px 5px;
-    font-size: 13px;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #222;
-    box-sizing: border-box;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+background-color: #fff;
+border: 1px solid #ced4da;
+display: block;
+width: 100%;
+height: 40px;
+border-radius: 5px;
+padding: 7px 5px;
+font-size: 13px;
+font-weight: 400;
+line-height: 1.5;
+color: #222;
+box-sizing: border-box;
+transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .popup-wrap {
-    padding: 10px;
-    height: calc(100% - 82px);
+padding: 10px;
+height: calc(100% - 82px);
 }
 
 .popup-wrap .inputBox span {
-    width: 15%;
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
+width: 15%;
+font-size: 14px;
+font-weight: 500;
+color: #333;
 }
 
 .popup-wrap .inputBox {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 13px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 13px;
 }
 
 /* searchSelect */
