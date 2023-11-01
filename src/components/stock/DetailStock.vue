@@ -3,6 +3,15 @@
     <h2>{{ $parent.$parent.selectedStock.name }}({{ $parent.$parent.selectedStock.symbol }})</h2>
     <div class="popup-wrap" style="padding: 10px 0 0;!important;">
 
+      <div v-if="series" id="chart">
+        <div class="flex">
+          <button class="mg-r-10 pd-5" :class="{'redBtn' : chartType === 'D', 'border-radius-8' : chartType !== 'D'}" @click="changeChartType('D')">일별</button>
+          <button class="mg-r-10 pd-5" :class="{'redBtn' : chartType === 'W', 'border-radius-8' : chartType !== 'W'}" @click="changeChartType('W')">주별</button>
+          <button class="mg-r-10 pd-5 pd-5" :class="{'redBtn' : chartType === 'M', 'border-radius-8' : chartType !== 'M'}" @click="changeChartType('M')">월별</button>
+          <button v-if="$parent.$parent.selectedStock.national == 'KR'" class="pd-5 pd-5" :class="{'redBtn' : chartType === 'Y', 'border-radius-8' : chartType !== 'Y'}" @click="changeChartType('Y')">년별</button>
+        </div>
+        <apexchart type="area" :options="chartOptions" :series="series"></apexchart>
+      </div>
       <div class="pd-10 border">
         <div class="flex" style="justify-content: space-between;">
           <div>
@@ -77,8 +86,11 @@
 </template>
 
 <script>
+
 export default {
   name: "DetailStock",
+  components: {
+  },
   props: {
     msg: String,
   },
@@ -88,9 +100,77 @@ export default {
       totalPrice: 0,
       totalQuantity: 0,
       rateOfReturn: 0,
+      chartType:'D',
+      series: [{
+        data: []
+      }],
+      chartOptions: {
+        chart: {
+          type: 'area',
+          stacked: false,
+          height: 350,
+          zoom: {
+            type: 'x',
+            enabled: true,
+            autoScaleYaxis: true
+          },
+          toolbar: {
+            autoSelected: 'zoom'
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        markers: {
+          size: 0,
+        },
+        title: {
+          text: '',
+          align: 'left'
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shadeIntensity: 1,
+            inverseColors: false,
+            opacityFrom: 0.5,
+            opacityTo: 0,
+            stops: [0, 90, 100]
+          },
+        },
+        yaxis: {
+          labels: {
+            formatter: function (val) {
+              return val
+            },
+          },
+          title: {
+            text: ''
+          },
+        },
+        xaxis: {
+          type: 'string',
+        },
+        tooltip: {
+          shared: false,
+          y: {
+            formatter: function (val) {
+              return val
+            }
+          }
+        }
+      },
     }
   },
-  watch: {},
+  watch: {
+    chartType: async function() {
+      let res = await this.axios.get('/api/stock/chart/'.concat(this.chartType)
+          .concat('/').concat(this.$parent.$parent.selectedStock.national)
+          .concat('/').concat(this.$parent.$parent.selectedStock.symbol));
+      this.series[0].data = [];
+      res.data.chartData.forEach(item => this.series[0].data.push({x: item.date, y: item.amount}))
+    }
+  },
   created: async function () {
     await this.init();
   },
@@ -105,6 +185,8 @@ export default {
       this.detail.stocks.forEach(item => this.totalPrice += (item.quantity * item.price))
       this.detail.stocks.forEach(item => this.totalQuantity += item.quantity)
       this.rateOfReturn = Math.floor((this.detail.nowPrice * this.totalQuantity) - this.totalPrice);
+      this.series[0].name = this.$parent.$parent.selectedStock.name
+      res.data.detail.chartData.forEach(item => this.series[0].data.push({x: item.date, y: item.amount}))
     },
     setColor: function () {
       if (this.detail.compareToYesterdaySign == 'minus') {
@@ -129,6 +211,9 @@ export default {
     },
     setPlusMinusColor: function (amount) {
       return Number(amount) > 0 ? 'color: red' : 'color: blue'
+    },
+    changeChartType: function (chartType) {
+      this.chartType = chartType;
     },
   }
 };

@@ -828,3 +828,18 @@ select::-ms-expand {
     left: 30px;
     top: -5px;
 }
+
+.redBtn {
+    background-color: #e00000;
+    border: 1px solid #e00000;
+    color: #fff;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.border-radius-8 {
+    border: 1px solid lightslategray;
+    border-radius: 8px;
+    font-size: 14px;
+}
