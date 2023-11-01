@@ -751,6 +751,7 @@ select::-ms-expand {
     position: fixed;
     left: 0;
     top: 0;
+    z-index: 9998;
 }
 .overlay {
     opacity: 0.5;
@@ -765,11 +766,12 @@ select::-ms-expand {
     padding: 20px;
     background-color: white;
     /*min-height: 500px;*/
-    z-index: 10;
+    z-index: 9999;
     opacity: 1;
     overflow: hidden;
     overflow-y: scroll;
     max-height: 95%;
+
 }
 
 .border {
@@ -835,11 +837,13 @@ select::-ms-expand {
     color: #fff;
     border-radius: 8px;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 13px;
+    padding: 0 5px;
 }
 
 .border-radius-8 {
     border: 1px solid lightslategray;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 13px;
+    padding: 0 5px;
 }

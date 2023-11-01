@@ -5,10 +5,10 @@
 
       <div v-if="series" id="chart">
         <div class="flex">
-          <button class="mg-r-10 pd-5" :class="{'redBtn' : chartType === 'D', 'border-radius-8' : chartType !== 'D'}" @click="changeChartType('D')">일별</button>
-          <button class="mg-r-10 pd-5" :class="{'redBtn' : chartType === 'W', 'border-radius-8' : chartType !== 'W'}" @click="changeChartType('W')">주별</button>
-          <button class="mg-r-10 pd-5 pd-5" :class="{'redBtn' : chartType === 'M', 'border-radius-8' : chartType !== 'M'}" @click="changeChartType('M')">월별</button>
-          <button v-if="$parent.$parent.selectedStock.national == 'KR'" class="pd-5 pd-5" :class="{'redBtn' : chartType === 'Y', 'border-radius-8' : chartType !== 'Y'}" @click="changeChartType('Y')">년별</button>
+          <button class="mg-r-10" :class="{'redBtn' : chartType === 'D', 'border-radius-8' : chartType !== 'D'}" @click="changeChartType('D')">일별</button>
+          <button class="mg-r-10" :class="{'redBtn' : chartType === 'W', 'border-radius-8' : chartType !== 'W'}" @click="changeChartType('W')">주별</button>
+          <button class="mg-r-10" :class="{'redBtn' : chartType === 'M', 'border-radius-8' : chartType !== 'M'}" @click="changeChartType('M')">월별</button>
+          <button v-if="$parent.$parent.selectedStock.national == 'KR'" :class="{'redBtn' : chartType === 'Y', 'border-radius-8' : chartType !== 'Y'}" @click="changeChartType('Y')">년별</button>
         </div>
         <apexchart type="area" :options="chartOptions" :series="series"></apexchart>
       </div>
