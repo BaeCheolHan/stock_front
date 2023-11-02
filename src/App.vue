@@ -1,10 +1,7 @@
 <template>
   <TheHeader/>
-  <v-app :class="{'login-background': !userInfo}">
+  <v-app>
     <v-main>
-      <div class="sns-btn-wrap" v-if="!userInfo">
-        <div class="kakao-login" v-on:click="kakaoLoginBtn"></div>
-      </div>
       <router-view/>
     </v-main>
   </v-app>
@@ -22,21 +19,6 @@ export default {
     TheHeader,
     TheFooter,
   },
-  data: function () {
-    return {
-      userInfo: null,
-    }
-  },
-  computed: {},
-  created() {
-    this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
-  },
-  methods: {
-    kakaoLoginBtn: async function () {
-      let res = await this.axios.get('/login/kakao')
-      location.replace(res.data.loginUri);
-    },
-  }
 }
 </script>
 <style>
