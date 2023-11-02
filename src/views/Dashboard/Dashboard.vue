@@ -1,10 +1,10 @@
 <template>
-  <div class="flex pd-20" style="flex-wrap: wrap; max-width: 90%; margin: 0 auto;">
-    <div style="min-width: 350px; width: 50%">
+  <div class="flex pd-20" style="flex-wrap: wrap; max-width: 90%; margin: 0 auto; justify-content: space-around">
+    <div style="min-width: 350px; width: 40%">
       <h2>KOSPI 지수</h2>
       <apexchart type="area" :options="chartOptions" :series="kospiSeries"></apexchart>
     </div>
-    <div style="min-width: 350px; width: 50%">
+    <div style="min-width: 350px; width: 40%">
       <h2>KOSDAQ 지수</h2>
       <apexchart type="area" :options="chartOptions" :series="kosdaqSeries"></apexchart>
     </div>
