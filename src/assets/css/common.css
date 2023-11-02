@@ -745,6 +745,7 @@ select::-ms-expand {
 .overlay-lnb {
     opacity: 0.5;
     background-color: black;
+    z-index: 9998;
 }
 
 
@@ -860,4 +861,8 @@ select::-ms-expand {
 
 .side-menus ul li {
     cursor: pointer;
+}
+
+.sidenav-lnb {
+    z-index: 9999;
 }

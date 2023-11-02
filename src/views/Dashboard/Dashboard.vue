@@ -1,5 +1,4 @@
 <template>
-
   <div class="flex pd-20" style="flex-wrap: wrap; max-width: 90%; margin: 0 auto;">
     <div style="min-width: 350px; width: 50%">
       <h2>KOSPI 지수</h2>
@@ -11,7 +10,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 export default {
