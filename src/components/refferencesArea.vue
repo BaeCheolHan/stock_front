@@ -37,7 +37,7 @@
         <a target="_blank" style="font-size: 12px" class="pd-0"
            href="https://kr.freepik.com/free-vector/bull-and-bear-concept-design-made-with-particles_1209465.htm#page=15&query=%EC%A3%BC%EC%8B%9D%20%EC%B0%A8%ED%8A%B8&position=8&from_view=keyword&track=ais">작가
           starline</a>
-        <sapn>&nbsp;출처 Freepik</sapn>
+        <span>&nbsp;출처 Freepik</span>
       </div>
     </div>
   </div>

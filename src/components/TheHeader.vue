@@ -1,18 +1,15 @@
 <template>
   <header>
 
-  </header>
-  <div class="flex header">
-    <div class="profile-wrap" style="font-size: 15px;">
-      <li class="ti-angle-double-right mg-l-10 mg-r-15" @click="openNav" style="cursor:pointer"></li>
+    </header>
+    <div class="flex header">
+        <div class="profile-wrap" style="font-size: 15px;">
+            <li class="ti-angle-double-right mg-l-10 mg-r-15" @click="openNav" style="cursor:pointer"></li>
+        </div>
+        <keep-alive>
+            <ExchangeRate/>
+        </keep-alive>
     </div>
-    <div class="exchange-rate-wrap">
-      <p class="red font-weight-bold"> {{ exchangeRate.basePrice }}원 ({{ exchangeRate.date }} :
-        {{ exchangeRate.time }})</p>
-      <span class="mg-r-30">살때 : {{ exchangeRate.cashBuyingPrice }}</span>
-      <span>팔때 : {{ exchangeRate.cashSellingPrice }}</span>
-    </div>
-  </div>
 
   <div class="overlay-lnb" @click="closeNav" style="display:none;"></div>
 
@@ -65,67 +62,62 @@
       </div>
     </div>
 
-    <refferencesArea/>
-  </div>
+        <refferencesArea/>
+    </div>
 
 
 </template>
 
 <script>
 import refferencesArea from "@/components/refferencesArea";
+import ExchangeRate from "@/components/header/ExchangeRate.vue";
 
 export default {
-  components: {
-    refferencesArea,
-  },
-  data: function () {
-    return {
-      userInfo: null,
-      exchangeRate: null,
-    }
-  },
-  created: async function () {
-    if (sessionStorage.getItem('userInfo')) {
-      this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
-    }
+    components: {
+        refferencesArea,
+        ExchangeRate,
+    },
+    data: function () {
+        return {
+            userInfo: null,
+            exchangeRate: null,
+        }
+    },
+    created: async function () {
+        if (sessionStorage.getItem('userInfo')) {
+            this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
+        }
 
-    if (sessionStorage.getItem('exchangeRate')) {
-      this.exchangeRate = JSON.parse(sessionStorage.getItem('exchangeRate'));
-    } else {
-      let res = await this.axios.get("/api/exchange-rate");
-      sessionStorage.setItem('exchangeRate', JSON.stringify(res.data));
+        this.exchangeRate = sessionStorage.getItem('exchangeRate');
+    },
+    methods: {
+        openNav: function () {
+            document.getElementById("sidenav-lnb").style.width = "250px";
+            document.getElementsByClassName('overlay-lnb')[0].style.display = "";
+        },
+        closeNav: function () {
+            document.getElementById("sidenav-lnb").style.width = "0px";
+            document.getElementsByClassName('overlay-lnb')[0].style.display = "none";
+        },
+        goSettings: function () {
+            location.replace('/settings')
+        },
+        goDashboard: function () {
+            location.replace('/')
+        },
+        goMyStockManage: function () {
+            location.replace('/my')
+        },
+        kakaoLoginBtn: async function () {
+            let res = await this.axios.get('/login/kakao')
+            location.replace(res.data.loginUri)
+        },
+        logout: function () {
+            sessionStorage.removeItem('userInfo')
+            this.$store.commit('removeUserInfo')
+            location.replace('/')
+        }
     }
-
-
-  },
-  methods: {
-    openNav: function () {
-      document.getElementById("sidenav-lnb").style.width = "250px";
-      document.getElementsByClassName('overlay-lnb')[0].style.display = "";
-    },
-    closeNav: function () {
-      document.getElementById("sidenav-lnb").style.width = "0px";
-      document.getElementsByClassName('overlay-lnb')[0].style.display = "none";
-    },
-    goSettings: function () {
-      location.replace('/settings')
-    },
-    goDashboard: function () {
-      location.replace('/')
-    },
-    goMyStockManage: function () {
-      location.replace('/my')
-    },
-    kakaoLoginBtn: async function () {
-      let res = await this.axios.get('/login/kakao')
-      location.replace(res.data.loginUri)
-    },
-    logout: function () {
-      sessionStorage.removeItem('userInfo')
-      this.$store.commit('removeUserInfo')
-      location.replace('/')
-    }
-  }
 
 }
 </script>
