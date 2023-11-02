@@ -116,6 +116,9 @@ export default {
     this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
     if (this.userInfo) {
       this.defaultBankAccountId = this.userInfo.defaultBankAccountId;
+    } else {
+      alert("로그인 후 이용해주세요");
+      location.replace("/");
     }
   },
   methods: {
@@ -125,7 +128,7 @@ export default {
     selectBank: async function (bank) {
       this.selectedBank = bank;
       let res = await this.axios.get('/api/personal-setting/'.concat(this.selectedBank.id));
-      if(res.data.setting) {
+      if (res.data.setting) {
         this.defaultNational = res.data.setting.defaultNational;
         this.defaultCode = res.data.setting.defaultCode;
       } else {

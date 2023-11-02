@@ -15,6 +15,9 @@ export default createStore({
     mutations: {
         setUserInfo(state, userInfo) {
             state.userInfo = userInfo;
+        },
+        removeUserInfo(state) {
+            state.userInfo = null;
         }
     },
     actions: {

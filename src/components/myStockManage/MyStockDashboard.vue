@@ -113,7 +113,7 @@ import DividendRegPop from "@/components/dividend/DividendRegPop";
 import AssetChart from "@/components/dashboard/chart/AssetChart";
 
 export default {
-  name: 'SignInDashboard',
+  name: 'MyStockDashboard',
   components: {
     Modal,
     SaveBankAccount,
@@ -320,6 +320,9 @@ export default {
     if (this.userInfo) {
       this.$store.commit('setUserInfo', this.userInfo)
       this.accounts = this.userInfo.bankAccounts;
+    } else {
+      alert("로그인 후 이용해주세요");
+      location.replace("/");
     }
   },
   methods: {

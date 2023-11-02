@@ -35,10 +35,12 @@
           <v-divider class="mg-b-10"></v-divider>
         </div>
       </div>
-      <div style="height: 100%">
+      <div class="side-menus" style="height: 100%">
         <ul>
           <li @click="goDashboard">홈</li>
+          <li @click="goMyStockManage">내 주식 관리</li>
           <li @click="goSettings">설정</li>
+          <li @click="logout">로그아웃</li>
         </ul>
       </div>
     </div>
@@ -56,7 +58,7 @@
           <v-divider class="mg-b-10"></v-divider>
         </div>
       </div>
-      <div style="height: 100%">
+      <div class="side-menus" style="height: 100%">
         <ul>
           <li @click="goDashboard">홈</li>
         </ul>
@@ -111,9 +113,17 @@ export default {
     goDashboard: function () {
       location.replace('/')
     },
+    goMyStockManage: function () {
+      location.replace('/my')
+    },
     kakaoLoginBtn: async function () {
       let res = await this.axios.get('/login/kakao')
-      location.replace(res.data.loginUri);
+      location.replace(res.data.loginUri)
+    },
+    logout: function () {
+      sessionStorage.removeItem('userInfo')
+      this.$store.commit('removeUserInfo')
+      location.replace('/')
     }
   }
 

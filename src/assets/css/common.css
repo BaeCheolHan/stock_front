@@ -857,3 +857,7 @@ select::-ms-expand {
     font-size: 13px;
     padding: 0 5px;
 }
+
+.side-menus ul li {
+    cursor: pointer;
+}
