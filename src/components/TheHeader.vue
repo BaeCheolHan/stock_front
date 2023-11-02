@@ -44,7 +44,7 @@
     <div v-else>
       <div>
         <div class="flex">
-          <div class="profile-wrap" @click="goDashboard" v-if="!userInfo">
+          <div class="profile-wrap" v-if="!userInfo">
             <button class="kakao-login-small mg-l-15" v-on:click="kakaoLoginBtn"></button>
           </div>
           <div>
