@@ -18,7 +18,7 @@ export default {
       if (response.data) {
         this.$store.commit('setUserInfo', JSON.stringify(response.data))
         sessionStorage.setItem('userInfo', JSON.stringify(response.data))
-        location.href = '/'
+        location.href = '/my'
       }
     } catch (e) {
       location.href = '/'
