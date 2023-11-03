@@ -172,7 +172,6 @@ export default {
       this.detail.stocks.forEach(item => this.totalQuantity += item.quantity)
       this.rateOfReturn = Math.floor((this.detail.nowPrice * this.totalQuantity) - this.totalPrice);
       this.series[0].name = this.$parent.$parent.selectedStock.name
-      console.log(res.data.detail.chartData)
       res.data.detail.chartData.forEach(item => this.series[0].data.push({x: item.date, y: [item.open, item.high, item.low, item.close]}))
     },
     setColor: function () {
