@@ -365,41 +365,44 @@ export default {
     },
     getAssetChartData: async function () {
       let res = await this.axios.get("/api/asset/member/".concat(this.userInfo.memberId).concat("/chart"));
-      this.assetChartSeries = [
-        {
-          name: "투자 금액",
-          data: res.data.assetCharts.investmentAmountList
-        },
-        {
-          name: "평가 금액",
-          data: res.data.assetCharts.evaluationAmountList
-        }
-      ];
-
-      this.assetChartOptions = {
-        chart: {
-          height: 350,
-          type: 'area',
-          toolbar: {
-            show: false
-          }
-        },
-        dataLabels: {
-          enabled: false
-        },
-        stroke: {
-          curve: 'smooth'
-        },
-        xaxis: {
-          type: 'date',
-          categories: res.data.assetCharts.xaxisCategories
-        },
-        tooltip: {
-          x: {
-            format: 'yy-MM-dd '
+      if(res.data.assetCharts) {
+        this.assetChartSeries = [
+          {
+            name: "투자 금액",
+            data: res.data.assetCharts.investmentAmountList
           },
-        },
+          {
+            name: "평가 금액",
+            data: res.data.assetCharts.evaluationAmountList
+          }
+        ];
+
+        this.assetChartOptions = {
+          chart: {
+            height: 350,
+            type: 'area',
+            toolbar: {
+              show: false
+            }
+          },
+          dataLabels: {
+            enabled: false
+          },
+          stroke: {
+            curve: 'smooth'
+          },
+          xaxis: {
+            type: 'date',
+            categories: res.data.assetCharts.xaxisCategories
+          },
+          tooltip: {
+            x: {
+              format: 'yy-MM-dd '
+            },
+          },
+        }
       }
+
     },
     getDividends: async function () {
       let res = await this.axios.get("/api/dividend/member/".concat(this.userInfo.memberId));
