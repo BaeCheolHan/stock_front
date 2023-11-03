@@ -1,23 +1,25 @@
 <template>
-  <div class="flex pd-20" style="flex-wrap: wrap; max-width: 90%; margin: 0 auto; justify-content: space-around">
-    <div style="min-width: 350px; width: 40%">
-      <h2>KOSPI</h2>
-      <apexchart type="candlestick" :options="chartOptions" :series="kospiSeries"></apexchart>
+  <div class="mg-t-20">
+    <div class="flex" style="flex-wrap: wrap; max-width: 90%; margin: 0 auto; justify-content: space-around">
+      <div style="min-width: 180px; width: 40%">
+        <h3>KOSPI 지수</h3>
+        <apexchart type="candlestick" :options="chartOptions" :series="kospiSeries"></apexchart>
+      </div>
+      <div style="min-width: 180px; width: 40%">
+        <h3>KOSDAQ 지수</h3>
+        <apexchart type="candlestick" :options="chartOptions" :series="kosdaqSeries"></apexchart>
+      </div>
     </div>
-    <div style="min-width: 350px; width: 40%">
-      <h2>KOSDAQ</h2>
-      <apexchart type="candlestick" :options="chartOptions" :series="kosdaqSeries"></apexchart>
-    </div>
-  </div>
 
-  <div class="flex pd-20" style="flex-wrap: wrap; max-width: 90%; margin: 0 auto; justify-content: space-around">
-    <div style="min-width: 350px; width: 40%">
-      <h2>S&P500</h2>
-      <apexchart type="candlestick" :options="chartOptions" :series="snpSeries"></apexchart>
-    </div>
-    <div style="min-width: 350px; width: 40%">
-      <h2>NASDAQ</h2>
-      <apexchart type="candlestick" :options="chartOptions" :series="nasdaqSeries"></apexchart>
+    <div class="flex" style="flex-wrap: wrap; max-width: 90%; margin: 0 auto; justify-content: space-around">
+      <div style="min-width: 180px; width: 40%">
+        <h3>S&P500 지수</h3>
+        <apexchart type="candlestick" :options="chartOptions" :series="snpSeries"></apexchart>
+      </div>
+      <div style="min-width: 180px; width: 40%">
+        <h3>NASDAQ 지수</h3>
+        <apexchart type="candlestick" :options="chartOptions" :series="nasdaqSeries"></apexchart>
+      </div>
     </div>
   </div>
 </template>
@@ -76,12 +78,14 @@ export default {
         xaxis: {
           type: 'category',
           labels: {
+            show: false,
             formatter: function(val) {
               return val
             }
           }
         },
         yaxis: {
+          show: false,
           tooltip: {
             enabled: false
           }
