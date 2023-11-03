@@ -431,6 +431,20 @@ export default {
       this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
       this.accounts = this.userInfo.bankAccounts;
       this.isShowRegAccountPop = false;
+    },
+
+    isMobile() {
+      const info = navigator.userAgent;
+      let flag = false;
+
+      if( info.indexOf("iPhone") > -1
+          || info.indexOf("Android") > -1
+          || info.indexOf("iPad") > -1
+          || info.indexOf("iPod") > -1
+      ) {
+        flag = true;
+      }
+      return !flag;
     }
 
   }

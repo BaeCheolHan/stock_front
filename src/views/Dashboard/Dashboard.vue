@@ -78,14 +78,14 @@ export default {
         xaxis: {
           type: 'category',
           labels: {
-            show: false,
+            show: this.isMobile(),
             formatter: function(val) {
               return val
             }
           }
         },
         yaxis: {
-          show: false,
+          show: this.isMobile(),
           tooltip: {
             enabled: false
           }
@@ -104,6 +104,20 @@ export default {
     this.snp.output2.forEach(item => this.snpSeries[0].data.push({x: item.stck_bsop_date, y: [item.ovrs_nmix_oprc, item.ovrs_nmix_hgpr, item.ovrs_nmix_lwpr, item.ovrs_nmix_prpr]}))
     this.snp.output2.forEach(item => this.nasdaqSeries[0].data.push({x: item.stck_bsop_date, y: [item.ovrs_nmix_oprc, item.ovrs_nmix_hgpr, item.ovrs_nmix_lwpr, item.ovrs_nmix_prpr]}))
   },
-  methods: {}
+  methods: {
+    isMobile() {
+      const info = navigator.userAgent;
+      let flag = false;
+
+      if( info.indexOf("iPhone") > -1
+          || info.indexOf("Android") > -1
+          || info.indexOf("iPad") > -1
+          || info.indexOf("iPod") > -1
+      ) {
+        flag = true;
+      }
+      return !flag;
+    }
+  }
 }
 </script>
