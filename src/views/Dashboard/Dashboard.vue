@@ -54,6 +54,9 @@ export default {
         chart: {
           height: 350,
           type: 'candlestick',
+          toolbar: {
+            show: false
+          }
         },
         title: {
           text: '',
@@ -80,7 +83,7 @@ export default {
         },
         yaxis: {
           tooltip: {
-            enabled: true
+            enabled: false
           }
         }
       },

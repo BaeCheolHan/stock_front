@@ -109,6 +109,9 @@ export default {
         chart: {
           height: 350,
           type: 'candlestick',
+          toolbar: {
+            show: false
+          }
         },
         title: {
           text: '',

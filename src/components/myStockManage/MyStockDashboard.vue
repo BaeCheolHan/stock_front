@@ -379,7 +379,10 @@ export default {
       this.assetChartOptions = {
         chart: {
           height: 350,
-          type: 'area'
+          type: 'area',
+          toolbar: {
+            show: false
+          }
         },
         dataLabels: {
           enabled: false
