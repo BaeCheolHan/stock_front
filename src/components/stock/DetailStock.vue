@@ -10,7 +10,8 @@
           <button class="mg-r-10" :class="{'redBtn' : chartType === 'M', 'border-radius-8' : chartType !== 'M'}" @click="changeChartType('M')">월별</button>
           <button v-if="$parent.$parent.selectedStock.national == 'KR'" :class="{'redBtn' : chartType === 'Y', 'border-radius-8' : chartType !== 'Y'}" @click="changeChartType('Y')">년별</button>
         </div>
-        <apexchart type="area" :options="chartOptions" :series="series"></apexchart>
+        <apexchart type="candlestick" :options="chartOptions" :series="series"></apexchart>
+
       </div>
       <div class="pd-10 border">
         <div class="flex" style="justify-content: space-between;">
@@ -106,60 +107,40 @@ export default {
       }],
       chartOptions: {
         chart: {
-          type: 'area',
-          stacked: false,
           height: 350,
-          zoom: {
-            type: 'x',
-            enabled: true,
-            autoScaleYaxis: true
-          },
-          toolbar: {
-            autoSelected: 'zoom'
-          }
-        },
-        dataLabels: {
-          enabled: false
-        },
-        markers: {
-          size: 0,
+          type: 'candlestick',
         },
         title: {
           text: '',
           align: 'left'
         },
-        fill: {
-          type: 'gradient',
-          gradient: {
-            shadeIntensity: 1,
-            inverseColors: false,
-            opacityFrom: 0.5,
-            opacityTo: 0,
-            stops: [0, 90, 100]
-          },
-        },
-        yaxis: {
-          labels: {
-            formatter: function (val) {
-              return val
-            },
-          },
-          title: {
-            text: ''
-          },
-        },
-        xaxis: {
-          type: 'string',
+        plotOptions: {
+          candlestick: {
+            colors: {
+              upward: '#fa0202',
+              downward: '#0213fa'
+            }
+          }
         },
         tooltip: {
-          shared: false,
-          y: {
-            formatter: function (val) {
+          enabled: true,
+        },
+        xaxis: {
+          type: 'category',
+          labels: {
+            formatter: function(val) {
               return val
             }
           }
+        },
+        yaxis: {
+          tooltip: {
+            enabled: true
+          }
         }
       },
+
+
     }
   },
   watch: {
@@ -168,7 +149,7 @@ export default {
           .concat('/').concat(this.$parent.$parent.selectedStock.national)
           .concat('/').concat(this.$parent.$parent.selectedStock.symbol));
       this.series[0].data = [];
-      res.data.chartData.forEach(item => this.series[0].data.push({x: item.date, y: item.amount}))
+      res.data.chartData.forEach(item => this.series[0].data.push({x: item.date, y: [item.open, item.high, item.low, item.close]}))
     }
   },
   created: async function () {
@@ -186,7 +167,8 @@ export default {
       this.detail.stocks.forEach(item => this.totalQuantity += item.quantity)
       this.rateOfReturn = Math.floor((this.detail.nowPrice * this.totalQuantity) - this.totalPrice);
       this.series[0].name = this.$parent.$parent.selectedStock.name
-      res.data.detail.chartData.forEach(item => this.series[0].data.push({x: item.date, y: item.amount}))
+      console.log(res.data.detail.chartData)
+      res.data.detail.chartData.forEach(item => this.series[0].data.push({x: item.date, y: [item.open, item.high, item.low, item.close]}))
     },
     setColor: function () {
       if (this.detail.compareToYesterdaySign == 'minus') {

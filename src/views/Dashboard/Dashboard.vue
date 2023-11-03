@@ -1,12 +1,23 @@
 <template>
   <div class="flex pd-20" style="flex-wrap: wrap; max-width: 90%; margin: 0 auto; justify-content: space-around">
     <div style="min-width: 350px; width: 40%">
-      <h2>KOSPI 지수</h2>
-      <apexchart type="area" :options="chartOptions" :series="kospiSeries"></apexchart>
+      <h2>KOSPI</h2>
+      <apexchart type="candlestick" :options="chartOptions" :series="kospiSeries"></apexchart>
     </div>
     <div style="min-width: 350px; width: 40%">
-      <h2>KOSDAQ 지수</h2>
-      <apexchart type="area" :options="chartOptions" :series="kosdaqSeries"></apexchart>
+      <h2>KOSDAQ</h2>
+      <apexchart type="candlestick" :options="chartOptions" :series="kosdaqSeries"></apexchart>
+    </div>
+  </div>
+
+  <div class="flex pd-20" style="flex-wrap: wrap; max-width: 90%; margin: 0 auto; justify-content: space-around">
+    <div style="min-width: 350px; width: 40%">
+      <h2>S&P500</h2>
+      <apexchart type="candlestick" :options="chartOptions" :series="snpSeries"></apexchart>
+    </div>
+    <div style="min-width: 350px; width: 40%">
+      <h2>NASDAQ</h2>
+      <apexchart type="candlestick" :options="chartOptions" :series="nasdaqSeries"></apexchart>
     </div>
   </div>
 </template>
@@ -19,6 +30,8 @@ export default {
     return {
       kospi: null,
       kosdaq: null,
+      snp: null,
+      nasdaq: null,
       kospiSeries: [{
         data: []
       }],
@@ -27,59 +40,47 @@ export default {
           data: []
         }
       ],
+      snpSeries: [
+        {
+          data: []
+        }
+      ],
+      nasdaqSeries: [
+        {
+          data: []
+        }
+      ],
       chartOptions: {
         chart: {
-          type: 'area',
-          stacked: false,
-          height: 500,
-          zoom: {
-            type: 'x',
-            enabled: true,
-            autoScaleYaxis: true
-          },
-          toolbar: {
-            autoSelected: 'zoom'
-          }
-        },
-        dataLabels: {
-          enabled: false
-        },
-        markers: {
-          size: 0,
+          height: 350,
+          type: 'candlestick',
         },
         title: {
           text: '',
           align: 'left'
         },
-        fill: {
-          type: 'gradient',
-          gradient: {
-            shadeIntensity: 1,
-            inverseColors: false,
-            opacityFrom: 0.5,
-            opacityTo: 0,
-            stops: [0, 90, 100]
-          },
-        },
-        yaxis: {
-          labels: {
-            formatter: function (val) {
-              return val
-            },
-          },
-          title: {
-            text: ''
-          },
-        },
-        xaxis: {
-          type: 'string',
+        plotOptions: {
+          candlestick: {
+            colors: {
+              upward: '#fa0202',
+              downward: '#0213fa'
+            }
+          }
         },
         tooltip: {
-          shared: false,
-          y: {
-            formatter: function (val) {
+          enabled: true,
+        },
+        xaxis: {
+          type: 'category',
+          labels: {
+            formatter: function(val) {
               return val
             }
+          }
+        },
+        yaxis: {
+          tooltip: {
+            enabled: true
           }
         }
       },
@@ -89,8 +90,12 @@ export default {
     let res = await this.axios.get('/api/dashboard/index-chart');
     this.kospi = res.data.kospi;
     this.kosdaq = res.data.kosdaq;
-    this.kospi.output2.forEach(item => this.kospiSeries[0].data.push({x: item.stck_bsop_date, y: item.bstp_nmix_prpr}))
-    this.kosdaq.output2.forEach(item => this.kosdaqSeries[0].data.push({x: item.stck_bsop_date, y: item.bstp_nmix_prpr}))
+    this.snp = res.data.snp;
+    this.nasdaq = res.data.nasdaq;
+    this.kospi.output2.forEach(item => this.kospiSeries[0].data.push({x: item.stck_bsop_date, y: [item.bstp_nmix_oprc, item.bstp_nmix_hgpr, item.bstp_nmix_lwpr, item.bstp_nmix_prpr]}))
+    this.kosdaq.output2.forEach(item => this.kosdaqSeries[0].data.push({x: item.stck_bsop_date, y: [item.bstp_nmix_oprc, item.bstp_nmix_hgpr, item.bstp_nmix_lwpr, item.bstp_nmix_prpr]}))
+    this.snp.output2.forEach(item => this.snpSeries[0].data.push({x: item.stck_bsop_date, y: [item.ovrs_nmix_oprc, item.ovrs_nmix_hgpr, item.ovrs_nmix_lwpr, item.ovrs_nmix_prpr]}))
+    this.snp.output2.forEach(item => this.nasdaqSeries[0].data.push({x: item.stck_bsop_date, y: [item.ovrs_nmix_oprc, item.ovrs_nmix_hgpr, item.ovrs_nmix_lwpr, item.ovrs_nmix_prpr]}))
   },
   methods: {}
 }

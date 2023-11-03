@@ -1,18 +1,17 @@
 <template>
   <header>
 
-    </header>
-    <div class="flex header">
-        <div class="profile-wrap" style="font-size: 15px;">
-            <li class="ti-angle-double-right mg-l-10 mg-r-15" @click="openNav" style="cursor:pointer"></li>
-        </div>
-        <keep-alive>
-            <ExchangeRate/>
-        </keep-alive>
+  </header>
+  <div class="flex header">
+    <div class="profile-wrap" style="font-size: 15px;">
+      <li class="ti-angle-double-right mg-l-10 mg-r-15" @click="openNav" style="cursor:pointer"></li>
     </div>
+    <keep-alive>
+      <ExchangeRate/>
+    </keep-alive>
+  </div>
 
   <div class="overlay-lnb" @click="closeNav" style="display:none;"></div>
-
 
   <div id="sidenav-lnb" class="sidenav">
     <div v-if="userInfo">
@@ -62,8 +61,8 @@
       </div>
     </div>
 
-        <refferencesArea/>
-    </div>
+    <refferencesArea/>
+  </div>
 
 
 </template>
@@ -73,51 +72,51 @@ import refferencesArea from "@/components/refferencesArea";
 import ExchangeRate from "@/components/header/ExchangeRate.vue";
 
 export default {
-    components: {
-        refferencesArea,
-        ExchangeRate,
-    },
-    data: function () {
-        return {
-            userInfo: null,
-            exchangeRate: null,
-        }
-    },
-    created: async function () {
-        if (sessionStorage.getItem('userInfo')) {
-            this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
-        }
-
-        this.exchangeRate = sessionStorage.getItem('exchangeRate');
-    },
-    methods: {
-        openNav: function () {
-            document.getElementById("sidenav-lnb").style.width = "250px";
-            document.getElementsByClassName('overlay-lnb')[0].style.display = "";
-        },
-        closeNav: function () {
-            document.getElementById("sidenav-lnb").style.width = "0px";
-            document.getElementsByClassName('overlay-lnb')[0].style.display = "none";
-        },
-        goSettings: function () {
-            location.replace('/settings')
-        },
-        goDashboard: function () {
-            location.replace('/')
-        },
-        goMyStockManage: function () {
-            location.replace('/my')
-        },
-        kakaoLoginBtn: async function () {
-            let res = await this.axios.get('/login/kakao')
-            location.replace(res.data.loginUri)
-        },
-        logout: function () {
-            sessionStorage.removeItem('userInfo')
-            this.$store.commit('removeUserInfo')
-            location.replace('/')
-        }
+  components: {
+    refferencesArea,
+    ExchangeRate,
+  },
+  data: function () {
+    return {
+      userInfo: null,
+      exchangeRate: null,
     }
+  },
+  created: async function () {
+    if (sessionStorage.getItem('userInfo')) {
+      this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'))
+    }
+
+    this.exchangeRate = sessionStorage.getItem('exchangeRate');
+  },
+  methods: {
+    openNav: function () {
+      document.getElementById("sidenav-lnb").style.width = "250px";
+      document.getElementsByClassName('overlay-lnb')[0].style.display = "";
+    },
+    closeNav: function () {
+      document.getElementById("sidenav-lnb").style.width = "0px";
+      document.getElementsByClassName('overlay-lnb')[0].style.display = "none";
+    },
+    goSettings: function () {
+      location.replace('/settings')
+    },
+    goDashboard: function () {
+      location.replace('/')
+    },
+    goMyStockManage: function () {
+      location.replace('/my')
+    },
+    kakaoLoginBtn: async function () {
+      let res = await this.axios.get('/login/kakao')
+      location.replace(res.data.loginUri)
+    },
+    logout: function () {
+      sessionStorage.removeItem('userInfo')
+      this.$store.commit('removeUserInfo')
+      location.replace('/')
+    }
+  }
 
 }
 </script>
