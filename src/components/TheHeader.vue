@@ -6,9 +6,7 @@
     <div class="profile-wrap" style="font-size: 15px;">
       <li class="ti-angle-double-right mg-l-10 mg-r-15" @click="openNav" style="cursor:pointer"></li>
     </div>
-    <keep-alive>
-      <ExchangeRate/>
-    </keep-alive>
+    <ExchangeRate/>
   </div>
 
   <div class="overlay-lnb" @click="closeNav" style="display:none;"></div>
