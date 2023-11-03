@@ -1,6 +1,6 @@
 <template>
   <div>
-      <apexchart type="treemap" :options="chartOptions" :series="chartData"></apexchart>
+    <apexchart type="treemap" :options="chartOptions" :series="chartData"></apexchart>
   </div>
 </template>
 
@@ -9,8 +9,7 @@
 
 export default {
   name: "DashboardTreemapChart",
-  components: {
-  },
+  components: {},
   props: {
     chartData: {
       type: [],
@@ -18,17 +17,15 @@ export default {
     },
     chartOptions: {
       type: Object,
-      default: () => {}
+      default: () => {
+      }
     }
   },
   data: function () {
-    return {
-    }
+    return {}
   },
   created: async function () {
   },
-  methods: {
-
-  }
+  methods: {}
 };
 </script>

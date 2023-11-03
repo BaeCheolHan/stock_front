@@ -20,9 +20,10 @@
       <DashboardTreemapChart v-if="investmentProportionChart" :chartData="treemapChartData"
                              :chartOptions="treemapChartDataOptions" style="padding: 21px"/>
       <!-- 월별 배당현황 chart -->
-      <DividendMonthlyChart v-if="dividendChart" :chartData="dividendChartSeries" :chartOptions="dividendChartOption"/>
+      <DividendMonthlyChart class="pd-r-20" v-if="dividendChart" :chartData="dividendChartSeries"
+                            :chartOptions="dividendChartOption"/>
       <!-- 자산 현황 chart -->
-      <AssetChart v-if="assetChart" :chartData="assetChartSeries" :chartOptions="assetChartOptions"/>
+      <AssetChart class="pd-r-20" v-if="assetChart" :chartData="assetChartSeries" :chartOptions="assetChartOptions"/>
     </div>
 
     <div v-if="investmentProportionChart">
@@ -147,7 +148,10 @@ export default {
         },
         chart: {
           height: 350,
-          type: 'treemap'
+          type: 'treemap',
+          toolbar: {
+            show: false
+          }
         },
         title: {
           text: '종목별 투자 비중',
@@ -203,7 +207,10 @@ export default {
       dividendChartOption: {
         chart: {
           type: 'bar',
-          height: 350
+          height: 350,
+          toolbar: {
+            show: false
+          }
         },
         plotOptions: {
           bar: {
@@ -365,7 +372,7 @@ export default {
     },
     getAssetChartData: async function () {
       let res = await this.axios.get("/api/asset/member/".concat(this.userInfo.memberId).concat("/chart"));
-      if(res.data.assetCharts) {
+      if (res.data.assetCharts) {
         this.assetChartSeries = [
           {
             name: "투자 금액",
@@ -437,10 +444,10 @@ export default {
       const info = navigator.userAgent;
       let flag = false;
 
-      if( info.indexOf("iPhone") > -1
-          || info.indexOf("Android") > -1
-          || info.indexOf("iPad") > -1
-          || info.indexOf("iPod") > -1
+      if (info.indexOf("iPhone") > -1
+        || info.indexOf("Android") > -1
+        || info.indexOf("iPad") > -1
+        || info.indexOf("iPod") > -1
       ) {
         flag = true;
       }
