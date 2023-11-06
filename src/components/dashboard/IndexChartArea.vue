@@ -26,7 +26,7 @@
           <div :class="{'red' : kospi.output1.prdy_vrss_sign == 1 || kospi.output1.prdy_vrss_sign == 2,
                          'blue': kospi.output1.prdy_vrss_sign == 4 || kospi.output1.prdy_vrss_sign == 5 }"
                :style="isMobileFont()">
-            <span>{{ kospi.output1.bstp_nmix_oprc }}</span>
+            <span>{{ kospi.output1.bstp_nmix_prpr }}</span>
             <span v-if="kospi.output1.prdy_vrss_sign == 1 || kospi.output1.prdy_vrss_sign == 2">
             (+
             </span>
@@ -47,7 +47,7 @@
           <div :class="{'red' : kosdaq.output1.prdy_vrss_sign == 1 || kosdaq.output1.prdy_vrss_sign == 2,
                         'blue': kosdaq.output1.prdy_vrss_sign == 4 || kosdaq.output1.prdy_vrss_sign == 5 }"
                :style="isMobileFont()">
-            <span>{{ kosdaq.output1.bstp_nmix_oprc }}</span>
+            <span>{{ kosdaq.output1.bstp_nmix_prpr }}</span>
             <span v-if="kosdaq.output1.prdy_vrss_sign == 1 || kosdaq.output1.prdy_vrss_sign == 2">
             (+
             </span>
@@ -71,7 +71,7 @@
           <div :class="{'red' : snp.output1.prdy_vrss_sign == 1 || snp.output1.prdy_vrss_sign == 2,
                          'blue': snp.output1.prdy_vrss_sign == 4 || snp.output1.prdy_vrss_sign == 5 }"
                :style="isMobileFont()">
-            <span>{{ snp.output1.ovrs_prod_oprc }}</span>
+            <span>{{ snp.output1.ovrs_nmix_prpr }}</span>
             <span v-if="snp.output1.prdy_vrss_sign == 1 || snp.output1.prdy_vrss_sign == 2">
             (+
             </span>
@@ -89,11 +89,10 @@
       <div style="min-width: 165px; width: 40%" v-if="nasdaq">
         <div class="flex" style="justify-content: flex-start; align-items: center">
           <h4 class="t-a-c mg-r-15">NASDAQ</h4>
-
           <div :class="{'red' : nasdaq.output1.prdy_vrss_sign == 1 || nasdaq.output1.prdy_vrss_sign == 2,
                          'blue': nasdaq.output1.prdy_vrss_sign == 4 || nasdaq.output1.prdy_vrss_sign == 5 }"
                :style="isMobileFont()">
-            <span>{{ nasdaq.output1.ovrs_prod_oprc }}</span>
+            <span>{{ nasdaq.output1.ovrs_nmix_prpr }}</span>
             <span v-if="nasdaq.output1.prdy_vrss_sign == 1 || nasdaq.output1.prdy_vrss_sign == 2">
             (+
             </span>
@@ -111,6 +110,7 @@
     </div>
   </div>
 </template>
+
 
 
 <script>

@@ -866,3 +866,11 @@ select::-ms-expand {
 .sidenav {
     z-index: 9999;
 }
+
+.icon-up:before {
+    content: "\25B2";
+}
+
+.icon-down:before {
+    content: "\25BC";
+}

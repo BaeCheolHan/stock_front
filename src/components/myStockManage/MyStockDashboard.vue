@@ -1,96 +1,95 @@
 <template>
-  <div v-if="userInfo && userInfo.bankAccounts && userInfo.bankAccounts.length > 0" class="account-wrap">
-    <div>
-      <v-tabs v-model="chartTab" color="#e00000" align-tabs="end">
-        <v-tab :value="'investmentProportion'">
-          <img class="bank-icon mg-r-5" :src="'./icons/collectibles.png'" alt="bank-icon">
-          투자 비중
-        </v-tab>
-        <v-tab :value="'dividend'">
-          <img class="bank-icon mg-r-5" :src="'/icons/dividend-icon.png'" alt="bank-icon">
-          배당 현황
-        </v-tab>
-        <v-tab :value="'asset'">
-          <img class="bank-icon mg-r-5" :src="'/icons/icons8-line-chart-64.png'" alt="bank-icon">
-          자산 현황
-        </v-tab>
-      </v-tabs>
-      <!--  chart 영역 -->
-      <!-- 투자비중 chart -->
-      <DashboardTreemapChart v-if="investmentProportionChart" :chartData="treemapChartData"
-                             :chartOptions="treemapChartDataOptions" style="padding: 21px"/>
-      <!-- 월별 배당현황 chart -->
-      <DividendMonthlyChart class="pd-r-20" v-if="dividendChart" :chartData="dividendChartSeries"
-                            :chartOptions="dividendChartOption"/>
-      <!-- 자산 현황 chart -->
-      <AssetChart class="pd-r-20" v-if="assetChart" :chartData="assetChartSeries" :chartOptions="assetChartOptions"/>
-    </div>
+  <v-window>
+    <v-container>
+      <div v-if="userInfo && userInfo.bankAccounts && userInfo.bankAccounts.length > 0" class="account-wrap">
 
-    <div v-if="investmentProportionChart">
-      <!-- tab 영역 -->
-      <v-tabs v-model="bankAccountTab" color="#e00000" align-tabs="end">
-        <v-tab :key="'all'" :value="'all'">
-          <img class="bank-icon mg-r-5" :src="'./bank-icons/default-bank.png'" alt="bank-icon">
-          전체
-        </v-tab>
-        <v-tab v-for="account in accounts" :key="account.id" :value="account.id">
-          <img class="bank-icon mg-r-5" :src="'./bank-icons/'.concat(account.bankInfo.bankCode).concat('.jpg')"
-               @error="replaceBankDefaultImg" alt="bank-icon">
-          {{ account.alias }}
-        </v-tab>
-        <div class="flex mg-r-20" style="align-items: center;">
-          <i class="ti-plus" @click="openRegAccountPop()"></i>
+        <div>
+          <v-tabs v-model="chartTab" color="#e00000" align-tabs="end">
+            <v-tab :value="'investmentProportion'">
+              <img class="bank-icon mg-r-5" :src="'./icons/collectibles.png'" alt="bank-icon">
+              투자 비중
+            </v-tab>
+            <v-tab :value="'dividend'">
+              <img class="bank-icon mg-r-5" :src="'/icons/dividend-icon.png'" alt="bank-icon">
+              배당 현황
+            </v-tab>
+            <v-tab :value="'asset'">
+              <img class="bank-icon mg-r-5" :src="'/icons/icons8-line-chart-64.png'" alt="bank-icon">
+              자산 현황
+            </v-tab>
+          </v-tabs>
+          <!--  chart 영역 -->
+          <!-- 투자비중 chart -->
+          <DashboardTreemapChart v-if="investmentProportionChart" :chartData="treemapChartData"
+                                 :chartOptions="treemapChartDataOptions" style="padding: 21px"/>
+          <!-- 월별 배당현황 chart -->
+          <DividendMonthlyChart class="pd-r-20" v-if="dividendChart" :chartData="dividendChartSeries"
+                                :chartOptions="dividendChartOption"/>
+          <!-- 자산 현황 chart -->
+          <AssetChart class="pd-r-20" v-if="assetChart" :chartData="assetChartSeries"
+                      :chartOptions="assetChartOptions"/>
         </div>
-      </v-tabs>
-      <div v-show="checkSpin" class="t-a-c mg-t-30">
-        <v-progress-circular color="primary" indeterminate :size="128"></v-progress-circular>
-      </div>
-      <!-- tab 내용 영역 -->
-      <div class="pd-5" v-show="!checkSpin">
-        <v-window>
-          <v-container>
+
+
+        <div v-if="investmentProportionChart" class="pd-5">
+          <!-- tab 영역 -->
+          <v-tabs v-model="bankAccountTab" color="#e00000" align-tabs="end">
+            <v-tab :key="'all'" :value="'all'">
+              <img class="bank-icon mg-r-5" :src="'./bank-icons/default-bank.png'" alt="bank-icon">
+              전체
+            </v-tab>
+            <v-tab v-for="account in accounts" :key="account.id" :value="account.id">
+              <img class="bank-icon mg-r-5" :src="'./bank-icons/'.concat(account.bankInfo.bankCode).concat('.jpg')"
+                   @error="replaceBankDefaultImg" alt="bank-icon">
+              {{ account.alias }}
+            </v-tab>
+            <div class="flex mg-r-20" style="align-items: center;">
+              <i class="ti-plus" @click="openRegAccountPop()"></i>
+            </div>
+          </v-tabs>
+          <div v-show="checkSpin" class="t-a-c mg-t-30">
+            <v-progress-circular color="primary" indeterminate :size="128"></v-progress-circular>
+          </div>
+          <v-divider class="mg-t-30 mg-b-30"></v-divider>
+          <!-- tab 내용 영역 -->
+          <div class="pd-5" v-show="!checkSpin">
             <!-- 주식 종목 item 영역 -->
             <StockBox :stocks="stocks"/>
-          </v-container>
-        </v-window>
+          </div>
+          <div v-if="!accounts || accounts.length === 0" class="account-wrap">
+            <div class="empty-account" @click="openRegAccountPop()">
+              <p>+ 계좌를 등록해주세요.</p>
+            </div>
+          </div>
+        </div>
+
+        <div v-if="dividendChart">
+          <v-card>
+            <v-window>
+              <v-window-item>
+                <v-container fluid>
+                  <!-- 배당금 추가 버튼 -->
+                  <DividendIcon class="mg-l-10" @click="openDividendPop"/>
+                  <v-data-table-virtual :headers="headers" :items="desserts" class="elevation-1 mg-t-10 mg-l-10"
+                                        item-value="name" v-if="desserts"
+                  ></v-data-table-virtual>
+                  <v-divider class="mg-t-30 mg-b-30"></v-divider>
+                  <h2 class="mg-t-20  mg-l-10">배당 현황</h2>
+                  <DividendBox :dividends="dividends" class="mg-t-10 mg-l-10"/>
+                </v-container>
+              </v-window-item>
+
+            </v-window>
+          </v-card>
+        </div>
       </div>
-      <div v-if="!accounts || accounts.length === 0" class="account-wrap">
+      <div v-else-if="userInfo && userInfo.bankAccounts && userInfo.bankAccounts.length == 0" class="account-wrap">
         <div class="empty-account" @click="openRegAccountPop()">
           <p>+ 계좌를 등록해주세요.</p>
         </div>
       </div>
-    </div>
-
-    <div v-if="dividendChart">
-      <v-card>
-        <v-window>
-          <v-window-item>
-            <v-container fluid>
-              <!-- 배당금 추가 버튼 -->
-              <DividendIcon class="mg-l-10" @click="openDividendPop"/>
-              <v-data-table-virtual
-                  :headers="headers"
-                  :items="desserts"
-                  class="elevation-1 mg-t-10 mg-l-10"
-                  item-value="name"
-                  v-if="desserts"
-              ></v-data-table-virtual>
-              <v-divider class="mg-t-30 mg-b-30"></v-divider>
-              <h2 class="mg-t-20  mg-l-10">배당 현황</h2>
-              <DividendBox :dividends="dividends" class="mg-t-10 mg-l-10"/>
-            </v-container>
-          </v-window-item>
-
-        </v-window>
-      </v-card>
-    </div>
-  </div>
-  <div v-else-if="userInfo && userInfo.bankAccounts && userInfo.bankAccounts.length == 0" class="account-wrap">
-    <div class="empty-account" @click="openRegAccountPop()">
-      <p>+ 계좌를 등록해주세요.</p>
-    </div>
-  </div>
-
+    </v-container>
+  </v-window>
   <Modal v-if="isShowRegAccountPop" @close-modal="isShowRegAccountPop = false">
     <SaveBankAccount msg=""/>
   </Modal>
@@ -445,9 +444,9 @@ export default {
       let flag = false;
 
       if (info.indexOf("iPhone") > -1
-        || info.indexOf("Android") > -1
-        || info.indexOf("iPad") > -1
-        || info.indexOf("iPod") > -1
+          || info.indexOf("Android") > -1
+          || info.indexOf("iPad") > -1
+          || info.indexOf("iPod") > -1
       ) {
         flag = true;
       }
