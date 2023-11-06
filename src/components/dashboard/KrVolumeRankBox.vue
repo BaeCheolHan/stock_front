@@ -1,7 +1,7 @@
 <template>
   <div style=" max-width: 90%; margin: 0 auto;">
     <h3>국내 거래량 순위</h3>
-    <v-card class="mg-b-5" v-for="stock in data" :key="stock.data_rank" >
+    <v-card class="mg-b-5 mg-t-10" v-for="stock in data" :key="stock.data_rank" >
       <v-card-text>
         <div>
           <div class="flex" :style="isMobileFont()">
