@@ -327,7 +327,6 @@ export default {
       this.$store.commit('setUserInfo', this.userInfo)
       this.accounts = this.userInfo.bankAccounts;
     } else {
-      alert("로그인 후 이용해주세요");
       location.replace("/");
     }
   },

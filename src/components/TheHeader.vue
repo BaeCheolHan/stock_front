@@ -3,8 +3,11 @@
 
   </header>
   <div class="flex header">
-    <div class="profile-wrap" style="font-size: 15px;">
+    <div class="profile-wrap" style="font-size: 15px;" v-if="userInfo">
       <li class="ti-angle-double-right mg-l-10 mg-r-15" @click="openNav" style="cursor:pointer"></li>
+    </div>
+    <div class="profile-wrap" v-if="!userInfo">
+      <button class="kakao-login-small mg-l-15" v-on:click="kakaoLoginBtn"></button>
     </div>
     <ExchangeRate/>
   </div>
@@ -38,27 +41,6 @@
         </ul>
       </div>
     </div>
-    <div v-else>
-      <div>
-        <div class="flex">
-          <div class="profile-wrap" v-if="!userInfo">
-            <button class="kakao-login-small mg-l-15" v-on:click="kakaoLoginBtn"></button>
-          </div>
-          <div>
-            <button class="closer mg-r-10" @click="closeNav" style="color: #818181;">&times;</button>
-          </div>
-        </div>
-        <div>
-          <v-divider class="mg-b-10"></v-divider>
-        </div>
-      </div>
-      <div class="side-menus" style="height: 100%">
-        <ul>
-          <li @click="goDashboard">홈</li>
-        </ul>
-      </div>
-    </div>
-
     <refferencesArea/>
   </div>
 
