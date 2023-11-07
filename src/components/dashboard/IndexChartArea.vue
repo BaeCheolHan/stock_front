@@ -23,18 +23,11 @@
       <div style="min-width: 165px; width: 40%" v-if="kospi">
         <div class="flex" style="justify-content: flex-start; align-items: center">
           <h4 class="t-a-c mg-r-15">KOSPI</h4>
-          <div :class="{'red' : kospi.output1.prdy_vrss_sign == 1 || kospi.output1.prdy_vrss_sign == 2,
-                         'blue': kospi.output1.prdy_vrss_sign == 4 || kospi.output1.prdy_vrss_sign == 5 }"
+          <div :class="UiService.setColorClass(kospi.output1.prdy_vrss_sign)"
                :style="isMobileFont()">
             <span>{{ kospi.output1.bstp_nmix_prpr }}</span>
-            <span v-if="kospi.output1.prdy_vrss_sign == 1 || kospi.output1.prdy_vrss_sign == 2">
-            (+
-            </span>
-            <span v-else-if="kospi.output1.prdy_vrss_sign == 4 || kospi.output1.prdy_vrss_sign == 5">
-            (-
-            </span>
-            <span v-else>
-              (
+            <span>
+              (<span :class="UiService.setUpDownArrowClass(kospi.output1.prdy_vrss_sign)"></span>
             </span>
             <span>{{ kospi.output1.bstp_nmix_prdy_vrss }})</span>
           </div>
@@ -44,18 +37,11 @@
       <div style="min-width: 165px; width: 40%" v-if="kosdaq">
         <div class="flex" style="justify-content: flex-start; align-items: center">
           <h4 class="t-a-c mg-r-15">KOSDAQ</h4>
-          <div :class="{'red' : kosdaq.output1.prdy_vrss_sign == 1 || kosdaq.output1.prdy_vrss_sign == 2,
-                        'blue': kosdaq.output1.prdy_vrss_sign == 4 || kosdaq.output1.prdy_vrss_sign == 5 }"
+          <div :class="UiService.setColorClass(kosdaq.output1.prdy_vrss_sign)"
                :style="isMobileFont()">
             <span>{{ kosdaq.output1.bstp_nmix_prpr }}</span>
-            <span v-if="kosdaq.output1.prdy_vrss_sign == 1 || kosdaq.output1.prdy_vrss_sign == 2">
-            (+
-            </span>
-            <span v-else-if="kosdaq.output1.prdy_vrss_sign == 4 || kosdaq.output1.prdy_vrss_sign == 5">
-            (-
-            </span>
-            <span v-else>
-              (
+            <span>
+              (<span :class="UiService.setUpDownArrowClass(kosdaq.output1.prdy_vrss_sign)"></span>
             </span>
             <span>{{ kosdaq.output1.bstp_nmix_prdy_vrss }})</span>
           </div>
@@ -68,18 +54,10 @@
       <div style="min-width: 165px; width: 40%" v-if="snp">
         <div class="flex" style="justify-content: flex-start; align-items: center">
           <h4 class="t-a-c mg-r-15">S&P500</h4>
-          <div :class="{'red' : snp.output1.prdy_vrss_sign == 1 || snp.output1.prdy_vrss_sign == 2,
-                         'blue': snp.output1.prdy_vrss_sign == 4 || snp.output1.prdy_vrss_sign == 5 }"
-               :style="isMobileFont()">
+          <div :class="UiService.setColorClass(snp.output1.prdy_vrss_sign)" :style="isMobileFont()">
             <span>{{ snp.output1.ovrs_nmix_prpr }}</span>
-            <span v-if="snp.output1.prdy_vrss_sign == 1 || snp.output1.prdy_vrss_sign == 2">
-            (+
-            </span>
-            <span v-else-if="snp.output1.prdy_vrss_sign == 4 || snp.output1.prdy_vrss_sign == 5">
-            (-
-            </span>
-            <span v-else>
-              (
+            <span>
+              (<span :class="UiService.setUpDownArrowClass(snp.output1.prdy_vrss_sign)"></span>
             </span>
             <span>{{ snp.output1.ovrs_nmix_prdy_vrss }})</span>
           </div>
@@ -89,18 +67,11 @@
       <div style="min-width: 165px; width: 40%" v-if="nasdaq">
         <div class="flex" style="justify-content: flex-start; align-items: center">
           <h4 class="t-a-c mg-r-15">NASDAQ</h4>
-          <div :class="{'red' : nasdaq.output1.prdy_vrss_sign == 1 || nasdaq.output1.prdy_vrss_sign == 2,
-                         'blue': nasdaq.output1.prdy_vrss_sign == 4 || nasdaq.output1.prdy_vrss_sign == 5 }"
+          <div :class="UiService.setColorClass(nasdaq.output1.prdy_vrss_sign)"
                :style="isMobileFont()">
             <span>{{ nasdaq.output1.ovrs_nmix_prpr }}</span>
-            <span v-if="nasdaq.output1.prdy_vrss_sign == 1 || nasdaq.output1.prdy_vrss_sign == 2">
-            (+
-            </span>
-            <span v-else-if="nasdaq.output1.prdy_vrss_sign == 4 || nasdaq.output1.prdy_vrss_sign == 5">
-            (-
-            </span>
-            <span v-else>
-              (
+            <span>
+              (<span :class="UiService.setUpDownArrowClass(nasdaq.output1.prdy_vrss_sign)"></span>
             </span>
             <span>{{ nasdaq.output1.ovrs_nmix_prdy_vrss }})</span>
           </div>

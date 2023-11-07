@@ -59,7 +59,7 @@
     <SaveStock msg=""/>
   </Modal>
   <Modal v-if="isShowStockDetailPop" @close-modal="isShowStockDetailPop = false">
-    <DetailStock msg=""/>
+    <MyDetailStock msg=""/>
   </Modal>
 </template>
 
@@ -67,7 +67,7 @@
 <script>
 import Modal from "@/views/common/Modal";
 import SaveStock from "@/components/stock/SaveStock";
-import DetailStock from "@/components/stock/DetailStock";
+import MyDetailStock from "@/components/stock/MyDetailStock";
 import StockIcon from "@/components/button/stockicon";
 
 export default {
@@ -75,7 +75,7 @@ export default {
   components: {
     Modal,
     SaveStock,
-    DetailStock,
+    MyDetailStock,
     StockIcon
   },
   props: {

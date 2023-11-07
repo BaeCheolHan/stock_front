@@ -1,7 +1,7 @@
 <template>
   <div style=" max-width: 90%; margin: 0 auto;">
     <h3>국내 거래량 순위</h3>
-    <v-card class="mg-b-5 mg-t-10" v-for="stock in data" :key="stock.data_rank" >
+    <v-card class="mg-b-5 mg-t-10" v-for="stock in data" :key="stock.data_rank" @click="showStockDetail(stock)">
       <v-card-text>
         <div>
           <div class="flex" :style="isMobileFont()">
@@ -9,7 +9,7 @@
               <div class="flex" style="justify-content: left;">
                 <span class="bold">{{ stock.data_rank }}. </span>
                 <span class="bold">{{ stock.hts_kor_isnm }}</span>
-                <div :class="setColor(stock.prdy_vrss_sign)">
+                <div :style="UiService.setColorStyle(stock.prdy_vrss_sign)">
                   <span class="mg-l-5" v-if="stock.prdy_vrss_sign == 1 || stock.prdy_vrss_sign == 2">
                     (+
                   </span>
@@ -24,12 +24,14 @@
               <div class="flex">
                 <div>
                   <span class="bold">현재가 : </span>
-                  <span :class="setColor(stock.prdy_vrss_sign)">{{ Number(stock.stck_prpr).toLocaleString('ko-KR') }} 원</span>
+                  <span :style="UiService.setColorStyle(stock.prdy_vrss_sign)">{{ Number(stock.stck_prpr).toLocaleString('ko-KR') }} 원</span>
                 </div>
                 <div>
                   <span class="mg-l-20 bold">전일 대비 : </span>
-                  <span :class="setColor(stock.prdy_vrss_sign)">{{ Number(stock.prdy_vrss).toLocaleString('ko-KR') }} 원
-                  <span :class="upDownArrow(stock.prdy_vrss_sign)"></span>
+
+                  <span :style="UiService.setColorStyle(stock.prdy_vrss_sign)">
+                    <span :class="UiService.setUpDownArrowClass(stock.prdy_vrss_sign)"></span>
+                    {{ Number(stock.prdy_vrss).toLocaleString('ko-KR') }} 원
                 </span>
                 </div>
               </div>
@@ -43,17 +45,27 @@
       </v-card-text>
     </v-card>
   </div>
+  <Modal v-if="isShowStockDetailPop" @close-modal="isShowStockDetailPop = false">
+    <DetailStock msg=""/>
+  </Modal>
 </template>
-
 
 <script>
 
+import Modal from "@/views/common/Modal";
+import DetailStock from "@/components/dashboard/popup/DetailStock";
+
 export default {
   name: "KrVolumeRankBox",
-  components: {},
+  components: {
+    Modal,
+    DetailStock
+  },
   data: function () {
     return {
       data: null,
+      selectedStock: null,
+      isShowStockDetailPop: false,
     }
   },
   created: async function () {
@@ -81,27 +93,9 @@ export default {
         return '';
       }
     },
-    setColor(prdy_vrss_sign) {
-      if(prdy_vrss_sign == 1 || prdy_vrss_sign == 2) {
-        return 'red'
-      }
-
-      if(prdy_vrss_sign == 4 || prdy_vrss_sign == 5) {
-        return 'blue'
-      }
-
-      return '';
-    },
-    upDownArrow(prdy_vrss_sign) {
-      if(prdy_vrss_sign == 1 || prdy_vrss_sign == 2) {
-        return 'icon-up'
-      }
-
-      if(prdy_vrss_sign == 4 || prdy_vrss_sign == 5) {
-        return 'icon-down'
-      }
-
-      return '';
+    showStockDetail(stock) {
+      this.selectedStock = stock;
+      this.isShowStockDetailPop = true
     }
   }
 };
