@@ -1,9 +1,9 @@
 <template>
-  <div class="flex mg-t-5" style="justify-content: right;" :style="isMobileFont()">
+  <div class="flex mg-t-5" style="justify-content: right;" :style="UiService.isMobileFont()">
     <span>* 각 지수는 3분 주기로 갱신합니다.</span>
   </div>
   <div class="flex mg-t-5" style="justify-content: right;">
-    <div class="flex" :style="isMobileFont()">
+    <div class="flex" :style="UiService.isMobileFont()">
       <button class="mg-r-10" :class="{'redBtn' : chartType === 'D', 'border-radius-8' : chartType !== 'D'}"
               @click="changeChartType('D')">일별
       </button>
@@ -24,7 +24,7 @@
         <div class="flex" style="justify-content: flex-start; align-items: center">
           <h4 class="t-a-c mg-r-15">KOSPI</h4>
           <div :class="UiService.setColorClass(kospi.output1.prdy_vrss_sign)"
-               :style="isMobileFont()">
+               :style="UiService.isMobileFont()">
             <span>{{ kospi.output1.bstp_nmix_prpr }}</span>
             <span>
               (<span :class="UiService.setUpDownArrowClass(kospi.output1.prdy_vrss_sign)"></span>
@@ -38,7 +38,7 @@
         <div class="flex" style="justify-content: flex-start; align-items: center">
           <h4 class="t-a-c mg-r-15">KOSDAQ</h4>
           <div :class="UiService.setColorClass(kosdaq.output1.prdy_vrss_sign)"
-               :style="isMobileFont()">
+               :style="UiService.isMobileFont()">
             <span>{{ kosdaq.output1.bstp_nmix_prpr }}</span>
             <span>
               (<span :class="UiService.setUpDownArrowClass(kosdaq.output1.prdy_vrss_sign)"></span>
@@ -54,7 +54,7 @@
       <div style="min-width: 165px; width: 40%" v-if="snp">
         <div class="flex" style="justify-content: flex-start; align-items: center">
           <h4 class="t-a-c mg-r-15">S&P500</h4>
-          <div :class="UiService.setColorClass(snp.output1.prdy_vrss_sign)" :style="isMobileFont()">
+          <div :class="UiService.setColorClass(snp.output1.prdy_vrss_sign)" :style="UiService.isMobileFont()">
             <span>{{ snp.output1.ovrs_nmix_prpr }}</span>
             <span>
               (<span :class="UiService.setUpDownArrowClass(snp.output1.prdy_vrss_sign)"></span>
@@ -68,7 +68,7 @@
         <div class="flex" style="justify-content: flex-start; align-items: center">
           <h4 class="t-a-c mg-r-15">NASDAQ</h4>
           <div :class="UiService.setColorClass(nasdaq.output1.prdy_vrss_sign)"
-               :style="isMobileFont()">
+               :style="UiService.isMobileFont()">
             <span>{{ nasdaq.output1.ovrs_nmix_prpr }}</span>
             <span>
               (<span :class="UiService.setUpDownArrowClass(nasdaq.output1.prdy_vrss_sign)"></span>
@@ -140,14 +140,14 @@ export default {
         xaxis: {
           type: 'category',
           labels: {
-            show: !this.isMobile(),
+            show: !this.UiService.isMobile(),
             formatter: function (val) {
               return val
             }
           }
         },
         yaxis: {
-          show: !this.isMobile(),
+          show: !this.UiService.isMobile(),
           tooltip: {
             enabled: false
           }
@@ -157,7 +157,6 @@ export default {
   },
   watch: {
     'chartType': async function () {
-      console.log("!")
       await this.getIndexChartData()
     }
   },
@@ -195,26 +194,6 @@ export default {
     changeChartType(val) {
       this.chartType = val;
     },
-    isMobile() {
-      const info = navigator.userAgent;
-      let flag = false;
-
-      if (info.indexOf("iPhone") > -1
-        || info.indexOf("Android") > -1
-        || info.indexOf("iPad") > -1
-        || info.indexOf("iPod") > -1
-      ) {
-        flag = true;
-      }
-      return flag;
-    },
-    isMobileFont() {
-      if (this.isMobile()) {
-        return 'font-size: 10px;'
-      } else {
-        return '';
-      }
-    }
   }
 };
 </script>

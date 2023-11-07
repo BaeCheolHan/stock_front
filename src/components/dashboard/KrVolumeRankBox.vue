@@ -4,7 +4,7 @@
     <v-card class="mg-b-5 mg-t-10" v-for="stock in data" :key="stock.data_rank" @click="showStockDetail(stock)">
       <v-card-text>
         <div>
-          <div class="flex" :style="isMobileFont()">
+          <div class="flex" :style="UiService.isMobileFont()">
             <div>
               <div class="flex" style="justify-content: left;">
                 <span class="bold">{{ stock.data_rank }}. </span>
@@ -66,26 +66,6 @@ export default {
     this.data = res.data.data;
   },
   methods: {
-    isMobile() {
-      const info = navigator.userAgent;
-      let flag = false;
-
-      if (info.indexOf("iPhone") > -1
-          || info.indexOf("Android") > -1
-          || info.indexOf("iPad") > -1
-          || info.indexOf("iPod") > -1
-      ) {
-        flag = true;
-      }
-      return flag;
-    },
-    isMobileFont() {
-      if (this.isMobile()) {
-        return 'font-size: 10px;'
-      } else {
-        return '';
-      }
-    },
     showStockDetail(stock) {
       this.selectedStock = stock;
       this.isShowStockDetailPop = true

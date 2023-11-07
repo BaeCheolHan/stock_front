@@ -91,14 +91,14 @@ export default {
         xaxis: {
           type: 'category',
           labels: {
-            show: this.isMobile(),
+            show: this.UiService.isMobile(),
             formatter: function (val) {
               return val
             }
           }
         },
         yaxis: {
-          show: this.isMobile(),
+          show: this.UiService.isMobile(),
           tooltip: {
             enabled: true
           }
@@ -137,19 +137,6 @@ export default {
 
     changeChartType: function (chartType) {
       this.chartType = chartType;
-    },
-    isMobile() {
-      const info = navigator.userAgent;
-      let flag = false;
-
-      if (info.indexOf("iPhone") > -1
-          || info.indexOf("Android") > -1
-          || info.indexOf("iPad") > -1
-          || info.indexOf("iPod") > -1
-      ) {
-        flag = true;
-      }
-      return !flag;
     },
   }
 };

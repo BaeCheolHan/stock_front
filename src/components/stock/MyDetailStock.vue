@@ -26,9 +26,10 @@
             <p class="bold" v-else>평균가 : ${{ Math.floor(totalPrice / totalQuantity).toLocaleString("ko-KR") }}</p>
           </div>
           <div>
-            <p class="bold" :style="setColor()">
-              현재가 : {{ detail.nowPrice.toLocaleString("ko-KR") }} ({{  detail.compareToYesterdaySign === 'plus' ? '+' : '' }}{{ detail.compareToYesterday.toLocaleString("ko-KR") }})
-            </p>
+            <div>
+              <span class="bold" :style="UiService.setColorStyle(detail.compareToYesterdaySign)">현재가 : {{ detail.nowPrice.toLocaleString("ko-KR") }}(</span>
+              <span class="bold" :style="UiService.setColorStyle(detail.compareToYesterdaySign)" :class="UiService.setUpDownArrowClass(detail.compareToYesterdaySign)">{{ detail.compareToYesterday.toLocaleString("ko-KR") }})</span>
+            </div>
             <p class="bold">최저가 : {{ detail.lowPrice.toLocaleString("ko-KR") }}</p>
             <p>PBR : {{ detail.pbr }}</p>
             <p>BPS : {{ detail.bps }}</p>
@@ -131,14 +132,14 @@ export default {
         xaxis: {
           type: 'category',
           labels: {
-            show: this.isMobile(),
+            show: !this.UiService.isMobile(),
             formatter: function(val) {
               return val
             }
           }
         },
         yaxis: {
-          show: this.isMobile(),
+          show: !this.UiService.isMobile(),
           tooltip: {
             enabled: true
           }
@@ -201,19 +202,6 @@ export default {
     changeChartType: function (chartType) {
       this.chartType = chartType;
     },
-      isMobile() {
-          const info = navigator.userAgent;
-          let flag = false;
-
-          if( info.indexOf("iPhone") > -1
-              || info.indexOf("Android") > -1
-              || info.indexOf("iPad") > -1
-              || info.indexOf("iPod") > -1
-          ) {
-              flag = true;
-          }
-          return !flag;
-      }
   }
 };
 </script>
