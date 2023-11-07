@@ -10,14 +10,8 @@
                 <span class="bold">{{ stock.data_rank }}. </span>
                 <span class="bold">{{ stock.hts_kor_isnm }}</span>
                 <div :style="UiService.setColorStyle(stock.prdy_vrss_sign)">
-                  <span class="mg-l-5" v-if="stock.prdy_vrss_sign == 1 || stock.prdy_vrss_sign == 2">
-                    (+
-                  </span>
-                  <span class="mg-l-5" v-else>
-                    (
-                  </span>
-                  <span>
-                    {{ Number(stock.prdy_ctrt).toLocaleString('ko-KR') }}%)
+                  <span class="mg-l-5">
+                    (<span :class="UiService.setUpDownArrowClass(stock.prdy_vrss_sign)"></span>{{ Number(stock.prdy_ctrt).toLocaleString('ko-KR') }}%)
                   </span>
                 </div>
               </div>
@@ -28,7 +22,6 @@
                 </div>
                 <div>
                   <span class="mg-l-20 bold">전일 대비 : </span>
-
                   <span :style="UiService.setColorStyle(stock.prdy_vrss_sign)">
                     <span :class="UiService.setUpDownArrowClass(stock.prdy_vrss_sign)"></span>
                     {{ Number(stock.prdy_vrss).toLocaleString('ko-KR') }} 원
