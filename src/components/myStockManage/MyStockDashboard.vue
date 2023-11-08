@@ -127,7 +127,7 @@ export default {
   },
   data: function () {
     return {
-      investmentProportionChart: true,
+      investmentProportionChart: false,
       dividendChart: false,
       assetChart: false,
       checkSpin: false,
@@ -322,6 +322,7 @@ export default {
     this.emitter.on('reloadUserInfo', this.reloadUserInfo)
   },
   created: async function () {
+    this.investmentProportionChart = true;
     this.userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
     if (this.userInfo) {
       this.$store.commit('setUserInfo', this.userInfo)

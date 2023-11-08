@@ -1,8 +1,8 @@
 <template>
-  <div class="content">
+  <div class="content" :style="UiService.isMobileFont()">
     <StockIcon class="mg-b-10" @click="showRegStockPop"/>
-
-    <v-card class="mg-b-5" v-for="stock in stocks" :key="stock.id" @click="showStockDetail(stock)" :style="UiService.isMobileFont()">
+    <div v-if="stocks">
+    <v-card class="mg-b-5" v-for="stock in stocks" :key="stock.id" @click="showStockDetail(stock)">
       <v-card-text>
         <div>
           <div class="flex" style="justify-content: space-between; font-size: 12px;">
@@ -17,7 +17,8 @@
               <div>
                 <span>{{ stock.quantity.toLocaleString('ko-KR') }}주</span>
                 <span class="mg-l-5" :style="setPriceColor(stock)">(평단 {{stock.national != 'KR' ? '$' : '' }}</span>
-                <span :style="setPriceColor(stock)">{{Math.floor(Number(stock.avgPrice)).toLocaleString('ko-KR')}}</span>
+                <span v-if="stock.national == 'KR'" :style="setPriceColor(stock)">{{Math.floor(Number(stock.avgPrice)).toLocaleString('ko-KR')}}</span>
+                <span v-else :style="setPriceColor(stock)">{{(Math.floor(Number(stock.avgPrice)* 100) / 100).toLocaleString('ko-KR')}}</span>
                 <span :style="setPriceColor(stock)">{{ stock.national == 'KR' ?'원' : '' }})</span>
               </div>
               <p></p>
@@ -28,7 +29,7 @@
             </div>
             <div class="t-a-r w-55">
               <p class="bold">{{ stock.code }} ({{ stock.national }})</p>
-              <div v-if="stock.national === 'KR'" class="flex" style="justify-content: right">
+              <div class="flex" style="justify-content: right">
                 <span>현재가 : </span>
                 <span :style="UiService.setColorStyle(stock.compareToYesterdaySign)"></span>
                 <span :style="UiService.setColorStyle(stock.compareToYesterdaySign)">{{stock.nowPrice.toLocaleString()}}</span>
@@ -37,11 +38,6 @@
                   <span :style="UiService.setColorStyle(stock.compareToYesterdaySign)" :class="UiService.setUpDownArrowClass(stock.compareToYesterdaySign)"> {{ stock.compareToYesterday.toLocaleString("ko-KR") }}</span>
                   <span :style="UiService.setColorStyle(stock.compareToYesterdaySign)">)</span>
                 </div>
-              </div>
-              <div v-else>
-                <span :style="setPriceColor(stock)">평단 : {{ stock.avgPrice.toLocaleString('ko-KR') }}</span>
-                <span class="bold" :style="UiService.setColorStyle(stock.compareToYesterdaySign)">(</span>
-                <span class="bold" :style="UiService.setColorStyle(stock.compareToYesterdaySign)" :class="UiService.setUpDownArrowClass(stock.compareToYesterdaySign)">{{stock.nowPrice}}{{ stock.compareToYesterday.toLocaleString("ko-KR") }})</span>
               </div>
               <p>
                 {{stock.priceImportance}}%
@@ -63,10 +59,10 @@
         </div>
       </v-card-text>
     </v-card>
+    </div>
     <v-card>
       <v-card-actions>
-        <v-btn color="deep-purple-lighten-2" variant="text" @click="showRegStockPop" width="100%"
-               style="text-align: center">
+        <v-btn color="deep-purple-lighten-2" variant="text" @click="showRegStockPop" width="100%" style="text-align: center">
           + 보유 주식을 등록해주세요.
         </v-btn>
       </v-card-actions>
