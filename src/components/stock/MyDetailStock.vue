@@ -175,15 +175,6 @@ export default {
       this.series[0].name = this.$parent.$parent.selectedStock.name
       res.data.detail.chartData.forEach(item => this.series[0].data.push({x: item.date, y: [item.open, item.high, item.low, item.close]}))
     },
-    setColor: function () {
-      if (this.detail.compareToYesterdaySign == 'minus') {
-        return 'color: blue;'
-      } else if (this.detail.compareToYesterdaySign == 'plus') {
-        return 'color: red;'
-      } else {
-        return 'color: black;'
-      }
-    },
     yyyyMMdd: function (value) {
       if (value == '') return '';
       let jsDate = new Date(value);
@@ -194,6 +185,7 @@ export default {
       if (confirm("삭제하시겠습니까?")) {
         await this.axios.delete("/api/stock/".concat(id));
         await this.init();
+        await this.emitter.emit('reloadStock');
       }
     },
     setPlusMinusColor: function (amount) {

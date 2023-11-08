@@ -106,7 +106,7 @@ export default {
   watch: {
     'national': async function () {
       this.closeStockDropDown();
-      let res = await this.axios.get("/api/stocks/code/".concat(this.national))
+      let res = await this.axios.get("/api/stocks/code/".concat(this.national));
       this.codes = res.data.codes;
     },
     'selectedCode': async function () {
@@ -185,7 +185,7 @@ export default {
     },
     searchStock: function (event) {
       this.copyStocks = this.stocks.filter(item => {
-        return item.name.toString().toLowerCase().replace(' ', '').includes(event.target.value)
+        return item.name.toString().toLowerCase().replace(' ', '').includes(event.target.value.toLowerCase().replace(' ', ''))
       });
     },
     replaceBankDefaultImg(e) {
