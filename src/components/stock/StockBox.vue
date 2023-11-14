@@ -78,10 +78,10 @@
 
 
 <script>
-import Modal from "@/views/common/Modal";
-import SaveStock from "@/components/stock/SaveStock";
-import MyDetailStock from "@/components/stock/MyDetailStock";
-import StockIcon from "@/components/button/stockicon";
+import Modal from "@/views/common/Modal.vue";
+import SaveStock from "@/components/stock/SaveStock.vue";
+import MyDetailStock from "@/components/myStockManage/MyDetailStock.vue";
+import StockIcon from "@/components/button/stockicon.vue";
 
 export default {
   name: "StockBox",
@@ -92,7 +92,7 @@ export default {
     StockIcon
   },
   props: {
-    stocks: [],
+    stocks: Array,
   },
   data: function () {
     return {

@@ -31,10 +31,10 @@
 <script>
 
 export default {
-  name: "dividendBox",
+  name: "DividendBox",
   components: {},
   props: {
-    dividends: [],
+    dividends: Array,
   },
   data: function () {
     return {

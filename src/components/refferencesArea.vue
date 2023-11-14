@@ -8,6 +8,10 @@
         <span>github:&nbsp;</span>
         <a href="https://github.com/BaeCheolHan" target="_blank" style="font-size: 12px; color: blue" class="pd-0">https://github.com/BaeCheolHan</a>
       </div>
+      <div class="flex">
+        <span>blog:&nbsp;</span>
+        <a href="https://hw55.tistory.com" target="_blank" style="font-size: 12px; color: blue" class="pd-0">https://hw55.tistory.com/</a>
+      </div>
     </div>
     <div class="mg-t-15">
       <div class="flex">

@@ -51,7 +51,6 @@ export default {
     }
   },
   beforeMount: async function () {
-    console.log(this.$store)
     let res = await this.axios.get("/api/banks");
     this.banks = JSON.parse(JSON.stringify(res.data));
     this.copiedBanks = this.banks.slice();

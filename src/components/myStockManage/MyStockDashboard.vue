@@ -104,8 +104,8 @@ import {VDataTableVirtual} from 'vuetify/labs/components'</script>
 <script>
 import Modal from "@/views/common/Modal";
 import SaveBankAccount from "@/components/bankAccount/SaveBankAccount";
-import StockBox from "@/components/dashboard/StockBox";
-import DividendBox from "@/components/dashboard/DividendBox";
+import StockBox from "@/components/stock/StockBox.vue";
+import DividendBox from "@/components/dividend/DividendBox.vue";
 import DashboardTreemapChart from "@/components/dashboard/chart/DashboardTreemapChart.vue";
 import DividendMonthlyChart from "@/components/dashboard/chart/DividendMonthlyChart";
 import DividendIcon from "@/components/button/dividendIcon";
@@ -281,7 +281,6 @@ export default {
         url = "/api/stock/".concat(memberId);
       }
       let res = await this.axios.get(url);
-
       if (res.data.stocks) {
         this.renderTreemapChart = false;
         this.stocks = res.data.stocks;

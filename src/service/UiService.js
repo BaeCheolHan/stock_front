@@ -13,7 +13,6 @@ class UiService {
     }
 
     setColorClass(prdy_vrss_sign) {
-        console.log(prdy_vrss_sign)
         if(prdy_vrss_sign == 1 || prdy_vrss_sign == 2) {
             return 'red'
         }
