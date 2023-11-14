@@ -7,7 +7,7 @@ import MyStockDashboard from "@/components/myStockManage/MyStockDashboard"
 const routes = [
     {path: '/', name: 'Dashboard', component: Dashboard},
     {path: '/settings', name: 'PersonalSetting', component: PersonalSetting},
-    {path: '/redirect', name: 'SocialRedirect', component: SocialRedirect},
+    {path: '/:snsType/redirect', name: 'SocialRedirect', component: SocialRedirect},
     {path: '/my', name: 'MyStockDashboard', component: MyStockDashboard},
 ]
 

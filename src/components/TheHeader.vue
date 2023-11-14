@@ -7,7 +7,8 @@
       <li class="ti-angle-double-right mg-l-10 mg-r-15" @click="openNav" style="cursor:pointer"></li>
     </div>
     <div class="profile-wrap" v-if="!userInfo">
-      <button class="kakao-login-small mg-l-15" v-on:click="kakaoLoginBtn"></button>
+      <button class="kakao-login-small mg-l-15" v-on:click="snsLoginBtn('kakao')"></button>
+      <button class="google-login-small mg-l-15" v-on:click="snsLoginBtn('google')"></button>
     </div>
     <ExchangeRate/>
   </div>
@@ -19,9 +20,9 @@
       <div>
         <div class="flex">
           <div class="profile-wrap" @click="goDashboard">
-            <img class="profile-thumbnail" :src="userInfo.profile.thumbnail_image_url">
+            <img class="profile-thumbnail" :src="userInfo.profileImgUrl">
             <div class="profile-nickname">
-              <span>{{ userInfo.profile.nickname }}</span>
+              <span>{{ userInfo.nickname }}</span>
             </div>
           </div>
           <div>
@@ -87,8 +88,8 @@ export default {
     goMyStockManage: function () {
       location.replace('/my')
     },
-    kakaoLoginBtn: async function () {
-      let res = await this.axios.get('/login/kakao')
+    snsLoginBtn: async function (snsType) {
+      let res = await this.axios.get('/login/'.concat(snsType))
       location.replace(res.data.loginUri)
     },
     logout: function () {
