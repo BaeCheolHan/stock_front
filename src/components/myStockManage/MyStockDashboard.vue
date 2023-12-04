@@ -75,7 +75,7 @@
                   ></v-data-table-virtual>
                   <v-divider class="mg-t-30 mg-b-30"></v-divider>
                   <h2 class="mg-t-20  mg-l-10">배당 현황</h2>
-                  <DividendBox :dividends="dividends" class="mg-t-10 mg-l-10"/>
+                  <DividendHistoryBox :dividends="dividends" class="mg-t-10 mg-l-10"/>
                 </v-container>
               </v-window-item>
 
@@ -105,7 +105,7 @@ import {VDataTableVirtual} from 'vuetify/labs/components'</script>
 import Modal from "@/views/common/Modal";
 import SaveBankAccount from "@/components/bankAccount/SaveBankAccount";
 import StockBox from "@/components/stock/StockBox.vue";
-import DividendBox from "@/components/dividend/DividendBox.vue";
+import DividendHistoryBox from "@/components/dividend/DividendHistoryBox.vue";
 import DashboardTreemapChart from "@/components/dashboard/chart/DashboardTreemapChart.vue";
 import DividendMonthlyChart from "@/components/dashboard/chart/DividendMonthlyChart";
 import DividendIcon from "@/components/button/dividendIcon";
@@ -118,7 +118,7 @@ export default {
     Modal,
     SaveBankAccount,
     StockBox,
-    DividendBox,
+    DividendHistoryBox,
     DashboardTreemapChart,
     DividendMonthlyChart,
     AssetChart,

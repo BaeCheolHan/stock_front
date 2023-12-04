@@ -1,4 +1,4 @@
-# stock_front
+# stock_front V1
 
 management your stocks and dividends
 
